@@ -2,11 +2,15 @@
 //
 
 #include <iostream>
+#include "Test.h"
 
 int main()
 {
 	std::cout << "Hello World!\n";
 	std::cout << "Bienvenue sur ce projet d'info de ouf gueudin \\o/ !" << std::endl;
+	int b=2;
+	b = add(b);
+	std::cout << b << std::endl;
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
