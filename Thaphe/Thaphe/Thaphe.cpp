@@ -1,6 +1,3 @@
-// Thaphe.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
-
 #include <iostream>
 #include "Test.h"
 
@@ -11,6 +8,7 @@ int main()
 	int b=2;
 	b = add(b);
 	std::cout << b << std::endl;
+	return 0;
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
