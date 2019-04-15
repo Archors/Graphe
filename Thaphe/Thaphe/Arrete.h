@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <allegro5/allegro.h>
 #include "Sommet.h"
 
 class Arrete
@@ -11,7 +12,11 @@ private:
 	std::pair<const Sommet*, const Sommet*> m_sommets; //Si oriente, 1er = départ, 2nd = arrivée
 	bool oriente;
 public:
-	Arrete();
+	Arrete(std::string id, Sommet* s1, Sommet* s2, std::vector<const float>, bool);
+	void Dessiner();
+	std::pair<const Sommet*, const Sommet*> getSommets();
+	const float getPoids(int indice);
+	const int getNombrePoids()
 	~Arrete();
 };
 

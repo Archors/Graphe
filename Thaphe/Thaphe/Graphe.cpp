@@ -4,10 +4,13 @@
 /*Graphe::Graphe(std::string nomFichier)
 {}
 
-std::vector<std::string> DeterminerSousGraphe()
+std::unordered_map<const std::string,const Sommet*> m_sommets()
 {}
 
-std::vector<std::string> TriPareto()
+std::unordered_map<const std::string, const Arrete> m_arretes()
+{}
+
+std::unorderedmap<std::string> TriPareto()
 {}
 
 ALLEGRO_BITMAP DessinerGraphe()

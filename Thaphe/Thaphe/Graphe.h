@@ -1,12 +1,15 @@
 #include <vector>
 #include <string>
+#include <unordered_map>
 #include <allegro5/allegro.h>
+#include "Sommet.h"
+#include "Arrete.h"
 
 class Graphe
 {
 private:
-	std::vector<int> m_sommets;
-	std::vector<int> m_arretes;
+	std::unordered_map<const std::string,const Sommet*> m_sommets;
+	std::unordered_map<const std::string, const Arrete> m_arretes;
 	std::vector<std::string> m_souGraphePareto;
 public:
 	Graphe(std::string nomFichier);
