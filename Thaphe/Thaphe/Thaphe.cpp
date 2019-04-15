@@ -1,14 +1,29 @@
 #include <iostream>
 #include "Test.h"
+#include <allegro5/allegro.h>
 
 int main()
 {
-	std::cout << "Hello World!\n";
-	std::cout << "Bienvenue sur ce projet d'info de ouf gueudin \\o/ !" << std::endl;
-	int b=2;
-	b = add(b);
-	std::cout << b << std::endl;
-	return 0;
+	ALLEGRO_DISPLAY* display = NULL;
+
+	if (!al_init()) {
+		fprintf(stderr, "failed to initialize allegro!\n");
+		return -1;
+	}
+
+	display = al_create_display(2160, 1440);
+	if (!display) {
+		fprintf(stderr, "failed to create display!\n");
+		return -1;
+	}
+
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+
+	al_flip_display();
+
+	al_rest(10.0);
+
+	al_destroy_display(display);
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
