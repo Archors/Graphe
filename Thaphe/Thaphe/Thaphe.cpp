@@ -41,9 +41,6 @@ int main(int argc, char** argv) {
 		if (get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			break;
 		}
-
-		al_clear_to_color(al_map_rgb(0, 0, 0));
-		al_flip_display();
 	}
 
 	al_destroy_display(display);
