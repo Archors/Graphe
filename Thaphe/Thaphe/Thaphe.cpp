@@ -3,6 +3,7 @@
 
 int main(int argc, char** argv) {
 
+	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
 

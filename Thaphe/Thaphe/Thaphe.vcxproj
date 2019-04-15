@@ -152,9 +152,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Graphe.cpp" />
+    <ClCompile Include="Sommet.cpp" />
     <ClCompile Include="Thaphe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Graphe.h" />
+    <ClInclude Include="Sommet.h" />
     <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
