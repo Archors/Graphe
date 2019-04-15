@@ -1,3 +1,4 @@
+#pragma
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -13,10 +14,12 @@ private:
 	bool oriente;
 public:
 	Arrete(std::string id, Sommet* s1, Sommet* s2, std::vector<const float>, bool);
+	Arrete();
 	void Dessiner();
 	std::pair<const Sommet*, const Sommet*> getSommets();
 	const float getPoids(int indice);
-	const int getNombrePoids()
+	const int getNombrePoids();
+
 	~Arrete();
 };
 
