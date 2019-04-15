@@ -11,7 +11,7 @@ int main()
 		return -1;
 	}
 
-	display = al_create_display(2160, 1440);
+	display = al_create_display(1920, 1080);
 	if (!display) {
 		fprintf(stderr, "failed to create display!\n");
 		return -1;
