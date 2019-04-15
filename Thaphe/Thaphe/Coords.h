@@ -5,7 +5,7 @@
 class Coords
 {
 public:
-	Coords();
+	Coords(int x, int y);
 	~Coords();
 private:
 	int m_x;

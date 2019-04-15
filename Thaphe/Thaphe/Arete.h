@@ -7,6 +7,8 @@
 #include <allegro5/allegro.h>
 #include "Sommet.h"
 
+class Sommet;
+
 class Arete
 {
 private:
