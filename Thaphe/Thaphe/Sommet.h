@@ -1,8 +1,11 @@
+#include <string>
+#include "Coords.h"
+
 class Sommet
 {
 private:
-	float m_x;
-	float m_y;
+	std::string m_id;
+	Coords m_coord;
 public:
 	Sommet();
 	virtual ~Sommet();

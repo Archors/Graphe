@@ -1,7 +1,5 @@
 #include "Sommet.h"
 
-
-
 Sommet::Sommet()
 {
 }
