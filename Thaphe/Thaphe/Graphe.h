@@ -1,15 +1,18 @@
+#ifndef GRAPHE_H_INCLUDED	
+#define GRAPHE_H_INCLUDED
+
 #include <vector>
 #include <string>
 #include <unordered_map>
 #include <allegro5/allegro.h>
 #include "Sommet.h"
-#include "Arrete.h"
+#include "Arete.h"
 
 class Graphe
 {
 private:
 	std::unordered_map<const std::string,const Sommet*> m_sommets;
-	std::unordered_map<const std::string, const Arrete> m_arretes;
+	std::unordered_map<const std::string, const Arete> m_Aretes;
 	std::vector<std::string> m_souGraphePareto;
 public:
 	Graphe(std::string nomFichier);
@@ -19,8 +22,9 @@ public:
 	ALLEGRO_BITMAP DessinerSousGraphe(std::string id);
 	ALLEGRO_BITMAP DessinerSousGraphePar(std::string id);
 	const int getNombreSommets();
-	const int getNombreArretes();
+	const int getNombreAretes();
 	const int getNombreSousGraphe();
 	~Graphe();
 };
 
+#endif // GRAPHE_H_INCLUDED

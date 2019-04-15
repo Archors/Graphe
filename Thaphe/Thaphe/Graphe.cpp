@@ -7,7 +7,7 @@
 std::unordered_map<const std::string,const Sommet*> m_sommets()
 {}
 
-std::unordered_map<const std::string, const Arrete> m_arretes()
+std::unordered_map<const std::string, const Arete> m_Aretes()
 {}
 
 std::unorderedmap<std::string> TriPareto()
@@ -25,7 +25,7 @@ ALLEGRO_BITMAP DessinerSousGraphePar()
 const int getNombreSommets()
 {}
 
-const int getNombreArretes()
+const int getNombreAretes()
 {}
 
 const int getNombreSousGraphe()
