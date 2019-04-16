@@ -3,13 +3,13 @@
 //Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
 Graphe::Graphe(std::string nomFichier, const bool oriented)
 {
-	std::ifstream ifs{ nomFichier+".txt" };
+	std::ifstream ifs{ "broadway.txt" };
 
 
 	if (!ifs)
 		throw std::runtime_error("Impossible d'ouvrir en lecture " + nomFichier);
 
-	std::ifstream ifs2{ nomFichier + "weights_0.txt" };
+	std::ifstream ifs2{ nomFichier + "_weights_0.txt" };
 	if (ifs2.fail())
 		throw std::runtime_error("Probleme lecture taille du graphe");
 
@@ -91,7 +91,8 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 
 std::vector<std::string> Graphe::DeterminerSousGraphe()
 {
-
+	std::vector<std::string> tousLesSousGraphes;
+	return tousLesSousGraphes;
 }
 
 /*
@@ -110,17 +111,17 @@ ALLEGRO_BITMAP DessinerSousGraphePar()
 
 const int Graphe::getNombreSommets()
 {
-	return m_sommets.size();
+	return (int)m_sommets.size();
 }
 
 const int Graphe::getNombreAretes()
 {
-	return m_aretes.size();
+	return (int)m_aretes.size();
 }
 
 const int Graphe::getNombreSousGraphe()
 {
-	return m_souGraphePareto.size();
+	return (int)m_souGraphePareto.size();
 }
 
 
