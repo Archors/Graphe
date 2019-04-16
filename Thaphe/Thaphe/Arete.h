@@ -1,5 +1,5 @@
-#ifndef SOMMET_H_INCLUDED	
-#define SOMMET_H_INCLUDED
+#ifndef ARETE_H_INCLUDED	
+#define ARETE_H_INCLUDED
 
 #include <iostream>
 #include <vector>
@@ -8,7 +8,7 @@
 
 #include "Sommet.h"
 
-//class Sommet;
+class Sommet;
 
 class Arete
 {
@@ -28,4 +28,4 @@ public:
 	~Arete();
 };
 
-#endif // SOMMET_H_INCLUDED
+#endif // ARETE_H_INCLUDED

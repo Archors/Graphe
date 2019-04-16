@@ -30,7 +30,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 		ifs >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture id");
 		ifs >> x; if (ifs.fail()) throw std::runtime_error("Probleme lecture x");
 		ifs >> y; if (ifs.fail()) throw std::runtime_error("Probleme lecture y");
-		m_sommets.insert( { id, new Sommet{id,x,y} } );
+		m_sommets.insert({ id, new Sommet{id,x,y} });
 	}
 
 	int taille;
