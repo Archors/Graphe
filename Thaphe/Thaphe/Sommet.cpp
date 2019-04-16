@@ -18,8 +18,10 @@ Sommet::~Sommet()
 
 
 
-Arete::Arete()
+Arete::Arete(/*std::string id, Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente*/)
+
 {
+	std::cout << "Nouvelle arete\n";
 }
 
 
