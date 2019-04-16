@@ -13,26 +13,51 @@ void Sommet::AjouterVoisin(const Sommet* som, Arete* ar)
 void Sommet::Dessiner(ALLEGRO_BITMAP* bmp)
 {}
 
-std::vector<const Arete*> Sommet::Prim(int indicePoids)
+std::vector<Arete*> Sommet::Prim(int indicePoids)
 {
-	std::vector<const Arete*> prim;
-	Arete* curent = NULL;
+	std::vector<Arete*> prim;
 	int test=0;
-	while (!test) { //Tant qu'on a pas visité tous les sommets
-		for (auto x : m_voisins) //Parcourir tous les sommets adjacents au sommet actuelle
+	Arete* current = NULL;
+	Arete* ajout = NULL;
+	for (auto voisin : m_voisins) //Ajout de la 1ère arrete dans le graphe
+	{
+		if (current == NULL) //Si c'est la premiere on la prend comme test
+			current = voisin.second;
+		else if (current->getPoids(indicePoids) > voisin.second->getPoids(indicePoids)) //On test avec les autre si l'autre est plus petite, on swap
+			current = voisin.second;
+	}
+	prim.push_back(current);
+	current = NULL;
+	while (!test)  //Tant qu'on a pas visité tous les sommets
+	{
+		for (auto i : prim) //On parcourt la liste des arrete déjà ajoutées au graph
 		{
-			if (curent == NULL) //Si c'est le premier on l'enregistre
-				curent = x.second;
-			else if (curent->getPoids(indicePoids) < x.second->getPoids(indicePoids)) //Sinon on vérifie que c'est le plus proche
+			bool ajout = true;
+			for (auto j : prim) //On verifie que l'arrete qu'on ajoute n'est pas deja dans le graphe
 			{
-				for (auto y : prim) //On parcourt les arretes déjà ajoutées
-					//if (y->getSommets().) //On vérifie que le sommet n'est pas déjà dedans
-						curent = x.second; //Si c'est le plus proche on l'ajoute au potentiel nouveau sommet
+				bool sommet1 = true; //Booleen si le sommet 1 est déjà dans le graphe
+				bool sommet2 = true; //Booleen si le sommet 2 est déjà dans le graphe
+				for (auto voisin : j->getSommets().first->m_voisins)
+				{
+					if (i->getSommets().first == voisin.first) //On vérifie si le sommet 1 est dans le graphe
+						sommet1 = false;
+					if (i->getSommets().second == voisin.first) //On vérifie si le sommet 2 est dans le graphe
+						sommet2 = false;
+					if (!sommet1 && !sommet2) //Si les deux sont déjà dans le graphe, on s'arrete
+					{
+						ajout = false;
+						break;
+					}
+				}
+				if (!ajout)
+					break;
+				
 			}
-		
-		}
-		prim.push_back(curent); //On ajoute l'arrete la plus courte
+			//if(ajout)
+				//if(current == NULL)
 
+		}
+		prim.push_back(ajout); //On ajoute l'arrete la plus courte
 
 	}
 	return prim;
