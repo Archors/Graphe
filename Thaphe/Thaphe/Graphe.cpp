@@ -3,7 +3,7 @@
 //Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
 Graphe::Graphe(std::string nomFichier, const bool oriented)
 {
-	std::ifstream ifs{ "broadway.txt" };
+	std::ifstream ifs{ nomFichier+".txt" };
 
 
 	if (!ifs)
@@ -77,6 +77,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 
 		if (!oriented)
 		{
+			std::cout << id << " <--> " << id_voisin << std::endl;
 			m_sommets.find(id)->second->AjouterVoisin( (m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second );
 			m_sommets.find(id_voisin)->second->AjouterVoisin( (m_sommets.find(id))->second, m_aretes.find(id_ar)->second );
 		}
