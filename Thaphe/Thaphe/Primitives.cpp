@@ -1,4 +1,4 @@
-#include "Sommet.h"
+#include "Primitives.h"
 
 
 Sommet::Sommet(std::string id, double x, double y)

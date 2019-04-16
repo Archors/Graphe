@@ -152,17 +152,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Arete.cpp" />
     <ClCompile Include="Coords.cpp" />
     <ClCompile Include="Graphe.cpp" />
-    <ClCompile Include="Sommet.cpp" />
+    <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="Thaphe.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arete.h" />
     <ClInclude Include="Coords.h" />
     <ClInclude Include="Graphe.h" />
-    <ClInclude Include="Sommet.h" />
+    <ClInclude Include="Primitives.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

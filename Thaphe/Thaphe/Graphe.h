@@ -7,7 +7,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <allegro5/allegro.h>
-#include "Sommet.h"
+#include "Primitives.h"
 
 class Graphe
 {
