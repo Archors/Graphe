@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
 
-	Graphe gr("broadway", false);
+	Graphe gr("cubetown", false);
 
 	return 0;
 }

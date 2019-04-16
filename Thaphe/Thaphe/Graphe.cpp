@@ -9,7 +9,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 	if (!ifs)
 		throw std::runtime_error("Impossible d'ouvrir en lecture " + nomFichier);
 
-	std::ifstream ifs2{ nomFichier + "weights_0.txt" };
+	std::ifstream ifs2{ nomFichier + "_weights_0.txt" };
 	if (ifs2.fail())
 		throw std::runtime_error("Probleme lecture taille du graphe");
 
@@ -75,14 +75,14 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 
 		m_aretes.insert({ id_ar, new Arete{ id_ar, m_sommets.find(id)->second, m_sommets.find(id)->second, vectPoids, oriented } });
 
-		//ajouter chaque extrémité à la liste des voisins de l'autre (graphe non orienté)
 		if (!oriented)
 		{
-			m_sommets.find(id)->second->AjouterVoisin({ (m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second });
-			m_sommets.find(id_voisin)->second->AjouterVoisin({ (m_sommets.find(id))->second, m_aretes.find(id_ar)->second });
+			std::cout << id << " <--> " << id_voisin << std::endl;
+			m_sommets.find(id)->second->AjouterVoisin( (m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second );
+			m_sommets.find(id_voisin)->second->AjouterVoisin( (m_sommets.find(id))->second, m_aretes.find(id_ar)->second );
 		}
 		else
-			(m_sommets.find(id))->second->AjouterVoisin({(m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second});
+			(m_sommets.find(id))->second->AjouterVoisin((m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second);
 		
 	}
 
@@ -90,13 +90,13 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 	ifs2.close();
 }
 
+std::vector<std::string> Graphe::DeterminerSousGraphe()
+{
+	std::vector<std::string> tousLesSousGraphes;
+	return tousLesSousGraphes;
+}
 
 /*
-std::unordered_map<const std::string,const Sommet*> m_sommets()
-{}
-
-std::unordered_map<const std::string, const Arete> m_Aretes()
-{}
 
 std::unorderedmap<std::string> TriPareto()
 {}
@@ -108,16 +108,22 @@ ALLEGRO_BITMAP DessinerSousGraphe()
 {}
 
 ALLEGRO_BITMAP DessinerSousGraphePar()
-{}
-
-const int getNombreSommets()
-{}
-
-const int getNombreAretes()
-{}
-
-const int getNombreSousGraphe()
 {}*/
+
+const int Graphe::getNombreSommets()
+{
+	return (int)m_sommets.size();
+}
+
+const int Graphe::getNombreAretes()
+{
+	return (int)m_aretes.size();
+}
+
+const int Graphe::getNombreSousGraphe()
+{
+	return (int)m_souGraphePareto.size();
+}
 
 
 Graphe::~Graphe()
