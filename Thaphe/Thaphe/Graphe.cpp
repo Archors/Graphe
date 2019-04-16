@@ -54,7 +54,6 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 	std::string id_voisin;
 	std::string id_ar;
 	double poids;
-	std::vector<float> vectPoids;
 
 	//lecture des aretes
 	for (int i = 0; i < taille; ++i) 
@@ -67,13 +66,15 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 		ifs >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
 		ifs >> id_voisin; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
 
+		std::vector<float> vectPoids;
+
 		for (int j=0; j<nbPoids; ++j)
 		{
 			ifs2 >> poids; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
 			vectPoids.push_back(poids);
 		}
 
-		m_aretes.insert({ id_ar, new Arete{ id_ar, m_sommets.find(id)->second, m_sommets.find(id)->second, vectPoids, oriented } });
+		m_aretes.insert({ id_ar, new Arete{ id_ar, m_sommets.find(id)->second, m_sommets.find(id_voisin)->second, vectPoids, oriented } });
 
 		if (!oriented)
 		{
@@ -93,7 +94,55 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 std::vector<std::string> Graphe::DeterminerSousGraphe()
 {
 	std::vector<std::string> tousLesSousGraphes;
+	
+	for (int i = 0; i < pow(2, getNombreAretes()); i++)
+	{
+		tousLesSousGraphes.push_back((std::bitset<32>(i).to_string()).substr(32 - getNombreAretes(), 31));
+		//std::cout << i << " : " << tousLesSousGraphes.back() << std::endl;
+	}
+
 	return tousLesSousGraphes;
+}
+
+ALLEGRO_BITMAP* Graphe::DessinerGraphe()
+{
+	std::string aretes = "";
+	for (int i = 0; i < getNombreAretes(); i++)
+		aretes += "1";
+	
+
+	return DessinerSousGraphe(aretes);
+}
+
+ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::string aretes)
+{
+	int width = 0, height = 0;
+	for (auto sommet : m_sommets)
+	{
+		if (sommet.second->getCoords().getX() > width)
+			width = sommet.second->getCoords().getX();
+		if (sommet.second->getCoords().getY() > height)
+			height = sommet.second->getCoords().getY();
+	}
+
+	ALLEGRO_BITMAP* dessin = al_create_bitmap(width + 100, height + 100);
+
+	al_set_target_bitmap(dessin);
+	al_clear_to_color(al_map_rgb(180, 230, 150));
+
+	int i = 0;
+	for (auto arete : m_aretes)
+	{
+		if (aretes[i] == '1')
+			arete.second->Dessiner(dessin);
+		i++;
+	}
+		
+	for (auto sommet : m_sommets)
+		sommet.second->Dessiner(dessin);
+
+
+	return dessin;
 }
 
 /*
@@ -101,8 +150,7 @@ std::vector<std::string> Graphe::DeterminerSousGraphe()
 std::unorderedmap<std::string> TriPareto()
 {}
 
-ALLEGRO_BITMAP DessinerGraphe()
-{}
+
 
 ALLEGRO_BITMAP DessinerSousGraphe()
 {}

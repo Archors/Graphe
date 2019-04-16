@@ -7,6 +7,8 @@ class Coords
 public:
 	//Coords(int x, int y);
 	Coords(double x, double y);
+	const double getX() const;
+	const double getY() const;
 	~Coords();
 private:
 	double m_x;

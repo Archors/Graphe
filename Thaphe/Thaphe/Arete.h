@@ -1,11 +1,7 @@
 #ifndef ARETE_H_INCLUDED	
 #define ARETE_H_INCLUDED
 
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <allegro5/allegro.h>
-
+#include "libraries.h"
 #include "Sommet.h"
 
 class Sommet;
@@ -17,14 +13,15 @@ private:
 	std::vector<float> m_poids;
 	std::pair<const Sommet*, Sommet*> m_sommets; //Si oriente, 1er = départ, 2nd = arrivée
 	bool m_oriente;
+
 public:
 	Arete();
 	Arete(std::string id, const Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente);
-	void Dessiner();
+	void Dessiner(ALLEGRO_BITMAP*);
 	std::pair<const Sommet*, Sommet*> getSommets();
 	const float getPoids(int indice);
 	const int getNombrePoids();
-
+	
 	~Arete();
 };
 

@@ -75,6 +75,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -162,6 +165,7 @@
     <ClInclude Include="Coords.h" />
     <ClInclude Include="Graphe.h" />
     <ClInclude Include="Arete.h" />
+    <ClInclude Include="libraries.h" />
     <ClInclude Include="Sommet.h" />
   </ItemGroup>
   <ItemGroup>

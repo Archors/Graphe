@@ -1,12 +1,6 @@
 #ifndef SOMMET_H_INCLUDED	
 #define SOMMET_H_INCLUDED
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <allegro5/allegro.h>
+#include "libraries.h"
 #include "Coords.h"
 #include "Arete.h"
 
@@ -25,6 +19,7 @@ public:
 	void Dessiner(ALLEGRO_BITMAP* bmp);
 	std::vector<const Arete*> Prim(int indicePoids);
 	std::vector<const Arete*> Dijkstra(int indicePoids, const Sommet* arrivee);
+	const Coords getCoords() const;
 	virtual ~Sommet();
 };
 

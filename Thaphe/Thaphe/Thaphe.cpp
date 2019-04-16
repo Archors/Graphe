@@ -1,8 +1,9 @@
 #include <iostream>
-#include <allegro5/allegro.h>
 #include "Graphe.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
+	Graphe gr("triville", false);
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -19,6 +20,11 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
+	al_init_primitives_addon();
+	al_init_font_addon();
+	al_init_ttf_addon();
+
+
 	event_queue = al_create_event_queue();
 	if (!event_queue) {
 		fprintf(stderr, "failed to create event_queue!\n");
@@ -30,7 +36,28 @@ int main(int argc, char** argv) {
 
 	al_clear_to_color(al_map_rgb(133, 50, 50));
 
-	al_flip_display();
+	std::vector<std::string> tousLesSousGraphes;
+	tousLesSousGraphes = gr.DeterminerSousGraphe();
+
+	ALLEGRO_FONT* font;
+	font = al_load_font("simple_font.ttf", 30, 0);
+
+
+	for (auto ssg : tousLesSousGraphes)
+	{
+		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(ssg);
+		al_set_target_backbuffer(display);
+
+		al_clear_to_color(al_map_rgb(133, 50, 50));
+		al_draw_bitmap(graphe, 500, 100, 0);
+		al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.c_str());
+
+		al_flip_display();
+		al_rest(0.001);
+		al_destroy_bitmap(graphe);
+	}
+	
+
 
 	while (1)
 	{
@@ -48,7 +75,6 @@ int main(int argc, char** argv) {
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
 
-	Graphe gr("cubetown", false);
 
 	return 0;
 }
