@@ -5,9 +5,9 @@ Sommet::Sommet(std::string id, double x, double y)
 {}
 
 
-void Sommet::AjouterVoisin(const Sommet* som, const Arete* ar)
+void Sommet::AjouterVoisin(const Sommet* som, Arete* ar)
 {
-	std::cout << "nouveau voisin\n";
+	m_voisins.insert({ som,ar });
 }
 
 void Sommet::Dessiner(ALLEGRO_BITMAP* bmp)

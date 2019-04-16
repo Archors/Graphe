@@ -16,7 +16,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 
 	int ordre;
 	ifs >> ordre;
-
+	
 	if (ifs.fail())
 		throw std::runtime_error("Probleme lecture ordre du graphe");
 
@@ -57,7 +57,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 	std::vector<float> vectPoids;
 
 	//lecture des aretes
-	for (int i = 0; i < taille; ++i) 
+	for (int i = 0; i < taille; ++i)
 	{
 		//lecture des ids des deux extrémités
 		ifs >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture id arete");
@@ -67,7 +67,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 		ifs >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
 		ifs >> id_voisin; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
 
-		for (int j=0; j<nbPoids; ++j)
+		for (int j = 0; j < nbPoids; ++j)
 		{
 			ifs2 >> poids; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
 			vectPoids.push_back(poids);
@@ -78,11 +78,11 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 		//ajouter chaque extrémité à la liste des voisins de l'autre (graphe non orienté)
 		if (!oriented)
 		{
-			m_sommets.find(id)->second->AjouterVoisin( (m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second );
-			m_sommets.find(id_voisin)->second->AjouterVoisin( (m_sommets.find(id))->second, m_aretes.find(id_ar)->second );
+			m_sommets.find(id)->second->AjouterVoisin({ (m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second });
+			m_sommets.find(id_voisin)->second->AjouterVoisin({ (m_sommets.find(id))->second, m_aretes.find(id_ar)->second });
 		}
 		else
-			(m_sommets.find(id))->second->AjouterVoisin((m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second);
+			(m_sommets.find(id))->second->AjouterVoisin({(m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second});
 		
 	}
 
