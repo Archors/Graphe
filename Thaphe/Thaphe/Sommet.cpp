@@ -19,9 +19,17 @@ std::vector<const Arete*> Sommet::Prim(int indicePoids)
 	return prim;
 }
 
-std::vector<const Arete*> Sommet::Dijkstra(int indicePoids, const Sommet* arrivee)
+std::vector<const Arete*> Sommet::Dijkstra(int indicePoids, const Sommet* arrivee=nullptr)
 {
 	std::vector<const Arete*> dijkstra;
+	if (arrivee = nullptr)
+	{
+		// Dijkstra vers tous les sommets, tous les PCC
+	}
+	else
+	{
+		// Dijkstra vers un seul sommet
+	}
 	return dijkstra;
 }
 
