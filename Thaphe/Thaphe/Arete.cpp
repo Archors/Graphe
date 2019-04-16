@@ -32,12 +32,12 @@ void Arete::Dessiner(ALLEGRO_BITMAP* bmp)
 
 std::pair<const Sommet*, Sommet*> Arete::getSommets()
 {
-	return std::pair<const Sommet*, Sommet*>();
+	return std::pair<Sommet*, Sommet*>();
 }
 
 const float Arete::getPoids(int indice)
 {
-	return 0;
+	return m_poids[indice];
 }
 
 const int Arete::getNombrePoids()

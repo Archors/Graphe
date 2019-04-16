@@ -15,9 +15,9 @@ private:
 	std::unordered_map<const Sommet*, Arete*> m_voisins;
 public:
 	Sommet(std::string id, double x, double y);
-	void AjouterVoisin(const Sommet* som, const Arete* ar);
+	void AjouterVoisin(const Sommet* som, Arete* ar);
 	void Dessiner(ALLEGRO_BITMAP* bmp);
-	std::vector<const Arete*> Prim(int indicePoids);
+	std::vector<Arete*> Prim(int indicePoids);
 	std::vector<const Arete*> Dijkstra(int indicePoids, const Sommet* arrivee);
 	const Coords getCoords() const;
 	virtual ~Sommet();
