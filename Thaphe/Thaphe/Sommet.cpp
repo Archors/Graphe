@@ -34,10 +34,6 @@ std::pair<const Sommet*, const Sommet*> Arete::getSommets()
 	return std::pair<const Sommet*, const Sommet*>();
 }
 
-Arete::Arete()
-{
-}
-
 
 const int Arete::getNombrePoids()
 {
