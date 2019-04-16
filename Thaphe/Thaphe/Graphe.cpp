@@ -78,8 +78,8 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 		//ajouter chaque extrémité à la liste des voisins de l'autre (graphe non orienté)
 		if (!oriented)
 		{
-			( m_sommets.find(id) )->second->AjouterVoisin( (m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second );
-			( m_sommets.find(id_voisin))->second->AjouterVoisin( (m_sommets.find(id))->second, m_aretes.find(id_ar)->second );
+			m_sommets.find(id)->second->AjouterVoisin( (m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second );
+			m_sommets.find(id_voisin)->second->AjouterVoisin( (m_sommets.find(id))->second, m_aretes.find(id_ar)->second );
 		}
 		else
 			(m_sommets.find(id))->second->AjouterVoisin((m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second);

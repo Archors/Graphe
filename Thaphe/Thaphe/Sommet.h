@@ -13,12 +13,12 @@ class Sommet
 private:
 	std::string m_id;
 	Coords m_coords;
-	std::unordered_map<Sommet*, Arete*> m_voisins;
+	std::unordered_map<const Sommet*, Arete*> m_voisins;
 public:
 	Sommet(std::string id, double x, double y);
 	void AjouterVoisin(const Sommet* som, const Arete* ar);
 	void Dessiner(ALLEGRO_BITMAP*);
-	std::vector<const Arete*> Prim(int indicePoids);
-	std::vector<const Arete*> Dijkstra(int indicePoids, const Sommet* arrivee);
+	std::vector<Arete*> Prim(int indicePoids);
+	std::vector<Arete*> Dijkstra(int indicePoids, const Sommet* arrivee);
 	virtual ~Sommet();
 };
