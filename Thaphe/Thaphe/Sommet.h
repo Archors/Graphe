@@ -6,6 +6,7 @@
 #include "Arete.h"
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <allegro5/allegro.h>
 
 class Arete;
