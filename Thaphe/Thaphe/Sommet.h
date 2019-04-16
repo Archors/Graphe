@@ -24,7 +24,7 @@ public:
 	void AjouterVoisin(const Sommet* som, Arete* ar);
 	void Dessiner(ALLEGRO_BITMAP* bmp);
 	std::vector<const Arete*> Prim(int indicePoids);
-	std::vector<const Arete*> Dijkstra(int indicePoids, const Sommet* arrivee);
+	std::vector<const Arete*> Dijkstra(int nombreSommets, int indicePoids, const Sommet* arrivee);
 	virtual ~Sommet();
 };
 
