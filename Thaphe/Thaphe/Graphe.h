@@ -7,12 +7,12 @@
 #include <fstream>
 #include <unordered_map>
 #include <allegro5/allegro.h>
-#include "Primitives.h"
+#include "Sommet.h"
 
 class Graphe
 {
 private:
-	std::unordered_map<std::string,const Sommet*> m_sommets;
+	std::unordered_map<std::string, const Sommet*> m_sommets;
 	std::unordered_map<std::string, const Arete*> m_aretes;
 	std::vector<std::string> m_souGraphePareto;
 public:

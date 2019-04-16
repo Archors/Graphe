@@ -52,14 +52,17 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 		throw std::runtime_error("Probleme lecture nombre de poids");
 
 	std::string id_voisin;
+	std::string id_ar;
 	double poids;
+	std::vector<float> vectPoids;
 
 	//lecture des aretes
 	for (int i = 0; i < taille; ++i) 
 	{
 		//lecture des ids des deux extrémités
 		ifs >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture id arete");
-		ifs2 >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture id arete");
+		ifs2 >> id_ar; if (ifs.fail()) throw std::runtime_error("Probleme lecture id arete");
+		if (id != id_ar) throw std::runtime_error("Probleme aretes non correspondantes");
 
 		ifs >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
 		ifs >> id_voisin; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
@@ -67,31 +70,24 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 		for (int j=0; j<nbPoids; ++j)
 		{
 			ifs2 >> poids; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
-
+			vectPoids.push_back(poids);
 		}
+
+		m_aretes.insert({ id_ar, new Arete{ id_ar, m_sommets.find(id)->second, m_sommets.find(id)->second, vectPoids, oriented } });
+
+		//ajouter chaque extrémité à la liste des voisins de l'autre (graphe non orienté)
+		if (!oriented)
+		{
+			( m_sommets.find(id) )->second->AjouterVoisin( (m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second );
+			( m_sommets.find(id_voisin))->second->AjouterVoisin( (m_sommets.find(id))->second, m_aretes.find(id_ar)->second );
+		}
+		else
+			(m_sommets.find(id))->second->AjouterVoisin((m_sommets.find(id_voisin))->second, m_aretes.find(id_ar)->second);
 		
 	}
 
 	ifs.close();
-
-	//Création des aretes et ajouts des voisins
-
-	
-
-	for (auto couple : coupleSommets)
-	{
-		std::cout << couple.first << " - " << couple.second << std::endl;
-	}
-	
-	//ajouter chaque extrémité à la liste des voisins de l'autre (graphe non orienté)	
-	/*
-		if (!oriented)
-		{
-			(m_sommets.find(id))->second->AjouterVoisin((m_sommets.find(id_voisin))->second, );
-			(m_sommets.find(id_voisin))->second->AjouterVoisin((m_sommets.find(id))->second, );
-		}
-		else
-			(m_sommets.find(id))->second->AjouterVoisin((m_sommets.find(id_voisin))->second);*/
+	ifs2.close();
 }
 
 
