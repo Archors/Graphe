@@ -23,7 +23,7 @@ void Sommet::Dessiner(ALLEGRO_BITMAP* bmp)
 std::vector<Arete*> Sommet::Prim(int indicePoids)
 {
 	std::vector<Arete*> prim;
-	int test=0;
+	int test=0; //Variable qui sert a rien
 	Arete* current = NULL;
 	Arete* ajout = NULL;
 	for (auto voisin : m_voisins) //Ajout de la 1ère arrete dans le graphe
@@ -33,35 +33,40 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 		else if (current->getPoids(indicePoids) > voisin.second->getPoids(indicePoids)) //On test avec les autre si l'autre est plus petite, on swap
 			current = voisin.second;
 	}
-	prim.push_back(current);
+	prim.push_back(current); //Ajout de la premiere arete
 	current = NULL;
+
 	while (!test)  //Tant qu'on a pas visité tous les sommets
 	{
-		for (auto i : prim) //On parcourt la liste des arrete déjà ajoutées au graph
+		for (auto i : prim) //On parcourt la liste des aretes déjà ajoutées au graph
 		{
-			bool ajout = true;
-			for (auto j : prim) //On verifie que l'arrete qu'on ajoute n'est pas deja dans le graphe
+			int ajout = 0;
+			for (auto j : prim) //On parcourt la liste de chaque voisin des aretes deja ajoutées
 			{
 				bool sommet1 = true; //Booleen si le sommet 1 est déjà dans le graphe
 				bool sommet2 = true; //Booleen si le sommet 2 est déjà dans le graphe
-				for (auto voisin : j->getSommets().first->m_voisins)
+				for (auto voisin : i->getSommets().first->m_voisins) //On test la liste des voisins des arretes pour vérifier qu'il y ait pas déjà
 				{
-					if (i->getSommets().first == voisin.first) //On vérifie si le sommet 1 est dans le graphe
+					if (j->getSommets().first == voisin.first) //On vérifie si le sommet 1 est dans le graphe
 						sommet1 = false;
-					if (i->getSommets().second == voisin.first) //On vérifie si le sommet 2 est dans le graphe
+					if (j->getSommets().second == voisin.first) //On vérifie si le sommet 2 est dans le graphe
 						sommet2 = false;
 					if (!sommet1 && !sommet2) //Si les deux sont déjà dans le graphe, on s'arrete
 					{
-						ajout = false;
+						ajout = -1;
 						break;
 					}
 				}
-				if (!ajout)
+				if (ajout == -1)
 					break;
+				if (sommet1)
+					ajout = 1;
+				if (sommet2)
+					ajout = 2;
 				
 			}
-			//if(ajout)
-				//if(current == NULL)
+			/*if (ajout == 1) //Un voisin de i n'est pas dans le graphe
+				current = i->getSommets().first->m_voisins;*/
 
 		}
 		prim.push_back(ajout); //On ajoute l'arrete la plus courte
