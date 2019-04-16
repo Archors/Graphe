@@ -34,9 +34,8 @@ std::pair<const Sommet*, const Sommet*> Arete::getSommets()
 	return std::pair<const Sommet*, const Sommet*>();
 }
 
-const float Arete::getPoids(int indice)
+Arete::Arete()
 {
-	return 0.0f;
 }
 
 
