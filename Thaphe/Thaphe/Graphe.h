@@ -16,7 +16,7 @@ private:
 	std::unordered_map<std::string, const Arete*> m_aretes;
 	std::vector<std::string> m_souGraphePareto;
 public:
-	Graphe(std::string nomFichier, const bool oriented);
+	Graphe(std::string nomFichier, const bool oriented); //Nom du fichier sans le .txt
 	/*
 	std::vector<std::string> DeterminerSousGraphe();
 	//std::vector<std::string> TriPareto();

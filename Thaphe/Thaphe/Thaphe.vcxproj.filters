@@ -48,4 +48,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\files\broadway.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+    <Text Include="..\files\broadway_weights_0.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

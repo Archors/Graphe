@@ -3,10 +3,16 @@
 //Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
 Graphe::Graphe(std::string nomFichier, const bool oriented)
 {
-	std::ifstream ifs{ nomFichier };
+	std::ifstream ifs{ nomFichier+".txt" };
+
 
 	if (!ifs)
 		throw std::runtime_error("Impossible d'ouvrir en lecture " + nomFichier);
+
+	std::ifstream ifs2{ nomFichier + "weights_0.txt" };
+	if (ifs2.fail())
+		throw std::runtime_error("Probleme lecture taille du graphe");
+
 
 	int ordre;
 	ifs >> ordre;
@@ -32,18 +38,60 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 	if (ifs.fail())
 		throw std::runtime_error("Probleme lecture taille du graphe");
 
+	int taille2;
+	ifs2 >> taille2;
+	if (ifs2.fail())
+		throw std::runtime_error("Probleme lecture nombre d'aretes");
+
+	if (taille != taille)
+		throw std::runtime_error("Incompatibilité entre les données des sommets et des aretes");
+
+	int nbPoids;
+	ifs2 >> nbPoids;
+	if (ifs2.fail())
+		throw std::runtime_error("Probleme lecture nombre de poids");
+
 	std::string id_voisin;
+	double poids;
 
 	//lecture des aretes
 	for (int i = 0; i < taille; ++i) 
 	{
 		//lecture des ids des deux extrémités
+		ifs >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture id arete");
+		ifs2 >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture id arete");
+
 		ifs >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
 		ifs >> id_voisin; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
-		//ajouter chaque extrémité à la liste des voisins de l'autre (graphe non orienté)
-		//(m_sommets.find(id))->second->AjouterVoisin((m_sommets.find(id_voisin))->second);
-		//(m_sommets.find(id_voisin))->second->AjouterVoisin((m_sommets.find(id))->second);//remove si graphe orienté
+
+		for (int j=0; j<nbPoids; ++j)
+		{
+			ifs2 >> poids; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
+
+		}
+		
 	}
+
+	ifs.close();
+
+	//Création des aretes et ajouts des voisins
+
+	
+
+	for (auto couple : coupleSommets)
+	{
+		std::cout << couple.first << " - " << couple.second << std::endl;
+	}
+	
+	//ajouter chaque extrémité à la liste des voisins de l'autre (graphe non orienté)	
+	/*
+		if (!oriented)
+		{
+			(m_sommets.find(id))->second->AjouterVoisin((m_sommets.find(id_voisin))->second, );
+			(m_sommets.find(id_voisin))->second->AjouterVoisin((m_sommets.find(id))->second, );
+		}
+		else
+			(m_sommets.find(id))->second->AjouterVoisin((m_sommets.find(id_voisin))->second);*/
 }
 
 
