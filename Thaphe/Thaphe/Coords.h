@@ -5,11 +5,12 @@
 class Coords
 {
 public:
-	Coords(int x, int y);
+	//Coords(int x, int y);
+	Coords(double x, double y);
 	~Coords();
 private:
-	int m_x;
-	int m_y;
+	double m_x;
+	double m_y;
 };
 
 #endif // COORDS_H_INCLUDED

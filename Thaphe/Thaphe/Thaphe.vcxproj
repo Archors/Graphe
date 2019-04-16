@@ -152,20 +152,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Arete.cpp" />
     <ClCompile Include="Coords.cpp" />
     <ClCompile Include="Graphe.cpp" />
+    <ClCompile Include="Arete.cpp" />
     <ClCompile Include="Sommet.cpp" />
     <ClCompile Include="Thaphe.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arete.h" />
     <ClInclude Include="Coords.h" />
     <ClInclude Include="Graphe.h" />
+    <ClInclude Include="Arete.h" />
     <ClInclude Include="Sommet.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\files\broadway.txt" />
+    <Text Include="..\files\broadway_weights_0.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

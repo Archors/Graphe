@@ -1,5 +1,6 @@
 #include <iostream>
 #include <allegro5/allegro.h>
+#include "Graphe.h"
 
 int main(int argc, char** argv) {
 
@@ -46,6 +47,8 @@ int main(int argc, char** argv) {
 
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
+
+	Graphe gr("broadway", false);
 
 	return 0;
 }
