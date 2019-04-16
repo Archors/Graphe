@@ -2,7 +2,8 @@
 
 
 
-Coords::Coords()
+Coords::Coords(double x, double y)
+	:m_x{ x }, m_y{ y }
 {
 }
 

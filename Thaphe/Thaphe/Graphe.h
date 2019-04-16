@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 #include <unordered_map>
 #include <allegro5/allegro.h>
 #include "Sommet.h"
@@ -12,12 +14,12 @@ class Graphe
 {
 private:
 	std::unordered_map<const std::string,const Sommet*> m_sommets;
-	std::unordered_map<const std::string, const Arete> m_Aretes;
+	std::unordered_map<const std::string, const Arete*> m_aretes;
 	std::vector<std::string> m_souGraphePareto;
 public:
-	Graphe(std::string nomFichier);
+	Graphe(std::string nomFichier, const bool oriented);
 	std::vector<std::string> DeterminerSousGraphe();
-	std::vector<std::string> TriPareto();
+	//std::vector<std::string> TriPareto();
 	ALLEGRO_BITMAP DessinerGraphe();
 	ALLEGRO_BITMAP DessinerSousGraphe(std::string id);
 	ALLEGRO_BITMAP DessinerSousGraphePar(std::string id);

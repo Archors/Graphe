@@ -3,16 +3,41 @@
 
 #pragma
 #include "Coords.h"
-#include <string>
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <allegro5/allegro.h>
+
+class Arete;
 
 class Sommet 
 {
 	private:
 		std::string m_id;
-		Coords m_coord;
+		Coords m_coords;
 	public:
-		Sommet();
+		Sommet(std::string id, double x, double y);
+		void AjouterVoisin(const Sommet* som, const Arete* ar);
 		virtual ~Sommet();
+};
+
+
+class Arete
+{
+private:
+	const std::string m_id;
+	std::vector<float> m_poids;
+	std::pair<const Sommet*, const Sommet*> m_sommets; //Si oriente, 1er = départ, 2nd = arrivée
+	bool oriente;
+public:
+	Arete(std::string id, Sommet* s1, Sommet* s2, std::vector<const float>, bool);
+	Arete();
+	void Dessiner();
+	std::pair<const Sommet*, const Sommet*> getSommets();
+	const float getPoids(int indice);
+	const int getNombrePoids();
+
+	~Arete();
 };
 
 #endif // SOMMET_H_INCLUDED
