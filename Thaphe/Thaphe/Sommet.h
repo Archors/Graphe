@@ -22,7 +22,7 @@ public:
 	int tailleComposanteConnexe(int nbSommets, std::string ssg);
 	const Coords getCoords() const;
 	const int getId() const;
-	std::vector<const Arete*> Dijkstra(int nombreSommets, int indicePoids, const Sommet* arrivee = nullptr) const;
+	std::vector<const Arete*> Dijkstra(int nombreSommets, int indicePoids, const Sommet* arrivee=nullptr ) const;
 
 	virtual ~Sommet();
 };
