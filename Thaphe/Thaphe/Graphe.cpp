@@ -221,13 +221,14 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::TriPareto()
 	pr = -1;
 	int sizemax = tousGraphePareto.size();
 	int min = tousGraphePareto.front().sommePoids[0];/*
-	for (int i = 0; i<tousGraphePareto.size(); i++)
+	for (std::list<graphePareto>::iterator i = tousGraphePareto.begin(); i != tousGraphePareto.end(); ++i)
 	{
 		//std::cout << tousGraphePareto[i].aretes << " : " << tousGraphePareto[i].sommePoids[0] << " " << tousGraphePareto[i].sommePoids[1] << std::endl;
-
-		for (int j = i + 1; j < tousGraphePareto.size(); j++)
+		std::list<graphePareto>::iterator j = i;
+		j++;
+		for (j=j; j != tousGraphePareto.end(); ++j)
 		{
-			if (tousGraphePareto[j].sommePoids[0] > tousGraphePareto[i].sommePoids[0])
+			if (j->sommePoids[0] > i->sommePoids[0])
 				break;
 			
 			int suppi = true;

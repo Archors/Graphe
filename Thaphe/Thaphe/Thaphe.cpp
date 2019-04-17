@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 	font = al_load_font("simple_font.ttf", 30, 0);
 
 	//TOUS LES SOUS GRAPHES CONNEXES SANS CYCLE
-	if (true)
+	if (false)
 	{
 		double start = al_get_time();
 		std::vector<std::bitset<32>> tousLesSousGraphes;
@@ -64,10 +64,11 @@ int main(int argc, char** argv)
 		}
 	}
 	
-	//DIJKSTRA
-	if (false)
+	//DIJKSTRA OU PRIM
+	if (true)
 	{
-		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
+		//ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
+		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
 		al_set_target_backbuffer(display);
 
 		al_clear_to_color(al_map_rgb(133, 50, 50));
