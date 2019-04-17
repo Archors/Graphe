@@ -136,38 +136,26 @@ bool Graphe::isConnexe(std::string ssg)
 	if (m_sommets[0]->tailleComposanteConnexe(getNombreSommets(), ssg) < getNombreSommets())
 		return false;
 	return true;
-	/*
-	std::vector<int> tabCon;
-	for (int i = 0; i < getNombreSommets(); i++)
-		tabCon.push_back(i);
+}
 
-	int v;
+
+std::string Graphe::Prim()
+{
+	std::cout << "Lancement prim depuis le sommet 0...\n";
+
+	std::vector<Arete*> aretePrim = m_sommets[0]->Prim(0);
+
+	std::string ssg = "";
 	for (int i = 0; i < getNombreAretes(); i++)
-	{
-		//std::cout << ssg << std::endl;
-		if (ssg[i] == '1')
-		{
-			v = 0;
-			for (int j = 0; j < getNombreSommets(); j++)
-			{
-				int s1 = m_aretes[i]->getSommets().first->getId(), s2 = m_aretes[i]->getSommets().second->getId();
-				//std::cout << j << " : " << "(" << tabCon[j] << "=" << m_aretes[i]->getSommets().second->getId() << ") ";
-				if (tabCon[j] == s1 || tabCon[j] == s2 || tabCon[s1] == j || tabCon[s2] == j)
-				{
-					tabCon[j] = s2;
-					v++;
-				}
+		ssg += "0";
+	std::cout << "Nombre d'arretes minimal : " << aretePrim.size() << std::endl;
 
-				//for (auto t : tabCon)
-				//	std::cout << t << " ";
-				//std::cout << " ->" << v << std::endl;
-			}
-			if (v >= getNombreSommets())
-				return true;
-			tabCon[m_aretes[i]->getSommets().second->getId()] = m_aretes[i]->getSommets().first->getId();
-		}
-	}
-	return false;*/
+	for (auto a : aretePrim)
+		ssg[a->getId()] = '1';
+
+	std::cout << "Graphe de poids minimal trouve\n";
+
+	return ssg;
 }
 
 

@@ -1,6 +1,6 @@
 #include "Arete.h"
 
-Arete::Arete(int id, const Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente) : m_id(id), m_oriente(oriente), m_poids(poids)
+Arete::Arete(int id, Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente) : m_id(id), m_oriente(oriente), m_poids(poids)
 {
 	m_sommets = std::make_pair(s1, s2);
 }
@@ -27,7 +27,7 @@ void Arete::Dessiner(ALLEGRO_BITMAP* bmp)
 	al_destroy_font(font);
 }
 
-std::pair< Sommet*, Sommet*> Arete::getSommets()
+std::pair<Sommet*, Sommet*> Arete::getSommets()
 {
 	return m_sommets;
 }

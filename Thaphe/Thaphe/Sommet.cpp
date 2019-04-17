@@ -98,6 +98,7 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 
 	}
 
+
 	return aretePrim;
 }
 

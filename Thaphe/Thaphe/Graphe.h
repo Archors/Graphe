@@ -17,6 +17,7 @@ public:
 
 	std::vector<std::string> DeterminerSousGraphe();
 	bool isConnexe(std::string);
+	std::string Prim();
 	
 	/*std::vector<std::string> TriPareto();
 	ALLEGRO_BITMAP DessinerSousGraphePar(std::string id);*/

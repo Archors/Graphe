@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv) 
 {
-	Graphe gr("triville", false);
+	Graphe gr("manhattan", false);
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -36,23 +36,43 @@ int main(int argc, char** argv)
 
 	al_clear_to_color(al_map_rgb(133, 50, 50));
 
-	double start = al_get_time();
-	std::vector<std::string> tousLesSousGraphes;
-	tousLesSousGraphes = gr.DeterminerSousGraphe();
-	std::cout << "Temps d'execution : " << al_get_time()-start << std::endl;
-
 	ALLEGRO_FONT* font;
 	font = al_load_font("simple_font.ttf", 30, 0);
 
 	//std::cout << tousLesSousGraphes[tousLesSousGraphes.size() - 1] << " : " << ((gr.isConnexe(tousLesSousGraphes[tousLesSousGraphes.size() - 1])) ? "oui" : "fuck") << std::endl;
-	for (auto ssg : tousLesSousGraphes)
+	if (false)
 	{
-		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(ssg);
+		double start = al_get_time();
+		std::vector<std::string> tousLesSousGraphes;
+		tousLesSousGraphes = gr.DeterminerSousGraphe();
+		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
+
+		for (auto ssg : tousLesSousGraphes)
+		{
+			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(ssg);
+			al_set_target_backbuffer(display);
+
+			al_clear_to_color(al_map_rgb(133, 50, 50));
+			al_draw_bitmap(graphe, 500, 100, 0);
+			al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.c_str());
+			//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
+			//std::cout << ssg << std::endl;
+
+			al_flip_display();
+			al_rest(0.3);
+			al_destroy_bitmap(graphe);
+		}
+	}
+	
+
+	if (true)
+	{
+		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
 		al_set_target_backbuffer(display);
 
 		al_clear_to_color(al_map_rgb(133, 50, 50));
 		al_draw_bitmap(graphe, 500, 100, 0);
-		al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.c_str());
+		//al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.c_str());
 		//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
 		//std::cout << ssg << std::endl;
 
@@ -60,6 +80,8 @@ int main(int argc, char** argv)
 		al_rest(0.3);
 		al_destroy_bitmap(graphe);
 	}
+	
+	
 	
 
 
