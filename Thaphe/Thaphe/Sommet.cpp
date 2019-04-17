@@ -23,16 +23,16 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, co
 {
 	std::vector<const Arete*> dijkstra;
 	std::unordered_set<const Sommet*> sommetsMarques;
-	std::unordered_map<const Sommet*, const float> distances;		/// second = distance de first par rapport à this
+	std::unordered_map<const Sommet*, float> distances;		/// second = distance de first par rapport à this
 	std::unordered_map<const Sommet*, const Sommet*> predecesseurs; /// second = predecesseur de first
 	const Sommet* somMarq=nullptr;	/// Pointeur pour le sommet qui sera marqué à chaque tour 
 	float distanceMin,distance;				/// Permet de comparer les distances pour marquer un sommet
 	sommetsMarques.insert(this);			/// On marque le sommet de départ
-	predecesseurs.insert(this, somMarq);	/// Le sommet de départ n'a pas de prédécesseur
+	predecesseurs.insert({ this, somMarq });	/// Le sommet de départ n'a pas de prédécesseur
 	for (auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
 	{										/// et on renseigne que this est son prédécesseur
-		distances.insert(s.first, s.second->getPoids(indicePoids));
-		predecesseurs.insert(s.first, this);
+		distances.insert({ s.first, s.second->getPoids(indicePoids) });
+		predecesseurs.insert({s.first, this});
 	}
 	if (arrivee == nullptr)			/// Dijkstra vers tous les sommets, tous les PCC
 	{
@@ -54,22 +54,22 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, co
 			}
 			sommetsMarques.insert(somMarq);
 			dijkstra.push_back(predecesseurs.find(somMarq)->second->m_voisins.find(somMarq)->second); /// Ajout de l'arête 
-
+			
 																								   /// On met à jour les distances avec le nouveau sommet marqué
 			for (const auto v : somMarq->m_voisins) /// Pour chaque voisin du sommet marqué v est une paire (Sommet *, Arete*)
 			{
 				/// Mise à jour de la distance de chaque voisin
 				/// si d(somMarq) + poids (somMarq - v) < d(v)
-				if (distances.find(v.first) == nullptr)
+				if (distances.count(v.first) == 0)  /// Si le voisin n'a pas de distance dans distances, on l'ajoute
 				{
-					predecesseurs.insert(v.first, somMarq);
+					predecesseurs.insert({ v.first, somMarq });
 					distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids); //somMarq->getAreteVoisin(v)->getPoids(indicePoids);
-					distances.insert( v.first , distance );
+					distances.insert({ v.first , distance });
 				}
 				else if (distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids)<distances.find(v.first)->second)
 				{ 
-					predecesseurs.find(v.first) = (v.first, somMarq);	/// somMarq devient le prédécesseur de v
-					distances.find(v.first)=(v.first, distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids));
+					predecesseurs[v.first] = somMarq;	/// somMarq devient le prédécesseur de v
+					distances[v.first] = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
 					/// et on met à jour la distance de v qui vaut alors d(somMarq) + poids (somMarq - v)
 				}
 			}
