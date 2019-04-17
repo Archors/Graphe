@@ -9,19 +9,20 @@ class Graphe
 private:
 	std::vector<Sommet*> m_sommets;
 	std::vector<Arete*> m_aretes;
-	std::vector<std::string> m_souGraphePareto;
+	std::vector<std::bitset<nombreMaxAretes>> m_souGraphePareto;
 public:
 	Graphe(std::string nomFichier, const bool oriented); //Nom du fichier sans le .txt
 
-	std::vector<std::string> DeterminerSousGraphe();
-	bool isConnexe(std::string);
-	std::string Prim();
-	std::string Dijkstra();
+	std::vector<std::bitset<nombreMaxAretes>> DeterminerSousGraphe();
+	bool isConnexe(std::bitset<nombreMaxAretes>);
+	std::bitset<nombreMaxAretes> Prim();
+	std::bitset<nombreMaxAretes> Dijkstra();
 
-	std::vector<std::string> TriPareto();
+
+	std::vector<std::bitset<nombreMaxAretes>> TriPareto();
 
 	ALLEGRO_BITMAP* DessinerGraphe();
-	ALLEGRO_BITMAP* DessinerSousGraphe(std::string aretes);
+	ALLEGRO_BITMAP* DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes);
 	ALLEGRO_BITMAP* DessinerSousGraphePar(int id);
 	
 	const int getNombreSommets();
@@ -33,7 +34,7 @@ public:
 
 struct graphePareto
 {
-	std::string aretes;
+	std::bitset<nombreMaxAretes> aretes;
 	std::vector<float> sommePoids;
 };
 

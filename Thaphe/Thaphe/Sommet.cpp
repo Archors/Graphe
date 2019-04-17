@@ -33,32 +33,48 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 	std::list<Arete*> areteDecouverte;
 	std::vector<Sommet*> sommetPrim;
 	sommetPrim.push_back(this);
+	/*for (auto x : this->m_voisins)
+		std::cout << x.first->m_id;*/
 	do
 	{
-		for (auto arete : sommetPrim.back()->m_voisins)
+		for (auto arete : sommetPrim.back()->m_voisins)//On check les voisins du dernier sommet ajouté
 		{
 			//On vérifie que l'arrete n'est pas déjà ajoutée
 			bool present = false;
-			for (auto x : aretePrim)
+			bool sommet1 = false;
+			bool sommet2 = false;
+			for (auto sommetDejaAjoute : sommetPrim)
 			{
-				if (arete.second == x)
+				if (arete.second->getSommets().first == sommetDejaAjoute)
+					sommet1 = true;
+				if (arete.second->getSommets().second == sommetDejaAjoute)
+					sommet2 = true;
+				if (sommet1 && sommet2)
+				{
 					present = true;
+					break;
+				}
 			}
+
 			if (!present) //Si elle ne l'est pas on l'ajoute aux aretes decouvertes
 			{
-				if (areteDecouverte.empty())
+				if (areteDecouverte.empty()) //Si il n'y a pas encore d'arrete decouverte
 					areteDecouverte.push_back(arete.second);
 				else
 				{
 					//On classe les arretes par poid
+					bool ajout = false;
 					for (std::list<Arete*>::iterator it = areteDecouverte.begin(); it != areteDecouverte.end(); ++it)
 					{
 						if ((*it)->getPoids(indicePoids) > arete.second->getPoids(indicePoids))
 						{
 							areteDecouverte.insert(it, arete.second);
+							ajout = true;
 							break;
 						}
 					}
+					if (!ajout)
+						areteDecouverte.push_back(arete.second);
 				}
 			}
 		}
@@ -66,11 +82,11 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 		bool sommet2 = false;
 		for (auto sommetDansPrim : sommetPrim) //On verifie qu'il n'y a pas de cycle
 		{
-			if (areteDecouverte.front()->getSommets().first == sommetDansPrim )
+			if (areteDecouverte.front()->getSommets().first == sommetDansPrim)
 				sommet1 = true;
 			if (areteDecouverte.front()->getSommets().second == sommetDansPrim)
-				sommet1 = true;
-			if (sommet1 & sommet2) //Si il y a un cycle on supprimme l'arete
+				sommet2 = true;
+			if (sommet1 && sommet2) //Si il y a un cycle on supprimme l'arete
 			{
 				areteDecouverte.pop_front();
 				break;
@@ -79,22 +95,17 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 		if (!sommet1 || !sommet2) //Si il n'y a pas de cycle on ajoute l'arete
 		{
 			aretePrim.push_back(areteDecouverte.front());
-			areteDecouverte.pop_front();
 			for (auto sommet : sommetPrim) //On ajoute le nouveau sommet au vecteur
 			{
-				if (sommet != aretePrim.back()->getSommets().first)
-				{
-					sommetPrim.push_back(aretePrim.back()->getSommets().first);
-				}
-				else
-				{
-					sommetPrim.push_back(aretePrim.back()->getSommets().second);
-				}
+				if (areteDecouverte.front()->getSommets().first == sommet)
+					sommetPrim.push_back(areteDecouverte.front()->getSommets().second);
+				if(areteDecouverte.front()->getSommets().second == sommet)
+					sommetPrim.push_back(areteDecouverte.front()->getSommets().first);
 			}
+			areteDecouverte.pop_front();
 		}
 		if (areteDecouverte.empty()) //Si il n'y a plus d'arrete decouverte on quitte
 			break;
-		
 
 	} while (!areteDecouverte.empty());
 
@@ -214,7 +225,7 @@ std::vector<const Arete*> Sommet::BFS(int nbSommets, std::string ssg)
 
 	return path;
 }
-int Sommet::tailleComposanteConnexe(int nbSommets, std::string ssg)
+int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<32> ssg)
 {
 	std::vector<int> discovered;
 	discovered.resize(nbSommets);
@@ -225,10 +236,9 @@ int Sommet::tailleComposanteConnexe(int nbSommets, std::string ssg)
 
 	while (!(file.empty()))
 	{
-
 		for (auto s : file.front()->m_voisins)
 		{
-			if (!discovered[s.first->m_id] && ssg[s.second->getId()] == '1')
+			if (!discovered[s.first->m_id] && ssg[s.second->getId()])
 			{
 				file.push(s.first);
 				discovered[s.first->m_id] = 1;
