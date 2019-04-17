@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv) 
 {
-	Graphe gr("cubetown", false);
+	Graphe gr("manhattan", false);
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -67,6 +67,7 @@ int main(int argc, char** argv)
 	//DIJKSTRA OU PRIM
 	if (true)
 	{
+		//ALLEGRO_BITMAP* graphe = gr.DessinerGraphe(); // a virer
 		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
 		//ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
 		al_set_target_backbuffer(display);
