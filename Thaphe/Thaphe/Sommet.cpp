@@ -33,7 +33,7 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 	std::list<Arete*> areteDecouverte;
 	std::vector<Sommet*> sommetPrim;
 	sommetPrim.push_back(this);
-	while (!areteDecouverte.empty())
+	do
 	{
 		for (auto arete : sommetPrim.back()->m_voisins)
 		{
@@ -96,7 +96,7 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 			break;
 		
 
-	}
+	} while (!areteDecouverte.empty());
 
 
 	return aretePrim;
