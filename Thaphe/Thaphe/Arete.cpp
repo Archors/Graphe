@@ -39,7 +39,7 @@ const float Arete::getPoids(int indice)
 
 const int Arete::getNombrePoids()
 {
-	return 0;
+	return m_poids.size();
 }
 
 const int Arete::getId() const
