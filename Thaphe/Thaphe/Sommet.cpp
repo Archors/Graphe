@@ -63,7 +63,7 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, co
 				if (distances.count(v.first) == 0)  /// Si le voisin n'a pas de distance dans distances, on l'ajoute
 				{
 					predecesseurs.insert({ v.first, somMarq });
-					distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids); //somMarq->getAreteVoisin(v)->getPoids(indicePoids);
+					distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids); 
 					distances.insert({ v.first , distance });
 				}
 				else if (distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids)<distances.find(v.first)->second)
@@ -74,7 +74,7 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, co
 				}
 			}
 			
-			distances.erase(somMarq);			// Note : une fois que j'ai marqué un sommet je dois le dégager de distances
+			distances.erase(somMarq);			/// Une fois que j'ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore
 		}
 	}
 	else
