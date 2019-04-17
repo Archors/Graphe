@@ -67,7 +67,7 @@ int main(int argc, char** argv)
 
 	if (true)
 	{
-		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
+		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
 		al_set_target_backbuffer(display);
 
 		al_clear_to_color(al_map_rgb(133, 50, 50));
