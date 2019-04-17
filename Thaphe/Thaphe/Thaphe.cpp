@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv) 
 {
-	Graphe gr("triville", false);
+	Graphe gr("cubetown", false);
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;

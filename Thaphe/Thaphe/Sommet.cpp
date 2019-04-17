@@ -22,78 +22,76 @@ void Sommet::Dessiner(ALLEGRO_BITMAP* bmp)
 
 std::vector<Arete*> Sommet::Prim(int indicePoids)
 {
-	std::vector<Arete*> prim;
-	int test=0; //Variable qui sert a rien
-	Arete* current = NULL;
-	Arete* ajout = NULL;
-	for (auto voisin : m_voisins) //Ajout de la 1ère arrete dans le graphe
+	std::vector<Arete*> aretePrim;
+	std::list<Arete*> areteDecouverte;
+	std::vector<Sommet*> sommetPrim;
+	sommetPrim.push_back(this);
+	while (!areteDecouverte.empty())
 	{
-		if (current == NULL) //Si c'est la premiere on la prend comme test
-			current = voisin.second;
-		else if (current->getPoids(indicePoids) > voisin.second->getPoids(indicePoids)) //On test avec les autre si l'autre est plus petite, on swap
-			current = voisin.second;
-	}
-	prim.push_back(current); //Ajout de la premiere arete
-	current = NULL;
-
-	while (!test)  //Tant qu'on a pas visité tous les sommets
-	{
-		for (auto x : prim) //On parcourt la liste des aretes déjà ajoutées au graph
+		for (auto arete : sommetPrim.back()->m_voisins)
 		{
-			//On parcours la liste des sommets voisins aux sommets déjà dans le graphe
-			//On commence par first
-			for (auto sommetVoisin : x->getSommets().first->m_voisins)
+			//On vérifie que l'arrete n'est pas déjà ajoutée
+			bool present = false;
+			for (auto x : aretePrim)
 			{
-				bool dejaPresent = false;
-				for (auto y : prim) //On reparcours les arrêtes du graphe
-				{
-					//On vérifie que le sommet voisin n'est pas dans le graphe
-					if (y->getSommets().first == sommetVoisin.first || y->getSommets().second == sommetVoisin.first)
-						dejaPresent = true;
-				}
-				if(!dejaPresent) //Si le sommet n'est pas dans le graphe
-					for (auto y : sommetVoisin.first->m_voisins) //On parcours toutes ses arretes
-					{
-						//Pour trouver celle avec le sommet dans le graphe
-						if (y.second->getSommets().first == x->getSommets().first || y.second->getSommets().second == x->getSommets().first)
-						{
-							if (current == NULL) //Si c'est la première arrête on l'ajoute
-								current = y.second;
-							//Sinon on vérifie que l'arrête de poid le plus faible l'est toujours ou pas
-							else if (current->getPoids(indicePoids) > y.second->getPoids(indicePoids))
-								current = y.second;
-						}
-					}
+				if (arete.second == x)
+					present = true;
 			}
-			//On recommence mais avec le second sommet des arretes
-			for (auto sommetVoisin : x->getSommets().second->m_voisins) //On parcours la liste des sommets voisins aux sommets déjà dans le graphe
+			if (!present) //Si elle ne l'est pas on l'ajoute aux aretes decouvertes
 			{
-				bool dejaPresent = false;
-				for (auto y : prim) //On reparcours les arrêtes du graphe
+				if (areteDecouverte.empty())
+					areteDecouverte.push_back(arete.second);
+				else
 				{
-					//On vérifie que le sommet voisin n'est pas dans le graphe
-					if (y->getSommets().first == sommetVoisin.first || y->getSommets().second == sommetVoisin.first)
-						dejaPresent = true;
-				}
-				if (!dejaPresent) //Si le sommet n'est pas dans le graphe
-					for (auto y : sommetVoisin.first->m_voisins) //On parcours toutes ses arretes
+					//On classe les arretes par poid
+					for (std::list<Arete*>::iterator it = areteDecouverte.begin(); it != areteDecouverte.end(); ++it)
 					{
-						//Pour trouver celle avec le sommet dans le graphe
-						if (y.second->getSommets().first == x->getSommets().first || y.second->getSommets().second == x->getSommets().first)
+						if ((*it)->getPoids(indicePoids) > arete.second->getPoids(indicePoids))
 						{
-							if (current == NULL) //Si c'est la première arrête on l'ajoute
-								current = y.second;
-							//Sinon on vérifie que l'arrête de poid le plus faible l'est toujours ou pas
-							else if (current->getPoids(indicePoids) > y.second->getPoids(indicePoids))
-								current = y.second;
+							areteDecouverte.insert(it, arete.second);
+							break;
 						}
 					}
+				}
 			}
 		}
-		prim.push_back(ajout); //On ajoute l'arrete la plus courte
+		bool sommet1 = false;
+		bool sommet2 = false;
+		for (auto sommetDansPrim : sommetPrim) //On verifie qu'il n'y a pas de cycle
+		{
+			if (areteDecouverte.front()->getSommets().first == sommetDansPrim )
+				sommet1 = true;
+			if (areteDecouverte.front()->getSommets().second == sommetDansPrim)
+				sommet1 = true;
+			if (sommet1 & sommet2) //Si il y a un cycle on supprimme l'arete
+			{
+				areteDecouverte.pop_front();
+				break;
+			}
+		}
+		if (!sommet1 || !sommet2) //Si il n'y a pas de cycle on ajoute l'arete
+		{
+			aretePrim.push_back(areteDecouverte.front());
+			areteDecouverte.pop_front();
+			for (auto sommet : sommetPrim) //On ajoute le nouveau sommet au vecteur
+			{
+				if (sommet != aretePrim.back()->getSommets().first)
+				{
+					sommetPrim.push_back(aretePrim.back()->getSommets().first);
+				}
+				else
+				{
+					sommetPrim.push_back(aretePrim.back()->getSommets().second);
+				}
+			}
+		}
+		if (areteDecouverte.empty()) //Si il n'y a plus d'arrete decouverte on quitte
+			break;
+		
 
 	}
-	return prim;
+
+	return aretePrim;
 }
 
 std::vector<const Arete*> Sommet::Dijkstra(int indicePoids, const Sommet* arrivee)
