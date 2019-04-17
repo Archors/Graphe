@@ -1,6 +1,6 @@
 #include "Sommet.h"
 
-Sommet::Sommet(std::string id, double x, double y)
+Sommet::Sommet(int id, double x, double y)
 	:m_id{id},m_coords{x,y}
 {}
 
@@ -16,8 +16,15 @@ void Sommet::Dessiner(ALLEGRO_BITMAP* bmp)
 	al_set_target_bitmap(bmp);
 	font = al_load_font("simple_font.ttf", 28, 0);
 	al_draw_filled_circle(m_coords.getX(), m_coords.getY(), 20, al_map_rgb(255, 255, 255));
-	al_draw_text(font, al_map_rgb(0, 0, 0), m_coords.getX(), m_coords.getY()-14, ALLEGRO_ALIGN_CENTRE, m_id.c_str() );
+	al_draw_text(font, al_map_rgb(0, 0, 0), m_coords.getX(), m_coords.getY()-14, ALLEGRO_ALIGN_CENTRE, inttostring(m_id).c_str() );
 	al_destroy_font(font);
+}
+
+std::string inttostring(int a)
+{
+	std::stringstream ss;
+	ss << a;
+	return ss.str();
 }
 
 std::vector<Arete*> Sommet::Prim(int indicePoids)
@@ -84,6 +91,64 @@ std::vector<const Arete*> Sommet::Dijkstra(int indicePoids, const Sommet* arrive
 const Coords Sommet::getCoords() const
 {
 	return m_coords;
+}
+
+const int Sommet::getId() const
+{
+	return m_id;
+}
+
+std::vector<const Arete*> Sommet::BFS(int nbSommets, std::string ssg)
+{
+	std::vector<int> discovered;
+	discovered.resize(nbSommets);
+	std::queue<const Sommet*> file;
+	std::vector<const Arete*> path;
+
+	discovered[0] = 1;
+	file.push(this);
+
+	while (!(file.empty()))
+	{
+
+		for (auto s : file.front()->m_voisins)
+		{
+			if (!discovered[s.first->m_id] && ssg[s.second->getId()] == '1')
+			{
+				file.push(s.first);
+				discovered[s.first->m_id] = 1;
+				path.push_back(s.second);
+			}
+		}
+		file.pop();
+	}
+
+	return path;
+}
+int Sommet::tailleComposanteConnexe(int nbSommets, std::string ssg)
+{
+	std::vector<int> discovered;
+	discovered.resize(nbSommets);
+	std::queue<const Sommet*> file;
+
+	discovered[0] = 1;
+	file.push(this);
+
+	while (!(file.empty()))
+	{
+
+		for (auto s : file.front()->m_voisins)
+		{
+			if (!discovered[s.first->m_id] && ssg[s.second->getId()] == '1')
+			{
+				file.push(s.first);
+				discovered[s.first->m_id] = 1;
+			}
+		}
+		file.pop();
+	}
+
+	return std::accumulate(discovered.begin(), discovered.end(), 0);
 }
 
 

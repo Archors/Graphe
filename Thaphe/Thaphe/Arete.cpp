@@ -1,9 +1,6 @@
 #include "Arete.h"
 
-Arete::Arete()
-{}
-
-Arete::Arete(std::string id, const Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente) : m_id(id), m_oriente(oriente), m_poids(poids)
+Arete::Arete(int id, const Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente) : m_id(id), m_oriente(oriente), m_poids(poids)
 {
 	m_sommets = std::make_pair(s1, s2);
 }
@@ -32,7 +29,7 @@ void Arete::Dessiner(ALLEGRO_BITMAP* bmp)
 
 std::pair<const Sommet*, Sommet*> Arete::getSommets()
 {
-	return std::pair<Sommet*, Sommet*>();
+	return m_sommets;
 }
 
 const float Arete::getPoids(int indice)
@@ -43,6 +40,11 @@ const float Arete::getPoids(int indice)
 const int Arete::getNombrePoids()
 {
 	return 0;
+}
+
+const int Arete::getId() const
+{
+	return m_id;
 }
 
 Arete::~Arete()

@@ -10,17 +10,22 @@ class Arete;
 class Sommet
 {
 private:
-	std::string m_id;
+	int m_id;
 	Coords m_coords;
 	std::unordered_map<const Sommet*, Arete*> m_voisins;
 public:
-	Sommet(std::string id, double x, double y);
+	Sommet(int id, double x, double y);
 	void AjouterVoisin(const Sommet* som, Arete* ar);
 	void Dessiner(ALLEGRO_BITMAP* bmp);
 	std::vector<Arete*> Prim(int indicePoids);
 	std::vector<const Arete*> Dijkstra(int indicePoids, const Sommet* arrivee);
+	std::vector<const Arete*> BFS(int nbSommets, std::string ssg);
+	int tailleComposanteConnexe(int nbSommets, std::string ssg);
 	const Coords getCoords() const;
+	const int getId() const;
 	virtual ~Sommet();
 };
+
+std::string inttostring(int a);
 
 #endif // SOMMET_H_INCLUDED

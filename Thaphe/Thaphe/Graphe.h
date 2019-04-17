@@ -7,14 +7,17 @@
 class Graphe
 {
 private:
-	std::unordered_map<std::string, Sommet*> m_sommets;
-	std::unordered_map<std::string, Arete*> m_aretes;
+	std::vector<Sommet*> m_sommets;
+	std::vector<Arete*> m_aretes;
 	std::vector<std::string> m_souGraphePareto;
 public:
 	Graphe(std::string nomFichier, const bool oriented); //Nom du fichier sans le .txt
 	ALLEGRO_BITMAP* DessinerGraphe();
-	std::vector<std::string> DeterminerSousGraphe();
 	ALLEGRO_BITMAP* DessinerSousGraphe(std::string aretes);
+
+	std::vector<std::string> DeterminerSousGraphe();
+	bool isConnexe(std::string);
+	
 	/*std::vector<std::string> TriPareto();
 	ALLEGRO_BITMAP DessinerSousGraphePar(std::string id);*/
 	const int getNombreSommets();
