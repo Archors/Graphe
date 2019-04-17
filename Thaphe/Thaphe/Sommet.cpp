@@ -29,57 +29,76 @@ std::string inttostring(int a)
 
 std::vector<Arete*> Sommet::Prim(int indicePoids)
 {
-	std::vector<Arete*> prim;
-	int test=0; //Variable qui sert a rien
-	Arete* current = NULL;
-	Arete* ajout = NULL;
-	for (auto voisin : m_voisins) //Ajout de la 1ère arrete dans le graphe
+	std::vector<Arete*> aretePrim;
+	std::list<Arete*> areteDecouverte;
+	std::vector<Sommet*> sommetPrim;
+	sommetPrim.push_back(this);
+	while (!areteDecouverte.empty())
 	{
-		if (current == NULL) //Si c'est la premiere on la prend comme test
-			current = voisin.second;
-		else if (current->getPoids(indicePoids) > voisin.second->getPoids(indicePoids)) //On test avec les autre si l'autre est plus petite, on swap
-			current = voisin.second;
-	}
-	prim.push_back(current); //Ajout de la premiere arete
-	current = NULL;
-
-	while (!test)  //Tant qu'on a pas visité tous les sommets
-	{
-		for (auto i : prim) //On parcourt la liste des aretes déjà ajoutées au graph
+		for (auto arete : sommetPrim.back()->m_voisins)
 		{
-			int ajout = 0;
-			for (auto j : prim) //On parcourt la liste de chaque voisin des aretes deja ajoutées
+			//On vérifie que l'arrete n'est pas déjà ajoutée
+			bool present = false;
+			for (auto x : aretePrim)
 			{
-				bool sommet1 = true; //Booleen si le sommet 1 est déjà dans le graphe
-				bool sommet2 = true; //Booleen si le sommet 2 est déjà dans le graphe
-				for (auto voisin : i->getSommets().first->m_voisins) //On test la liste des voisins des arretes pour vérifier qu'il y ait pas déjà
+				if (arete.second == x)
+					present = true;
+			}
+			if (!present) //Si elle ne l'est pas on l'ajoute aux aretes decouvertes
+			{
+				if (areteDecouverte.empty())
+					areteDecouverte.push_back(arete.second);
+				else
 				{
-					if (j->getSommets().first == voisin.first) //On vérifie si le sommet 1 est dans le graphe
-						sommet1 = false;
-					if (j->getSommets().second == voisin.first) //On vérifie si le sommet 2 est dans le graphe
-						sommet2 = false;
-					if (!sommet1 && !sommet2) //Si les deux sont déjà dans le graphe, on s'arrete
+					//On classe les arretes par poid
+					for (std::list<Arete*>::iterator it = areteDecouverte.begin(); it != areteDecouverte.end(); ++it)
 					{
-						ajout = -1;
-						break;
+						if ((*it)->getPoids(indicePoids) > arete.second->getPoids(indicePoids))
+						{
+							areteDecouverte.insert(it, arete.second);
+							break;
+						}
 					}
 				}
-				if (ajout == -1)
-					break;
-				if (sommet1)
-					ajout = 1;
-				if (sommet2)
-					ajout = 2;
-				
 			}
-			/*if (ajout == 1) //Un voisin de i n'est pas dans le graphe
-				current = i->getSommets().first->m_voisins;*/
-
 		}
-		prim.push_back(ajout); //On ajoute l'arrete la plus courte
+		bool sommet1 = false;
+		bool sommet2 = false;
+		for (auto sommetDansPrim : sommetPrim) //On verifie qu'il n'y a pas de cycle
+		{
+			if (areteDecouverte.front()->getSommets().first == sommetDansPrim )
+				sommet1 = true;
+			if (areteDecouverte.front()->getSommets().second == sommetDansPrim)
+				sommet1 = true;
+			if (sommet1 & sommet2) //Si il y a un cycle on supprimme l'arete
+			{
+				areteDecouverte.pop_front();
+				break;
+			}
+		}
+		if (!sommet1 || !sommet2) //Si il n'y a pas de cycle on ajoute l'arete
+		{
+			aretePrim.push_back(areteDecouverte.front());
+			areteDecouverte.pop_front();
+			for (auto sommet : sommetPrim) //On ajoute le nouveau sommet au vecteur
+			{
+				if (sommet != aretePrim.back()->getSommets().first)
+				{
+					sommetPrim.push_back(aretePrim.back()->getSommets().first);
+				}
+				else
+				{
+					sommetPrim.push_back(aretePrim.back()->getSommets().second);
+				}
+			}
+		}
+		if (areteDecouverte.empty()) //Si il n'y a plus d'arrete decouverte on quitte
+			break;
+		
 
 	}
-	return prim;
+
+	return aretePrim;
 }
 
 std::vector<const Arete*> Sommet::Dijkstra(int indicePoids, const Sommet* arrivee)

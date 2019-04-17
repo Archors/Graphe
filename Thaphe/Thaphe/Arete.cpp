@@ -27,7 +27,7 @@ void Arete::Dessiner(ALLEGRO_BITMAP* bmp)
 	al_destroy_font(font);
 }
 
-std::pair<const Sommet*, Sommet*> Arete::getSommets()
+std::pair< Sommet*, Sommet*> Arete::getSommets()
 {
 	return m_sommets;
 }
