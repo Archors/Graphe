@@ -102,7 +102,7 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 	return aretePrim;
 }
 
-std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee=nullptr) const
+std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee) const
 {
 	std::vector<const Arete*> dijkstra;
 	std::unordered_set<const Sommet*> sommetsMarques;

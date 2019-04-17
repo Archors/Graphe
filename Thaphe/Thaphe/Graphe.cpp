@@ -158,6 +158,27 @@ std::string Graphe::Prim()
 	return ssg;
 }
 
+
+std::string Graphe::Dijkstra()
+{
+	std::cout << "Lancement de dijkstra depuis le sommet 0...\n";
+
+	std::vector<const Arete*> areteDijkstra = m_sommets[0]->Dijkstra(getNombreSommets(), 0);
+
+	std::string ssg = "";
+	for (int i = 0; i < getNombreAretes(); i++)
+		ssg += "0";
+	std::cout << "Nombre d'arretes minimal pour tout relier en partant de 0 : " << areteDijkstra.size() << std::endl;
+
+	for (auto a : areteDijkstra)
+		ssg[a->getId()] = '1';
+
+	std::cout << "Graphe de poids minimal trouve\n";
+
+	return ssg;
+}
+
+
 std::vector<std::string> Graphe::TriPareto()
 {
 	std::vector<std::string> tousSsG = DeterminerSousGraphe();
