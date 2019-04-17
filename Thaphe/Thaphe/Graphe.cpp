@@ -16,7 +16,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 
 	int ordre;
 	ifs >> ordre;
-
+	
 	if (ifs.fail())
 		throw std::runtime_error("Probleme lecture ordre du graphe");
 
@@ -56,7 +56,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 	double poids;
 
 	//lecture des aretes
-	for (int i = 0; i < taille; ++i) 
+	for (int i = 0; i < taille; ++i)
 	{
 		//lecture des ids des deux extrémités
 		ifs >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture id arete");
@@ -65,8 +65,6 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 
 		ifs >> id; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
 		ifs >> id_voisin; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
-
-		std::vector<float> vectPoids;
 
 		for (int j=0; j<nbPoids; ++j)
 		{
