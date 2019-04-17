@@ -11,11 +11,11 @@ class Arete
 private:
 	const int m_id;
 	std::vector<float> m_poids;
-	std::pair<const Sommet*, Sommet*> m_sommets; //Si oriente, 1er = départ, 2nd = arrivée
+	std::pair<Sommet*, Sommet*> m_sommets; //Si oriente, 1er = départ, 2nd = arrivée
 	bool m_oriente;
 
 public:
-	Arete(int id, const Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente);
+	Arete(int id, Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente);
 	void Dessiner(ALLEGRO_BITMAP*);
 	std::pair <Sommet*, Sommet*> getSommets();
 	const float getPoids(int indice);
