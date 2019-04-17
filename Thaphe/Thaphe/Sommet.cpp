@@ -204,7 +204,7 @@ std::vector<const Arete*> Sommet::BFS(int nbSommets, std::string ssg)
 
 	return path;
 }
-int Sommet::tailleComposanteConnexe(int nbSommets, std::string ssg)
+int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<32> ssg)
 {
 	std::vector<int> discovered;
 	discovered.resize(nbSommets);
@@ -215,10 +215,9 @@ int Sommet::tailleComposanteConnexe(int nbSommets, std::string ssg)
 
 	while (!(file.empty()))
 	{
-
 		for (auto s : file.front()->m_voisins)
 		{
-			if (!discovered[s.first->m_id] && ssg[s.second->getId()] == '1')
+			if (!discovered[s.first->m_id] && ssg[s.second->getId()])
 			{
 				file.push(s.first);
 				discovered[s.first->m_id] = 1;

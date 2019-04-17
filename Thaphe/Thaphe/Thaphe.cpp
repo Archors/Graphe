@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv) 
 {
-	Graphe gr("cubetown", false);
+	Graphe gr("manhattan", false);
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -39,11 +39,11 @@ int main(int argc, char** argv)
 	ALLEGRO_FONT* font;
 	font = al_load_font("simple_font.ttf", 30, 0);
 
-	//std::cout << tousLesSousGraphes[tousLesSousGraphes.size() - 1] << " : " << ((gr.isConnexe(tousLesSousGraphes[tousLesSousGraphes.size() - 1])) ? "oui" : "fuck") << std::endl;
-	if (false)
+	//TOUS LES SOUS GRAPHES CONNEXES SANS CYCLE
+	if (true)
 	{
 		double start = al_get_time();
-		std::vector<std::string> tousLesSousGraphes;
+		std::vector<std::bitset<32>> tousLesSousGraphes;
 		tousLesSousGraphes = gr.DeterminerSousGraphe();
 		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
 
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 
 			al_clear_to_color(al_map_rgb(133, 50, 50));
 			al_draw_bitmap(graphe, 500, 100, 0);
-			al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.c_str());
+			al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.to_string().c_str());
 			//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
 			//std::cout << ssg << std::endl;
 
@@ -64,8 +64,8 @@ int main(int argc, char** argv)
 		}
 	}
 	
-
-	if (true)
+	//DIJKSTRA
+	if (false)
 	{
 		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
 		al_set_target_backbuffer(display);
@@ -81,10 +81,11 @@ int main(int argc, char** argv)
 		al_destroy_bitmap(graphe);
 	}
 	
+	//PARETO
 	if (false)
 	{
 		double start = al_get_time();
-		std::vector<std::string> tousLesSousGraphes;
+		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
 		tousLesSousGraphes = gr.TriPareto();
 		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
 
@@ -95,7 +96,7 @@ int main(int argc, char** argv)
 
 			al_clear_to_color(al_map_rgb(133, 50, 50));
 			al_draw_bitmap(graphe, 500, 100, 0);
-			al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.c_str());
+			al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.to_string().c_str());
 			//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
 			//std::cout << ssg << std::endl;
 

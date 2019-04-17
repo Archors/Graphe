@@ -91,26 +91,27 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 	ifs2.close();
 }
 
-std::vector<std::string> Graphe::DeterminerSousGraphe()
+std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 {
-	std::vector<std::string> tousLesSousGraphes;
+	std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
 
 	std::cout << "Looking for every graph possible...\n";
 
 
-	long int minAretes = (long int)m_sommets[0]->BFS(getNombreSommets(), (std::bitset<32>(pow(2, getNombreAretes()) - 1).to_string().substr((char)32 - (char)getNombreAretes(), 31))).size();
-	minAretes = minAretes * 49 + (getNombreAretes() - minAretes) * 48;
+	int minAretes = m_sommets[0]->BFS(getNombreSommets(), (std::bitset<nombreMaxAretes>(pow(2, getNombreAretes()) - 1).to_string().substr((char)nombreMaxAretes - (char)getNombreAretes(), 31))).size();
 	std::cout << "Min ar : " << minAretes << std::endl;
 
 	int pr = -1;
 	for (int i = 0; i < pow(2, getNombreAretes()); i++)
 	{
-		std::string ssg = (std::bitset<32>(i).to_string()).substr((char)32 - (char)getNombreAretes(), 31);
-		if (std::accumulate(ssg.begin(), ssg.end(), 0) == minAretes)
+		std::bitset<nombreMaxAretes> ssg = std::bitset<nombreMaxAretes>(i);
+		
+		if (ssg.count() == minAretes)
 		{
+			//std::cout << ssg.count() << std::endl;
 			if (isConnexe(ssg))
 			{
-				//std::cout << "Found one !\n";
+				//std::cout << ssg << " Found one !\n";
 				tousLesSousGraphes.push_back(ssg);
 			}
 		}
@@ -131,7 +132,7 @@ std::vector<std::string> Graphe::DeterminerSousGraphe()
 }
 
 
-bool Graphe::isConnexe(std::string ssg)
+bool Graphe::isConnexe(std::bitset<nombreMaxAretes> ssg)
 {
 	if (m_sommets[0]->tailleComposanteConnexe(getNombreSommets(), ssg) < getNombreSommets())
 		return false;
@@ -139,19 +140,18 @@ bool Graphe::isConnexe(std::string ssg)
 }
 
 
-std::string Graphe::Prim()
+std::bitset<nombreMaxAretes> Graphe::Prim()
 {
 	std::cout << "Lancement prim depuis le sommet 0...\n";
 
 	std::vector<Arete*> aretePrim = m_sommets[0]->Prim(0);
 
-	std::string ssg = "";
-	for (int i = 0; i < getNombreAretes(); i++)
-		ssg += "0";
+	std::bitset<nombreMaxAretes> ssg;
+
 	std::cout << "Nombre d'arretes minimal : " << aretePrim.size() << std::endl;
 
 	for (auto a : aretePrim)
-		ssg[a->getId()] = '1';
+		ssg[a->getId()] = 1;
 
 	std::cout << "Graphe de poids minimal trouve\n";
 
@@ -159,19 +159,18 @@ std::string Graphe::Prim()
 }
 
 
-std::string Graphe::Dijkstra()
+std::bitset<nombreMaxAretes> Graphe::Dijkstra()
 {
 	std::cout << "Lancement de dijkstra depuis le sommet 0...\n";
 
 	std::vector<const Arete*> areteDijkstra = m_sommets[0]->Dijkstra(getNombreSommets(), 0);
 
-	std::string ssg = "";
-	for (int i = 0; i < getNombreAretes(); i++)
-		ssg += "0";
+	std::bitset<nombreMaxAretes> ssg;
+
 	std::cout << "Nombre d'arretes minimal pour tout relier en partant de 0 : " << areteDijkstra.size() << std::endl;
 
 	for (auto a : areteDijkstra)
-		ssg[a->getId()] = '1';
+		ssg[a->getId()] = 1;
 
 	std::cout << "Graphe de poids minimal trouve\n";
 
@@ -179,10 +178,10 @@ std::string Graphe::Dijkstra()
 }
 
 
-std::vector<std::string> Graphe::TriPareto()
+std::vector<std::bitset<nombreMaxAretes>> Graphe::TriPareto()
 {
-	std::vector<std::string> tousSsG = DeterminerSousGraphe();
-	std::vector<graphePareto> tousGraphePareto;
+	std::vector<std::bitset<nombreMaxAretes>> tousSsG = DeterminerSousGraphe();
+	std::list<graphePareto> tousGraphePareto;
 
 	const int nbPoids = m_aretes[0]->getNombrePoids();
 
@@ -193,13 +192,9 @@ std::vector<std::string> Graphe::TriPareto()
 		std::vector<float> sommePoids;
 		sommePoids.resize(nbPoids);
 
-		std::cout << ".";
-
-		int i = 0;
-		for (auto a : ssg)
+		for (int i = 0; i<getNombreAretes(); i++)
 		{
-			//std::cout << a << std::endl;
-			if (a == '1')
+			if (ssg[i])
 			{
 				for (int j = 0; j < nbPoids; j++)
 				{
@@ -208,7 +203,6 @@ std::vector<std::string> Graphe::TriPareto()
 				}
 			}
 
-			i++;
 		}
 		tousGraphePareto.push_back(graphePareto{ ssg, sommePoids });
 
@@ -222,10 +216,11 @@ std::vector<std::string> Graphe::TriPareto()
 	}
 	std::cout << "." << std::endl;
 
-	std::sort(tousGraphePareto.begin(), tousGraphePareto.end(), compGraphesPareto);
+	//std::sort(tousGraphePareto.begin(), tousGraphePareto.end(), compGraphesPareto);
 
 	pr = -1;
-
+	int sizemax = tousGraphePareto.size();
+	int min = tousGraphePareto.front().sommePoids[0];/*
 	for (int i = 0; i<tousGraphePareto.size(); i++)
 	{
 		//std::cout << tousGraphePareto[i].aretes << " : " << tousGraphePareto[i].sommePoids[0] << " " << tousGraphePareto[i].sommePoids[1] << std::endl;
@@ -239,12 +234,12 @@ std::vector<std::string> Graphe::TriPareto()
 			int suppj = true;
 			for (int k = 1; k < nbPoids; k++)
 			{
-				if (tousGraphePareto[j].sommePoids[k] >= tousGraphePareto[i].sommePoids[k])
+				if (tousGraphePareto[j].sommePoids[k] <= tousGraphePareto[i].sommePoids[k])
 				{
 					suppj = false;
 					break;
 				}
-				else if (tousGraphePareto[i].sommePoids[k] >= tousGraphePareto[j].sommePoids[k])
+				else if (tousGraphePareto[i].sommePoids[k] <= tousGraphePareto[j].sommePoids[k])
 				{
 					suppi = false;
 					break;
@@ -265,7 +260,14 @@ std::vector<std::string> Graphe::TriPareto()
 
 		}
 
-		std::cout << i << " / " << tousGraphePareto.size() << std::endl;
+		if (sizemax / (tousGraphePareto.size() - i) > pr)
+		{
+			pr = sizemax / (tousGraphePareto.size() - i);
+			std::cout << pr << " %\n";
+		}
+		pr = sizemax / (tousGraphePareto.size() - i);
+		std::cout << pr << " %\n";
+		//std::cout << i << " / " << tousGraphePareto.size() << std::endl;
 
 	}
 	std::cout << std::endl;
@@ -279,7 +281,7 @@ std::vector<std::string> Graphe::TriPareto()
 		
 	std::cout << tousGraphePareto.size() << " graphes (" << tousSsG.size() << ")\n";
 		
-
+		*/
 	return m_souGraphePareto;
 }
 
@@ -297,15 +299,12 @@ bool compGraphesPareto(graphePareto g1, graphePareto g2)
 
 ALLEGRO_BITMAP* Graphe::DessinerGraphe()
 {
-	std::string aretes = "";
-	for (int i = 0; i < getNombreAretes(); i++)
-		aretes += "1";
-	
+	std::bitset<nombreMaxAretes> aretes = std::bitset<nombreMaxAretes>(pow(2,getNombreAretes())-1);
 
 	return DessinerSousGraphe(aretes);
 }
 
-ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::string aretes)
+ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes)
 {
 	int width = 0, height = 0;
 	for (auto sommet : m_sommets)
@@ -324,7 +323,7 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::string aretes)
 	int i = 0;
 	for (auto arete : m_aretes)
 	{
-		if (aretes[i] == '1')
+		if (aretes[i])
 			arete->Dessiner(dessin);
 		i++;
 	}
@@ -336,8 +335,6 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::string aretes)
 	return dessin;
 }
 
-
-
 ALLEGRO_BITMAP* Graphe::DessinerSousGraphePar(int id)
 {
 	if (id < m_souGraphePareto.size())
@@ -345,18 +342,7 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphePar(int id)
 	else
 		throw std::runtime_error("Sous graphe inexistant");
 }
-/*
 
-std::unorderedmap<std::string> TriPareto()
-{}
-
-
-
-ALLEGRO_BITMAP DessinerSousGraphe()
-{}
-
-ALLEGRO_BITMAP DessinerSousGraphePar()
-{}*/
 
 const int Graphe::getNombreSommets()
 {
