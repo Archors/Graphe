@@ -38,36 +38,57 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 
 	while (!test)  //Tant qu'on a pas visité tous les sommets
 	{
-		for (auto i : prim) //On parcourt la liste des aretes déjà ajoutées au graph
+		for (auto x : prim) //On parcourt la liste des aretes déjà ajoutées au graph
 		{
-			int ajout = 0;
-			for (auto j : prim) //On parcourt la liste de chaque voisin des aretes deja ajoutées
+			//On parcours la liste des sommets voisins aux sommets déjà dans le graphe
+			//On commence par first
+			for (auto sommetVoisin : x->getSommets().first->m_voisins)
 			{
-				bool sommet1 = true; //Booleen si le sommet 1 est déjà dans le graphe
-				bool sommet2 = true; //Booleen si le sommet 2 est déjà dans le graphe
-				for (auto voisin : i->getSommets().first->m_voisins) //On test la liste des voisins des arretes pour vérifier qu'il y ait pas déjà
+				bool dejaPresent = false;
+				for (auto y : prim) //On reparcours les arrêtes du graphe
 				{
-					if (j->getSommets().first == voisin.first) //On vérifie si le sommet 1 est dans le graphe
-						sommet1 = false;
-					if (j->getSommets().second == voisin.first) //On vérifie si le sommet 2 est dans le graphe
-						sommet2 = false;
-					if (!sommet1 && !sommet2) //Si les deux sont déjà dans le graphe, on s'arrete
-					{
-						ajout = -1;
-						break;
-					}
+					//On vérifie que le sommet voisin n'est pas dans le graphe
+					if (y->getSommets().first == sommetVoisin.first || y->getSommets().second == sommetVoisin.first)
+						dejaPresent = true;
 				}
-				if (ajout == -1)
-					break;
-				if (sommet1)
-					ajout = 1;
-				if (sommet2)
-					ajout = 2;
-				
+				if(!dejaPresent) //Si le sommet n'est pas dans le graphe
+					for (auto y : sommetVoisin.first->m_voisins) //On parcours toutes ses arretes
+					{
+						//Pour trouver celle avec le sommet dans le graphe
+						if (y.second->getSommets().first == x->getSommets().first || y.second->getSommets().second == x->getSommets().first)
+						{
+							if (current == NULL) //Si c'est la première arrête on l'ajoute
+								current = y.second;
+							//Sinon on vérifie que l'arrête de poid le plus faible l'est toujours ou pas
+							else if (current->getPoids(indicePoids) > y.second->getPoids(indicePoids))
+								current = y.second;
+						}
+					}
 			}
-			/*if (ajout == 1) //Un voisin de i n'est pas dans le graphe
-				current = i->getSommets().first->m_voisins;*/
-
+			//On recommence mais avec le second sommet des arretes
+			for (auto sommetVoisin : x->getSommets().second->m_voisins) //On parcours la liste des sommets voisins aux sommets déjà dans le graphe
+			{
+				bool dejaPresent = false;
+				for (auto y : prim) //On reparcours les arrêtes du graphe
+				{
+					//On vérifie que le sommet voisin n'est pas dans le graphe
+					if (y->getSommets().first == sommetVoisin.first || y->getSommets().second == sommetVoisin.first)
+						dejaPresent = true;
+				}
+				if (!dejaPresent) //Si le sommet n'est pas dans le graphe
+					for (auto y : sommetVoisin.first->m_voisins) //On parcours toutes ses arretes
+					{
+						//Pour trouver celle avec le sommet dans le graphe
+						if (y.second->getSommets().first == x->getSommets().first || y.second->getSommets().second == x->getSommets().first)
+						{
+							if (current == NULL) //Si c'est la première arrête on l'ajoute
+								current = y.second;
+							//Sinon on vérifie que l'arrête de poid le plus faible l'est toujours ou pas
+							else if (current->getPoids(indicePoids) > y.second->getPoids(indicePoids))
+								current = y.second;
+						}
+					}
+			}
 		}
 		prim.push_back(ajout); //On ajoute l'arrete la plus courte
 
