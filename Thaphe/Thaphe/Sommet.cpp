@@ -188,7 +188,6 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, co
 		}
 		return dijkstraArrivee;
 	}
-	std::cout<<std::endl;
 }
 
 const Coords Sommet::getCoords() const
