@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv) 
 {
-	Graphe gr("manhattan", false);
+	Graphe gr("cubetown", false);
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -82,7 +82,26 @@ int main(int argc, char** argv)
 	}
 	
 	
-	
+	double start = al_get_time();
+	std::vector<std::string> tousLesSousGraphes;
+	tousLesSousGraphes = gr.TriPareto();
+	std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
+
+	for (auto ssg : tousLesSousGraphes)
+	{
+		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(ssg);
+		al_set_target_backbuffer(display);
+
+		al_clear_to_color(al_map_rgb(133, 50, 50));
+		al_draw_bitmap(graphe, 500, 100, 0);
+		al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.c_str());
+		//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
+		//std::cout << ssg << std::endl;
+
+		al_flip_display();
+		al_rest(0.01);
+		al_destroy_bitmap(graphe);
+	}
 
 
 	while (1)

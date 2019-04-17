@@ -1,6 +1,6 @@
 #include "Arete.h"
 
-Arete::Arete(int id, const Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente) : m_id(id), m_oriente(oriente), m_poids(poids)
+Arete::Arete(int id, Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente) : m_id(id), m_oriente(oriente), m_poids(poids)
 {
 	m_sommets = std::make_pair(s1, s2);
 }
@@ -39,7 +39,7 @@ const float Arete::getPoids(int indice)
 
 const int Arete::getNombrePoids()
 {
-	return 0;
+	return m_poids.size();
 }
 
 const int Arete::getId() const
