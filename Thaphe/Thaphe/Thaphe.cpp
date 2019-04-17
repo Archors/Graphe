@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv) 
 {
-	Graphe gr("manhattan", false);
+	Graphe gr("cubetown", false);
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -67,8 +67,8 @@ int main(int argc, char** argv)
 	//DIJKSTRA OU PRIM
 	if (true)
 	{
-		//ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
-		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
+		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
+		//ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
 		al_set_target_backbuffer(display);
 
 		al_clear_to_color(al_map_rgb(133, 50, 50));
