@@ -1,7 +1,9 @@
 #include <iostream>
-#include <allegro5/allegro.h>
+#include "Graphe.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
+	Graphe gr("manhattan", false);
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -18,6 +20,11 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
+	al_init_primitives_addon();
+	al_init_font_addon();
+	al_init_ttf_addon();
+
+
 	event_queue = al_create_event_queue();
 	if (!event_queue) {
 		fprintf(stderr, "failed to create event_queue!\n");
@@ -29,7 +36,77 @@ int main(int argc, char** argv) {
 
 	al_clear_to_color(al_map_rgb(133, 50, 50));
 
-	al_flip_display();
+	ALLEGRO_FONT* font;
+	font = al_load_font("simple_font.ttf", 30, 0);
+
+	//TOUS LES SOUS GRAPHES CONNEXES SANS CYCLE
+	if (false)
+	{
+		double start = al_get_time();
+		std::vector<std::bitset<32>> tousLesSousGraphes;
+		tousLesSousGraphes = gr.DeterminerSousGraphe();
+		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
+
+		for (auto ssg : tousLesSousGraphes)
+		{
+			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(ssg);
+			al_set_target_backbuffer(display);
+
+			al_clear_to_color(al_map_rgb(133, 50, 50));
+			al_draw_bitmap(graphe, 500, 100, 0);
+			al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.to_string().c_str());
+			//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
+			//std::cout << ssg << std::endl;
+
+			al_flip_display();
+			al_rest(0.3);
+			al_destroy_bitmap(graphe);
+		}
+	}
+	
+	//DIJKSTRA
+	if (true)
+	{
+		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
+		al_set_target_backbuffer(display);
+
+		al_clear_to_color(al_map_rgb(133, 50, 50));
+		al_draw_bitmap(graphe, 500, 100, 0);
+		//al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.c_str());
+		//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
+		//std::cout << ssg << std::endl;
+
+		al_flip_display();
+		al_rest(0.3);
+		al_destroy_bitmap(graphe);
+	}
+	
+	//PARETO
+	if (false)
+	{
+		double start = al_get_time();
+		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
+		tousLesSousGraphes = gr.TriPareto();
+		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
+
+		for (auto ssg : tousLesSousGraphes)
+		{
+			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(ssg);
+			al_set_target_backbuffer(display);
+
+			al_clear_to_color(al_map_rgb(133, 50, 50));
+			al_draw_bitmap(graphe, 500, 100, 0);
+			al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.to_string().c_str());
+			//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
+			//std::cout << ssg << std::endl;
+
+			al_flip_display();
+			al_rest(0.01);
+			al_destroy_bitmap(graphe);
+		}
+	}
+	
+
 
 	while (1)
 	{
@@ -46,6 +123,7 @@ int main(int argc, char** argv) {
 
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
+
 
 	return 0;
 }
