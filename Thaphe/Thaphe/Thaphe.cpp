@@ -3,26 +3,34 @@
 
 int main(int argc, char** argv) 
 {
-	Graphe gr("manhattan", false, std::bitset<nombreMaxPoids>(2));
+	Graphe gr("broadway", false, std::bitset<nombreMaxPoids>(2));
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
+	ALLEGRO_DISPLAY_MODE   disp_data;
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
 
-	if (!al_init()) {
-		fprintf(stderr, "failed to initialize allegro!\n");
-		return -1;
-	}
+	if (!al_init())
+		throw std::runtime_error("Probleme init allegro");
+	if (!al_init_primitives_addon())
+		throw std::runtime_error("Probleme init primitives addon");
+	if (!al_init_font_addon())
+		throw std::runtime_error("Probleme init font addon");
+	if (!al_init_ttf_addon())
+		throw std::runtime_error("Probleme init ttf addon");
+	if (!al_init_image_addon())
+		throw std::runtime_error("Probleme init image addon");
 
-	display = al_create_display(1800, 1000);
+
+	al_get_display_mode(al_get_num_display_modes() - 1, &disp_data);
+
+	al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+	
+	display = al_create_display(disp_data.width, disp_data.height);
 	if (!display) {
 		fprintf(stderr, "failed to create display!\n");
 		return -1;
 	}
-
-	al_init_primitives_addon();
-	al_init_font_addon();
-	al_init_ttf_addon();
 
 
 	event_queue = al_create_event_queue();
@@ -91,6 +99,7 @@ int main(int argc, char** argv)
 		tousLesSousGraphes = gr.TriPareto();
 		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
 
+		int width = sqrt(disp_data.height*disp_data.width)/tousLesSousGraphes.size();
 		int x = 0; 
 		al_clear_to_color(al_map_rgb(133, 50, 50));
 		for (auto ssg : tousLesSousGraphes)
@@ -98,8 +107,10 @@ int main(int argc, char** argv)
 			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(ssg);
 			al_set_target_backbuffer(display);
 
-			
-			al_draw_bitmap(graphe, (x%3)*500, (x/3)*500, 0);
+			al_draw_scaled_bitmap(graphe, 0, 0, al_get_bitmap_width(graphe), al_get_bitmap_height(graphe), x%(disp_data.width/width)*width, (x/(disp_data.height / width))*width, width, width, 0);
+			std::cout << disp_data.width / width << " / " << disp_data.height / width << " (" << disp_data.height << ")\n";
+			std::cout << x % (disp_data.width / width)* width << " " << (x / (disp_data.height / width)) * width << std::endl;
+			//al_draw_bitmap(graphe, (x%3)*500, (x/3)*500, 0);
 			al_draw_text(font, al_map_rgb(0, 0, 0), (x % 3) * 500, (x / 3) * 500+20, 0, ssg.to_string().c_str());
 			//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
 			//std::cout << ssg << std::endl;
