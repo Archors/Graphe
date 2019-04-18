@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Graphe.h"
+#include "Menu.h"
 
 int main(int argc, char** argv) 
 {
@@ -14,7 +15,7 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	display = al_create_display(1800, 1000);
+	display = al_create_display(width, height);
 	if (!display) {
 		fprintf(stderr, "failed to create display!\n");
 		return -1;
@@ -38,6 +39,8 @@ int main(int argc, char** argv)
 
 	ALLEGRO_FONT* font;
 	font = al_load_font("simple_font.ttf", 30, 0);
+	MenuDonnees choix;
+	leMenu(choix, display);
 
 	//TOUS LES SOUS GRAPHES CONNEXES SANS CYCLE
 	if (false)
