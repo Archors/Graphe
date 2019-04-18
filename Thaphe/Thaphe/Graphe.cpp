@@ -32,7 +32,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMa
 		ifs >> x; if (ifs.fail()) throw std::runtime_error("Probleme lecture x");
 		ifs >> y; if (ifs.fail()) throw std::runtime_error("Probleme lecture y");
 		m_sommets.push_back(new Sommet{id,x,y});
-		std::cout << m_sommets[i]->getId() << std::endl;
+		//std::cout << m_sommets[i]->getId() << std::endl;
 	}
 
 	int taille;
@@ -79,7 +79,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMa
 
 		if (!oriented)
 		{
-			std::cout << id << " <--> " << id_voisin << std::endl;
+			//std::cout << id << " <--> " << id_voisin << std::endl;
 			m_sommets[id]->AjouterVoisin( m_sommets[id_voisin], m_aretes[id_ar] );
 			m_sommets[id_voisin]->AjouterVoisin( m_sommets[id], m_aretes[id_ar] );
 		}
@@ -95,18 +95,21 @@ Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMa
 std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe(bool avecCycles)
 {
 	std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
+	double start = al_get_time();
 
 	std::cout << "Looking for every graph possible...\n";
 
-	int minAretes = (int)m_sommets[0]->BFS(getNombreSommets(), (std::bitset<nombreMaxAretes>(pow(2, getNombreAretes()) - 1).to_string().substr((size_t) nombreMaxAretes - (size_t)getNombreAretes(), nombreMaxAretes-1))).size();
+	int minAretes = m_sommets[0]->BFSnbAretes( getNombreSommets(), std::bitset<nombreMaxAretes>(pow(2, getNombreAretes()) - 1) );
 	std::cout << "Min ar : " << minAretes << std::endl;
 
-	int pr = -1;
-	for (int i = 0; i < pow(2, getNombreAretes()); i++)
+	int imax = pow(2, getNombreAretes());
+	int i = pow(2, minAretes) - 1;
+	while (i<imax)
 	{
-		std::bitset<nombreMaxAretes> ssg = std::bitset<nombreMaxAretes>(i);
+		std::bitset<nombreMaxAretes> ssg;
 		
-		int nbar = ssg.count();
+		int nbar = (ssg = std::bitset<nombreMaxAretes>(++i)).count();
+		
 		if ( (nbar >= minAretes && avecCycles) || (nbar == minAretes && !avecCycles) )
 		{
 			//std::cout << ssg.count() << std::endl;
@@ -117,17 +120,17 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe(bool avec
 			}
 		}
 		
-		
+		/*
 		if ( (int)(((int)100 * i) / (int)(pow(2, getNombreAretes()) - 1)) > pr)
 		{
 			pr = ((int)100 * i) / (int)(pow(2, getNombreAretes()) - 1);
 			std::cout << pr << "%\n";
-		}
+		}*/
 			
 		//std::cout << i << " : " << tousLesSousGraphes.back() << std::endl;
 	}
 
-	std::cout << "Done !\n";
+	std::cout << "Done ! (" << al_get_time() - start << " sec)\n";
 
 	return tousLesSousGraphes;
 }

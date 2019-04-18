@@ -18,7 +18,7 @@ public:
 	void AjouterVoisin(const Sommet* som, Arete* ar);
 	void Dessiner(ALLEGRO_BITMAP* bmp);
 	std::vector<Arete*> Prim(int indicePoids);
-	std::vector<const Arete*> BFS(int nbSommets, std::string ssg);
+	int BFSnbAretes(int nbSommets, std::bitset<nombreMaxAretes>);
 	int tailleComposanteConnexe(int nbSommets, std::bitset<nombreMaxAretes> ssg);
 	const Coords getCoords() const;
 	const int getId() const;

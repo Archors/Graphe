@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv) 
 {
-	Graphe gr("broadway", false, std::bitset<nombreMaxPoids>(2));
+	bool showGraphs = true;
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -21,6 +21,10 @@ int main(int argc, char** argv)
 	if (!al_init_image_addon())
 		throw std::runtime_error("Probleme init image addon");
 
+	double start = al_get_time();
+
+	Graphe gr("manhattan", false, std::bitset<nombreMaxPoids>(0));
+
 
 	al_get_display_mode(al_get_num_display_modes() - 1, &disp_data);
 
@@ -32,7 +36,6 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-
 	event_queue = al_create_event_queue();
 	if (!event_queue) {
 		fprintf(stderr, "failed to create event_queue!\n");
@@ -40,7 +43,11 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	al_register_event_source(event_queue, al_get_display_event_source(display));
+	if(!al_install_keyboard())
+		throw std::runtime_error("Impossible d'utiliser le clavier");
+	if (!al_install_mouse())
+		throw std::runtime_error("Impossible d'utiliser la souris");
+
 
 	al_clear_to_color(al_map_rgb(133, 50, 50));
 
@@ -50,7 +57,7 @@ int main(int argc, char** argv)
 	//TOUS LES SOUS GRAPHES CONNEXES AVEC OU SANS CYCLES
 	if (false)
 	{
-		double start = al_get_time();
+		
 		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
 		tousLesSousGraphes = gr.DeterminerSousGraphe(false);
 
@@ -98,7 +105,6 @@ int main(int argc, char** argv)
 		double start = al_get_time();
 		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
 		tousLesSousGraphes = gr.TriPareto();
-		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
 
 		int width = sqrt((disp_data.height*disp_data.width)/((int)tousLesSousGraphes.size()+1));
 		
@@ -127,20 +133,25 @@ int main(int argc, char** argv)
 			i++;
 		}
 		al_flip_display();
-		al_rest(0.01);
+		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
+	}
+	
+	if (showGraphs)
+	{
+		al_register_event_source(event_queue, al_get_display_event_source(display));
+		al_register_event_source(event_queue, al_get_mouse_event_source());
+		al_register_event_source(event_queue, al_get_keyboard_event_source());
 	}
 	
 
-
-	while (1)
+	while (showGraphs)
 	{
 		ALLEGRO_EVENT ev;
 		ALLEGRO_TIMEOUT timeout;
 		al_init_timeout(&timeout, 0.06);
 
-		bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-
-		if (get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+		if (al_wait_for_event_until(event_queue, &ev, &timeout) && ev.type == ALLEGRO_EVENT_KEY_DOWN)
+		{
 			break;
 		}
 	}
