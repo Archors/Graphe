@@ -202,11 +202,11 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::TriPareto()
 	}
 
 	tousGraphePareto.sort(compGraphesPareto);
-	for (auto g : tousGraphePareto)
+	/*for (auto g : tousGraphePareto)
 	{
 		std::cout << g.aretes;
 		std::cout << " (" << g.sommePoids[0] << "; " << g.sommePoids[1] << ")\n";
-	}
+	}*/
 
 	std::vector<float> min;
 	for (auto f : tousGraphePareto.front().sommePoids)
@@ -341,20 +341,21 @@ ALLEGRO_BITMAP* Graphe::DessinerGraphe()
 
 ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes)
 {
-	int width = 0, height = 0;
+	int width = 0;
+	int min = m_sommets[0]->getCoords().getX();
 	for (auto sommet : m_sommets)
 	{
 		if (sommet->getCoords().getX() > width)
 			width = sommet->getCoords().getX();
-		if (sommet->getCoords().getY() > height)
-			height = sommet->getCoords().getY();
+		if (sommet->getCoords().getY() > width)
+			width = sommet->getCoords().getY();
+		if (sommet->getCoords().getX() < min)
+			min = sommet->getCoords().getX();
+		if (sommet->getCoords().getY() < min)
+			min = sommet->getCoords().getY();
 	}
-	if (width > height)
-		height = width;
-	else
-		width = height;
 
-	ALLEGRO_BITMAP* dessin = al_create_bitmap(width + 50, height + 50);
+	ALLEGRO_BITMAP* dessin = al_create_bitmap(width + min, width + min);
 
 	al_set_target_bitmap(dessin);
 	al_clear_to_color(al_map_rgb(180, 230, 150));

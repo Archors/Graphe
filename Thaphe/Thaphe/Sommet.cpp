@@ -178,10 +178,11 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, st
 		}
 		distances.erase(somMarq);			/// Une fois que j'ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore
 	}
+	/*
 	for (auto s : distancesFinal)
 	{
 		std::cout << "Sommet : " << s.first->getId() << " | Distance : " << s.second << std::endl;
-	}
+	}*/
 	if (arrivee == nullptr)
 	{
 		return dijkstraTous;
