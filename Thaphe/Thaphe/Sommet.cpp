@@ -117,7 +117,7 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, st
 {
 	std::vector<const Arete*> dijkstraTous, dijkstraArrivee; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
 	std::unordered_set<const Sommet*> sommetsMarques;
-	std::unordered_map<const Sommet*, float> distances;		/// second = distance de first par rapport à this
+	std::unordered_map<const Sommet*, float> distances, distancesFinal;		/// second = distance de first par rapport à this
 	std::unordered_map<const Sommet*, const Sommet*> predecesseurs; /// second = predecesseur de first
 	const Sommet* somMarq=nullptr;	/// Pointeur pour le sommet qui sera marqué à chaque tour 
 	const Sommet* pred1, *pred2;		/// Pour le dijkstraArrivee
@@ -129,6 +129,7 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, st
 		if (grapheDeTravail[s.second->getId()])
 		{
 			distances.insert({ s.first, s.second->getPoids(indicePoids) });
+			distancesFinal.insert({ s.first, s.second->getPoids(indicePoids) });
 			predecesseurs.insert({s.first, this});
 		}
 		
@@ -164,16 +165,22 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, st
 					predecesseurs.insert({ v.first, somMarq });
 					distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
 					distances.insert({ v.first , distance });
+					distancesFinal.insert({ v.first , distance });
 				}
 				else if (distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids) < distances.find(v.first)->second)
 				{
 					predecesseurs[v.first] = somMarq;	/// somMarq devient le prédécesseur de v
 					distances[v.first] = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
+					distancesFinal[v.first] = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
 					/// et on met à jour la distance de v qui vaut alors d(somMarq) + poids (somMarq - v)
 				}
 			}
 		}
 		distances.erase(somMarq);			/// Une fois que j'ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore
+	}
+	for (auto s : distancesFinal)
+	{
+		std::cout << "Sommet : " << s.first->getId() << " | Distance : " << s.second << std::endl;
 	}
 	if (arrivee == nullptr)
 	{
