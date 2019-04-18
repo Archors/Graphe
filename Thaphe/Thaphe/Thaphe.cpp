@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv) 
 {
-	Graphe gr("manhattan", false, std::bitset<nombreMaxPoids>(0));
+	Graphe gr("broadway", false, std::bitset<nombreMaxPoids>(2));
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;

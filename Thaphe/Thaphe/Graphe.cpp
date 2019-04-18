@@ -164,7 +164,7 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra()
 {
 	std::cout << "Lancement de dijkstra depuis le sommet 0...\n";
 
-	std::vector<const Arete*> areteDijkstra = m_sommets[0]->Dijkstra(getNombreSommets(), 0);
+	std::vector<const Arete*> areteDijkstra = m_sommets[0]->Dijkstra(getNombreSommets(), 0).first;
 
 	std::bitset<nombreMaxAretes> ssg;
 
@@ -318,10 +318,7 @@ std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
 		{
 			for (int i = 0; i < getNombreSommets(); i++)
 			{
-				std::vector<const Arete*> grapheDijkstra = m_sommets[i]->Dijkstra(getNombreSommets(), j, ssg);
-				
-				for (auto a : grapheDijkstra)
-					sommePoids[j] += a->getPoids(j);
+				sommePoids[j] += m_sommets[i]->Dijkstra(getNombreSommets(), j, ssg).second;
 			}
 		}
 		

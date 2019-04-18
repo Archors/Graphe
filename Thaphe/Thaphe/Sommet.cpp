@@ -113,7 +113,7 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 	return aretePrim;
 }
 
-std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, std::bitset<nombreMaxAretes> grapheDeTravail, const Sommet* arrivee) const
+std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,int indicePoids, std::bitset<nombreMaxAretes> grapheDeTravail, const Sommet* arrivee) const
 {
 	std::vector<const Arete*> dijkstraTous, dijkstraArrivee; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
 	std::vector<float> distancesFinales;
@@ -178,7 +178,7 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, st
 	}
 	if (arrivee == nullptr)
 	{
-		return dijkstraTous;
+		return std::make_pair(dijkstraTous, std::accumulate(distancesFinales.begin(), distancesFinales.end(), 0));
 	}
 	else
 	{
@@ -191,7 +191,7 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, st
 			pred2 = predecesseurs.find(pred2)->second;
 			dijkstraArrivee.push_back(pred2->m_voisins.find(pred1)->second);
 		}
-		return dijkstraArrivee;
+		return std::make_pair(dijkstraArrivee, std::accumulate(distancesFinales.begin(), distancesFinales.end(), 0));
 	}
 }
 
