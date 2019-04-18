@@ -115,67 +115,79 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 
 std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee) const
 {
-	std::vector<const Arete*> dijkstra;
+	std::vector<const Arete*> dijkstraTous, dijkstraArrivee; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
 	std::unordered_set<const Sommet*> sommetsMarques;
 	std::unordered_map<const Sommet*, float> distances;		/// second = distance de first par rapport à this
 	std::unordered_map<const Sommet*, const Sommet*> predecesseurs; /// second = predecesseur de first
 	const Sommet* somMarq=nullptr;	/// Pointeur pour le sommet qui sera marqué à chaque tour 
+	const Sommet* pred1, *pred2;		/// Pour le dijkstraArrivee
 	float distanceMin,distance;				/// Permet de comparer les distances pour marquer un sommet
 	sommetsMarques.insert(this);			/// On marque le sommet de départ
-	predecesseurs.insert({ this, somMarq });	/// Le sommet de départ n'a pas de prédécesseur
+	//predecesseurs.insert({ this, nullptr });	/// Le sommet de départ n'a pas de prédécesseur   <-- a verifier mais inutile je crois, fait planter le programme
 	for (auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
 	{										/// et on renseigne que this est son prédécesseur
 		distances.insert({ s.first, s.second->getPoids(indicePoids) });
 		predecesseurs.insert({s.first, this});
 	}
-	if (arrivee == nullptr)			/// Dijkstra vers tous les sommets, tous les PCC
+	int i = 0;
+	/// Tous les sommets sont non marqués, sauf le this
+	///Sélectionner et marquer le sommet ayant la plus petite distance au sommet initial
+	while (sommetsMarques.size()<nombreSommets)  /// Tant qu'il reste des sommets non marqués
 	{
-		/// Tous les sommets sont non marqués, sauf le this
-		///Sélectionner et marquer le sommet ayant la plus petite distance au sommet initial
-		while (sommetsMarques.size()<nombreSommets)  /// Tant qu'il reste des sommets non marqués
+		/// Marquer le sommet avec la plus petite distance
+		distanceMin = distances.cbegin()->second;
+		somMarq = distances.cbegin()->first;
+		for (auto s : distances)			
 		{
-			/// Marquer le sommet avec la plus petite distance
-			distanceMin = distances.cbegin()->second;
-			somMarq = distances.cbegin()->first;
-			for (auto s : distances)			
+			distance = s.second;
+			if (distance < distanceMin)
 			{
-				distance = s.second;
-				if (distance < distanceMin)
-				{
-					distanceMin = distance;											// J'ai oublié quelque part d'ajouter la distance
-					somMarq=s.first;												// de somMarq, ainsi que son prédécesseur (?)
-				}
+				distanceMin = distance;				
+				somMarq=s.first;												
 			}
-			sommetsMarques.insert(somMarq);
-			dijkstra.push_back(predecesseurs.find(somMarq)->second->m_voisins.find(somMarq)->second); /// Ajout de l'arête 
-			
-																								   /// On met à jour les distances avec le nouveau sommet marqué
-			for (const auto v : somMarq->m_voisins) /// Pour chaque voisin du sommet marqué v est une paire (Sommet *, Arete*)
+		}
+		sommetsMarques.insert(somMarq);
+		dijkstraTous.push_back(predecesseurs.find(somMarq)->second->m_voisins.find(somMarq)->second); /// Ajout de l'arête 
+											   /// On met à jour les distances avec le nouveau sommet marqué
+		for (const auto v : somMarq->m_voisins) /// Pour chaque voisin du sommet marqué v est une paire (Sommet *, Arete*)
+		{
+			/// Mise à jour de la distance de chaque voisin
+			/// si d(somMarq) + poids (somMarq - v) < d(v)
+			if (sommetsMarques.count(v.first) == 0)
 			{
-				/// Mise à jour de la distance de chaque voisin
-				/// si d(somMarq) + poids (somMarq - v) < d(v)
 				if (distances.count(v.first) == 0)  /// Si le voisin n'a pas de distance dans distances, on l'ajoute
 				{
 					predecesseurs.insert({ v.first, somMarq });
-					distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids); 
+					distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
 					distances.insert({ v.first , distance });
 				}
-				else if (distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids)<distances.find(v.first)->second)
-				{ 
+				else if (distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids) < distances.find(v.first)->second)
+				{
 					predecesseurs[v.first] = somMarq;	/// somMarq devient le prédécesseur de v
 					distances[v.first] = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
 					/// et on met à jour la distance de v qui vaut alors d(somMarq) + poids (somMarq - v)
 				}
 			}
-			
-			distances.erase(somMarq);			/// Une fois que j'ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore
 		}
+		distances.erase(somMarq);			/// Une fois que j'ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore
+	}
+	if (arrivee == nullptr)
+	{
+		return dijkstraTous;
 	}
 	else
 	{
-		/// Dijkstra vers un seul sommet
+		pred1 = arrivee;
+		pred2 = predecesseurs.find(arrivee)->second;
+		dijkstraArrivee.push_back(pred2->m_voisins.find(pred1)->second);
+		while (pred2 != this)
+		{
+			pred1 = pred2;
+			pred2 = predecesseurs.find(pred2)->second;
+			dijkstraArrivee.push_back(pred2->m_voisins.find(pred1)->second);
+		}
+		return dijkstraArrivee;
 	}
-	return dijkstra;
 }
 
 const Coords Sommet::getCoords() const

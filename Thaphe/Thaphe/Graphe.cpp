@@ -97,8 +97,7 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 
 	std::cout << "Looking for every graph possible...\n";
 
-
-	int minAretes = m_sommets[0]->BFS(getNombreSommets(), (std::bitset<nombreMaxAretes>(pow(2, getNombreAretes()) - 1).to_string().substr((char)nombreMaxAretes - (char)getNombreAretes(), 31))).size();
+	int minAretes = (int)m_sommets[0]->BFS(getNombreSommets(), (std::bitset<nombreMaxAretes>(pow(2, getNombreAretes()) - 1).to_string().substr((size_t) nombreMaxAretes - (size_t)getNombreAretes(), nombreMaxAretes-1))).size();
 	std::cout << "Min ar : " << minAretes << std::endl;
 
 	int pr = -1;
@@ -116,10 +115,10 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 			}
 		}
 		
-
-		if ( (int)((100 * i) / (pow(2, getNombreAretes()) - 1)) > pr)
+		
+		if ( (int)(((int)100 * i) / (int)(pow(2, getNombreAretes()) - 1)) > pr)
 		{
-			pr = (100 * i) / (pow(2, getNombreAretes()) - 1);
+			pr = ((int)100 * i) / (int)(pow(2, getNombreAretes()) - 1);
 			std::cout << pr << "%\n";
 		}
 			
@@ -214,74 +213,61 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::TriPareto()
 		}*/
 		c++;
 	}
-	std::cout << "." << std::endl;
 
-	//std::sort(tousGraphePareto.begin(), tousGraphePareto.end(), compGraphesPareto);
+	tousGraphePareto.sort(compGraphesPareto);
 
 	pr = -1;
-	int sizemax = tousGraphePareto.size();
-	int min = tousGraphePareto.front().sommePoids[0];/*
-	for (int i = 0; i<tousGraphePareto.size(); i++)
+	std::vector<float> min;
+	for (auto f : tousGraphePareto.front().sommePoids)
 	{
-		//std::cout << tousGraphePareto[i].aretes << " : " << tousGraphePareto[i].sommePoids[0] << " " << tousGraphePareto[i].sommePoids[1] << std::endl;
-
-		for (int j = i + 1; j < tousGraphePareto.size(); j++)
-		{
-			if (tousGraphePareto[j].sommePoids[0] > tousGraphePareto[i].sommePoids[0])
-				break;
-			
-			int suppi = true;
-			int suppj = true;
-			for (int k = 1; k < nbPoids; k++)
-			{
-				if (tousGraphePareto[j].sommePoids[k] <= tousGraphePareto[i].sommePoids[k])
-				{
-					suppj = false;
-					break;
-				}
-				else if (tousGraphePareto[i].sommePoids[k] <= tousGraphePareto[j].sommePoids[k])
-				{
-					suppi = false;
-					break;
-				}
-			}
-
-			if (suppj)
-			{
-				tousGraphePareto.erase(tousGraphePareto.begin() + j);
-				j -= 1;
-			}
-			else if (suppi)
-			{
-				tousGraphePareto.erase(tousGraphePareto.begin() + i);
-				i -= 1;
-				break;
-			}
-
-		}
-
-		if (sizemax / (tousGraphePareto.size() - i) > pr)
-		{
-			pr = sizemax / (tousGraphePareto.size() - i);
-			std::cout << pr << " %\n";
-		}
-		pr = sizemax / (tousGraphePareto.size() - i);
-		std::cout << pr << " %\n";
-		//std::cout << i << " / " << tousGraphePareto.size() << std::endl;
-
+		min.push_back(f);
 	}
-	std::cout << std::endl;
+	std::list<graphePareto>::iterator i = tousGraphePareto.begin();
+	std::list<graphePareto>::iterator lastmin = i;
+	while (i != tousGraphePareto.end())
+	{
+		//std::cout << i->aretes << " : " << i->sommePoids[0] << " " << i->sommePoids[1] << std::endl;
 
-	std::cout << "\nIt becomes : \n";
+		bool supp = true;
+
+		for (int k = 1; k < nbPoids; k++)
+		{
+			//std::cout << i->sommePoids[k] << " - " << min[k] << std::endl;
+			if (i->sommePoids[k] < min[k])
+			{
+				min[k] = i->sommePoids[k];
+				supp = false;
+				if (lastmin->sommePoids[0] == i->sommePoids[0])
+				{
+					tousGraphePareto.erase(lastmin);
+				}
+				lastmin = i;
+			}
+		}
+
+		if (supp && i != tousGraphePareto.begin()) tousGraphePareto.erase(i++);
+		else 
+		{
+			if (i->sommePoids[0] == tousGraphePareto.begin()->sommePoids[0] && i != tousGraphePareto.begin())
+			{
+				tousGraphePareto.erase(tousGraphePareto.begin());
+				std::cout << "First has been erased from existence \n";
+			}
+				
+			//std::cout << i->aretes << std::endl;
+			++i;
+		}		
+	}
+
+	std::cout << "Les optimums de Pareto trouves : \n";
 	for (auto g : tousGraphePareto)
 	{
 		std::cout << g.aretes << " : " << g.sommePoids[0] << " " << g.sommePoids[1] << std::endl;
 		m_souGraphePareto.push_back(g.aretes);
 	}
 		
-	std::cout << tousGraphePareto.size() << " graphes (" << tousSsG.size() << ")\n";
+	std::cout << tousGraphePareto.size() << " graphes (sur " << tousSsG.size() << ")\n";
 		
-		*/
 	return m_souGraphePareto;
 }
 
@@ -363,3 +349,8 @@ const int Graphe::getNombreSousGraphe()
 Graphe::~Graphe()
 {
 }
+/*
+00000000110111011010001011101101
+00000000110111011010101011001101
+00000000010111011010101011101101
+*/

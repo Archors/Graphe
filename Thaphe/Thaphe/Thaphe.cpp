@@ -59,15 +59,17 @@ int main(int argc, char** argv)
 			//std::cout << ssg << std::endl;
 
 			al_flip_display();
-			al_rest(0.3);
+			al_rest(0.5);
 			al_destroy_bitmap(graphe);
 		}
 	}
 	
-	//DIJKSTRA
-	if (true)
+	//DIJKSTRA OU PRIM
+	if (false)
 	{
-		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
+		//ALLEGRO_BITMAP* graphe = gr.DessinerGraphe(); // a virer
+		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
+		//ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
 		al_set_target_backbuffer(display);
 
 		al_clear_to_color(al_map_rgb(133, 50, 50));
@@ -82,28 +84,31 @@ int main(int argc, char** argv)
 	}
 	
 	//PARETO
-	if (false)
+	if (true)
 	{
 		double start = al_get_time();
 		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
 		tousLesSousGraphes = gr.TriPareto();
 		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
 
+		int x = 0; 
+		al_clear_to_color(al_map_rgb(133, 50, 50));
 		for (auto ssg : tousLesSousGraphes)
 		{
 			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(ssg);
 			al_set_target_backbuffer(display);
 
-			al_clear_to_color(al_map_rgb(133, 50, 50));
-			al_draw_bitmap(graphe, 500, 100, 0);
-			al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.to_string().c_str());
+			
+			al_draw_bitmap(graphe, (x%3)*500, (x/3)*500, 0);
+			al_draw_text(font, al_map_rgb(0, 0, 0), (x % 3) * 500, (x / 3) * 500+20, 0, ssg.to_string().c_str());
 			//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
 			//std::cout << ssg << std::endl;
 
-			al_flip_display();
-			al_rest(0.01);
 			al_destroy_bitmap(graphe);
+			x++;
 		}
+		al_flip_display();
+		al_rest(0.01);
 	}
 	
 
@@ -127,14 +132,3 @@ int main(int argc, char** argv)
 
 	return 0;
 }
-
-// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
-// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
-
-// Conseils pour bien démarrer : 
-//   1. Utilisez la fenêtre Explorateur de solutions pour ajouter des fichiers et les gérer.
-//   2. Utilisez la fenêtre Team Explorer pour vous connecter au contrôle de code source.
-//   3. Utilisez la fenêtre Sortie pour voir la sortie de la génération et d'autres messages.
-//   4. Utilisez la fenêtre Liste d'erreurs pour voir les erreurs.
-//   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
-//   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.
