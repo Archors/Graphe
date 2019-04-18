@@ -349,8 +349,12 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes)
 		if (sommet->getCoords().getY() > height)
 			height = sommet->getCoords().getY();
 	}
+	if (width > height)
+		height = width;
+	else
+		width = height;
 
-	ALLEGRO_BITMAP* dessin = al_create_bitmap(width + 100, height + 100);
+	ALLEGRO_BITMAP* dessin = al_create_bitmap(width + 50, height + 50);
 
 	al_set_target_bitmap(dessin);
 	al_clear_to_color(al_map_rgb(180, 230, 150));
