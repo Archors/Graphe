@@ -116,8 +116,9 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, std::bitset<nombreMaxAretes> grapheDeTravail, const Sommet* arrivee) const
 {
 	std::vector<const Arete*> dijkstraTous, dijkstraArrivee; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
+	std::vector<float> distancesFinales;
 	std::unordered_set<const Sommet*> sommetsMarques;
-	std::unordered_map<const Sommet*, float> distances, distancesFinal;		/// second = distance de first par rapport à this
+	std::unordered_map<const Sommet*, float> distances;		/// second = distance de first par rapport à this
 	std::unordered_map<const Sommet*, const Sommet*> predecesseurs; /// second = predecesseur de first
 	const Sommet* somMarq=nullptr;	/// Pointeur pour le sommet qui sera marqué à chaque tour 
 	const Sommet* pred1, *pred2;		/// Pour le dijkstraArrivee
@@ -129,12 +130,10 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, st
 		if (grapheDeTravail[s.second->getId()])
 		{
 			distances.insert({ s.first, s.second->getPoids(indicePoids) });
-			distancesFinal.insert({ s.first, s.second->getPoids(indicePoids) });
 			predecesseurs.insert({s.first, this});
 		}
 		
 	}
-	int i = 0;
 	/// Tous les sommets sont non marqués, sauf le this
 	///Sélectionner et marquer le sommet ayant la plus petite distance au sommet initial
 	while (sommetsMarques.size()<nombreSommets)  /// Tant qu'il reste des sommets non marqués
@@ -152,6 +151,7 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, st
 			}
 		}
 		sommetsMarques.insert(somMarq);
+		distancesFinales.push_back(distances.find(somMarq)->second);
 		dijkstraTous.push_back(predecesseurs.find(somMarq)->second->m_voisins.find(somMarq)->second); /// Ajout de l'arête 
 											   /// On met à jour les distances avec le nouveau sommet marqué
 		for (const auto v : somMarq->m_voisins) /// Pour chaque voisin du sommet marqué v est une paire (Sommet *, Arete*)
@@ -165,24 +165,17 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, st
 					predecesseurs.insert({ v.first, somMarq });
 					distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
 					distances.insert({ v.first , distance });
-					distancesFinal.insert({ v.first , distance });
 				}
 				else if (distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids) < distances.find(v.first)->second)
 				{
 					predecesseurs[v.first] = somMarq;	/// somMarq devient le prédécesseur de v
 					distances[v.first] = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
-					distancesFinal[v.first] = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
 					/// et on met à jour la distance de v qui vaut alors d(somMarq) + poids (somMarq - v)
 				}
 			}
 		}
 		distances.erase(somMarq);			/// Une fois que j'ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore
 	}
-	/*
-	for (auto s : distancesFinal)
-	{
-		std::cout << "Sommet : " << s.first->getId() << " | Distance : " << s.second << std::endl;
-	}*/
 	if (arrivee == nullptr)
 	{
 		return dijkstraTous;
