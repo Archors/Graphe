@@ -18,4 +18,5 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-#define nombreMaxAretes 32
+#define nombreMaxAretes 24
+#define nombreMaxPoids 2

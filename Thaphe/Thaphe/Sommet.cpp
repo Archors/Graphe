@@ -113,7 +113,7 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 	return aretePrim;
 }
 
-std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee) const
+std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, std::bitset<nombreMaxAretes> grapheDeTravail, const Sommet* arrivee) const
 {
 	std::vector<const Arete*> dijkstraTous, dijkstraArrivee; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
 	std::unordered_set<const Sommet*> sommetsMarques;
@@ -126,8 +126,12 @@ std::vector<const Arete*> Sommet::Dijkstra(int nombreSommets,int indicePoids, co
 	//predecesseurs.insert({ this, nullptr });	/// Le sommet de départ n'a pas de prédécesseur   <-- a verifier mais inutile je crois, fait planter le programme
 	for (auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
 	{										/// et on renseigne que this est son prédécesseur
-		distances.insert({ s.first, s.second->getPoids(indicePoids) });
-		predecesseurs.insert({s.first, this});
+		if (grapheDeTravail[s.second->getId()])
+		{
+			distances.insert({ s.first, s.second->getPoids(indicePoids) });
+			predecesseurs.insert({s.first, this});
+		}
+		
 	}
 	int i = 0;
 	/// Tous les sommets sont non marqués, sauf le this
@@ -227,7 +231,7 @@ std::vector<const Arete*> Sommet::BFS(int nbSommets, std::string ssg)
 
 	return path;
 }
-int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<32> ssg)
+int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<nombreMaxAretes> ssg)
 {
 	std::vector<int> discovered;
 	discovered.resize(nbSommets);

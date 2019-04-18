@@ -6,29 +6,34 @@
 
 class Graphe
 {
-private:
-	std::vector<Sommet*> m_sommets;
-	std::vector<Arete*> m_aretes;
-	std::vector<std::bitset<nombreMaxAretes>> m_souGraphePareto;
-public:
-	Graphe(std::string nomFichier, const bool oriented); //Nom du fichier sans le .txt
+	private:
+		std::vector<Sommet*> m_sommets;
+		std::vector<Arete*> m_aretes;
+		std::vector<std::bitset<nombreMaxAretes>> m_souGraphePareto;
+		
+	public:
+		std::bitset<nombreMaxPoids> m_typeTriPareto;
 
-	std::vector<std::bitset<nombreMaxAretes>> DeterminerSousGraphe();
-	bool isConnexe(std::bitset<nombreMaxAretes>);
-	std::bitset<nombreMaxAretes> Prim();
-	std::bitset<nombreMaxAretes> Dijkstra();
+	public:
+		Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMaxPoids> typeTriPareto = std::bitset<nombreMaxPoids>(0) ); //Nom du fichier sans le .txt
 
+		std::bitset<nombreMaxAretes> Prim();
+		std::bitset<nombreMaxAretes> Dijkstra();
+		std::vector<std::bitset<nombreMaxAretes>> TriPareto();
 
-	std::vector<std::bitset<nombreMaxAretes>> TriPareto();
+		std::vector<std::bitset<nombreMaxAretes>> DeterminerSousGraphe(bool avecCycles);
+		bool isConnexe(std::bitset<nombreMaxAretes>);
+		std::vector<float> sommePoidsCoutMin(std::bitset<nombreMaxAretes>);
+		std::vector<float> sommePoidsCoutDist(std::bitset<nombreMaxAretes>);
 
-	ALLEGRO_BITMAP* DessinerGraphe();
-	ALLEGRO_BITMAP* DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes);
-	ALLEGRO_BITMAP* DessinerSousGraphePar(int id);
+		ALLEGRO_BITMAP* DessinerGraphe();
+		ALLEGRO_BITMAP* DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes);
+		ALLEGRO_BITMAP* DessinerSousGraphePar(int id);
 	
-	const int getNombreSommets();
-	const int getNombreAretes();
-	const int getNombreSousGraphe();
-	~Graphe();
+		const int getNombreSommets();
+		const int getNombreAretes();
+		const int getNombreSousGraphe();
+		~Graphe();
 };
 
 

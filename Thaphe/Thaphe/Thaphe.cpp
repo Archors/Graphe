@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv) 
 {
-	Graphe gr("manhattan", false);
+	Graphe gr("manhattan", false, std::bitset<nombreMaxPoids>(2));
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -39,12 +39,12 @@ int main(int argc, char** argv)
 	ALLEGRO_FONT* font;
 	font = al_load_font("simple_font.ttf", 30, 0);
 
-	//TOUS LES SOUS GRAPHES CONNEXES SANS CYCLE
+	//TOUS LES SOUS GRAPHES CONNEXES AVEC OU SANS CYCLES
 	if (false)
 	{
 		double start = al_get_time();
-		std::vector<std::bitset<32>> tousLesSousGraphes;
-		tousLesSousGraphes = gr.DeterminerSousGraphe();
+		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
+		tousLesSousGraphes = gr.DeterminerSousGraphe(false);
 		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
 
 		for (auto ssg : tousLesSousGraphes)

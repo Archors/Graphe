@@ -19,10 +19,10 @@ public:
 	void Dessiner(ALLEGRO_BITMAP* bmp);
 	std::vector<Arete*> Prim(int indicePoids);
 	std::vector<const Arete*> BFS(int nbSommets, std::string ssg);
-	int tailleComposanteConnexe(int nbSommets, std::bitset<32> ssg);
+	int tailleComposanteConnexe(int nbSommets, std::bitset<nombreMaxAretes> ssg);
 	const Coords getCoords() const;
 	const int getId() const;
-	std::vector<const Arete*> Dijkstra(int nombreSommets, int indicePoids, const Sommet* arrivee=nullptr ) const;
+	std::vector<const Arete*> Dijkstra(int nombreSommets, int indicePoids, std::bitset<nombreMaxAretes> grapheDeTravail = std::bitset<nombreMaxAretes>( (pow(2,nombreMaxAretes)-1) ), const Sommet* arrivee=nullptr ) const;
 
 	virtual ~Sommet();
 };

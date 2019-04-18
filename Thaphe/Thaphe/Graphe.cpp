@@ -1,7 +1,8 @@
 #include "Graphe.h"
 
 //Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
-Graphe::Graphe(std::string nomFichier, const bool oriented)
+Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMaxPoids> typeTriPareto)
+	: m_typeTriPareto{ typeTriPareto }
 {
 	std::ifstream ifs{ nomFichier+".txt" };
 
@@ -91,7 +92,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented)
 	ifs2.close();
 }
 
-std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
+std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe(bool avecCycles)
 {
 	std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
 
@@ -105,7 +106,8 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 	{
 		std::bitset<nombreMaxAretes> ssg = std::bitset<nombreMaxAretes>(i);
 		
-		if (ssg.count() == minAretes)
+		int nbar = ssg.count();
+		if ( (nbar >= minAretes && avecCycles) || (nbar == minAretes && !avecCycles) )
 		{
 			//std::cout << ssg.count() << std::endl;
 			if (isConnexe(ssg))
@@ -179,51 +181,40 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra()
 
 std::vector<std::bitset<nombreMaxAretes>> Graphe::TriPareto()
 {
-	std::vector<std::bitset<nombreMaxAretes>> tousSsG = DeterminerSousGraphe();
+	bool avecCycle = false;
+	if (m_typeTriPareto.count() > 0)
+		avecCycle = true;
+
+	std::vector<std::bitset<nombreMaxAretes>> tousSsG = DeterminerSousGraphe(avecCycle);
 	std::list<graphePareto> tousGraphePareto;
 
 	const int nbPoids = m_aretes[0]->getNombrePoids();
 
-	int pr = -1;
-	int c = 0;
 	for (auto ssg : tousSsG)
 	{
 		std::vector<float> sommePoids;
-		sommePoids.resize(nbPoids);
+		if (m_typeTriPareto.count() == 0)
+			sommePoids = sommePoidsCoutMin(ssg);
+		else
+			sommePoids = sommePoidsCoutDist(ssg);
 
-		for (int i = 0; i<getNombreAretes(); i++)
-		{
-			if (ssg[i])
-			{
-				for (int j = 0; j < nbPoids; j++)
-				{
-					sommePoids[j] += m_aretes[i]->getPoids(j);
-					//std::cout << sommePoids[j] << std::endl;
-				}
-			}
-
-		}
 		tousGraphePareto.push_back(graphePareto{ ssg, sommePoids });
-
-		/*
-		if ((int)(100 * c) / (tousSsG.size() - 1) > pr)
-		{
-			pr = (100 * c) / (tousSsG.size() - 1);
-			std::cout << pr << "%\n";
-		}*/
-		c++;
 	}
 
 	tousGraphePareto.sort(compGraphesPareto);
+	for (auto g : tousGraphePareto)
+	{
+		std::cout << g.aretes;
+		std::cout << " (" << g.sommePoids[0] << "; " << g.sommePoids[1] << ")\n";
+	}
 
-	pr = -1;
 	std::vector<float> min;
 	for (auto f : tousGraphePareto.front().sommePoids)
-	{
 		min.push_back(f);
-	}
+
 	std::list<graphePareto>::iterator i = tousGraphePareto.begin();
 	std::list<graphePareto>::iterator lastmin = i;
+
 	while (i != tousGraphePareto.end())
 	{
 		//std::cout << i->aretes << " : " << i->sommePoids[0] << " " << i->sommePoids[1] << std::endl;
@@ -281,6 +272,64 @@ bool compGraphesPareto(graphePareto g1, graphePareto g2)
 	
 	return false;
 }
+
+
+std::vector<float> Graphe::sommePoidsCoutMin(std::bitset<nombreMaxAretes> ssg)
+{
+	const int nbPoids = m_aretes[0]->getNombrePoids();
+
+	std::vector<float> sommePoids;
+	sommePoids.resize(nbPoids);
+
+	for (int i = 0; i < getNombreAretes(); i++)
+	{
+		if (ssg[i])
+		{
+			for (int j = 0; j < nbPoids; j++)
+				sommePoids[j] += m_aretes[i]->getPoids(j);
+		}
+
+	}
+
+	return sommePoids;
+}
+
+
+std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
+{
+	const int nbPoids = m_aretes[0]->getNombrePoids();
+
+	std::vector<float> sommePoids;
+	sommePoids.resize(nbPoids);
+	
+	for (int j = 0; j < nbPoids; j++)
+	{
+		if (!m_typeTriPareto[j])
+		{
+			for (int i = 0; i < getNombreAretes(); i++)
+			{
+				if (ssg[i])
+				{
+					sommePoids[j] += m_aretes[i]->getPoids(j);
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < getNombreSommets(); i++)
+			{
+				std::vector<const Arete*> grapheDijkstra = m_sommets[i]->Dijkstra(getNombreSommets(), j, ssg);
+				
+				for (auto a : grapheDijkstra)
+					sommePoids[j] += a->getPoids(j);
+			}
+		}
+		
+	}
+
+	return sommePoids;
+}
+
 
 
 ALLEGRO_BITMAP* Graphe::DessinerGraphe()

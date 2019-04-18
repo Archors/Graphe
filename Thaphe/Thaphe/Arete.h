@@ -16,9 +16,11 @@ private:
 
 public:
 	Arete(int id, Sommet* s1, Sommet* s2, std::vector<float> poids, bool oriente);
+
 	void Dessiner(ALLEGRO_BITMAP*);
+
 	std::pair <Sommet*, Sommet*> getSommets();
-	const float getPoids(int indice);
+	const float getPoids(int indice) const;
 	const int getNombrePoids();
 	const int getId() const;
 	

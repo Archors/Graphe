@@ -5,6 +5,7 @@ Arete::Arete(int id, Sommet* s1, Sommet* s2, std::vector<float> poids, bool orie
 	m_sommets = std::make_pair(s1, s2);
 }
 
+
 void Arete::Dessiner(ALLEGRO_BITMAP* bmp)
 {
 	al_set_target_bitmap(bmp);
@@ -32,7 +33,7 @@ std::pair<Sommet*, Sommet*> Arete::getSommets()
 	return m_sommets;
 }
 
-const float Arete::getPoids(int indice)
+const float Arete::getPoids(int indice) const
 {
 	return m_poids[indice];
 }
