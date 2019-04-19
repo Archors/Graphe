@@ -71,7 +71,7 @@ Graphe::Graphe(MenuDonnees choix)
 		for (int j=0; j<nbPoids; ++j)
 		{
 			ifs2 >> poids; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
-			vectPoids.push_back(-poids);
+			vectPoids.push_back(poids);
 			//std::cout << poids << " ";
 		}
 		std::cout << "\n";
