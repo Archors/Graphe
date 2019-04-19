@@ -8,8 +8,6 @@
 #define KEY_RELEASED 2
 //Structure de toutes les varaibles utilisés dans le menu
 
-const int width = 1800;
-const int height = 1000;
 //int NombreMaxPoids = 3;
 
 struct MenuDonnees
