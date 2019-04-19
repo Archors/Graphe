@@ -15,11 +15,12 @@ struct MenuDonnees
 {
 	std::string graphe;
 	std::string poid;
+	std::string quelPoid;
 	bool oriente;
 	int ordreTriPoid; // 1=choix individuel 2=croissant 3=decroissant
 	int algoChoix; //1=dijkstra 2=Prim 3=Pareto
-	int depart;
-	int arrivee;
+	std::string depart;
+	std::string arrivee;
 	bool cycle;
 };
 
