@@ -39,8 +39,8 @@ class Graphe
 
 struct graphePareto
 {
-	std::bitset<nombreMaxAretes> aretes;
 	std::vector<float> sommePoids;
+	std::bitset<nombreMaxAretes> aretes;
 };
 
 bool compGraphesPareto(graphePareto, graphePareto);

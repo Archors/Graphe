@@ -184,11 +184,7 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra()
 
 std::vector<std::bitset<nombreMaxAretes>> Graphe::TriPareto()
 {
-	bool avecCycle = false;
-	if (m_typeTriPareto.count() > 0)
-		avecCycle = true;
-
-	std::vector<std::bitset<nombreMaxAretes>> tousSsG = DeterminerSousGraphe(avecCycle);
+	std::vector<std::bitset<nombreMaxAretes>> tousSsG = DeterminerSousGraphe((m_typeTriPareto.count() > 0));
 	std::list<graphePareto> tousGraphePareto;
 
 	const int nbPoids = m_aretes[0]->getNombrePoids();
@@ -201,7 +197,7 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::TriPareto()
 		else
 			sommePoids = sommePoidsCoutDist(ssg);
 
-		tousGraphePareto.push_back(graphePareto{ ssg, sommePoids });
+		tousGraphePareto.push_back(graphePareto{ sommePoids, ssg });
 	}
 
 	tousGraphePareto.sort(compGraphesPareto);
