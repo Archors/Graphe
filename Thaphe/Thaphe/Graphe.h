@@ -4,6 +4,8 @@
 #include "libraries.h"
 #include "Sommet.h"
 
+struct MenuDonnees;
+
 struct graphePareto
 {
 	std::vector<float> sommePoids;
@@ -16,18 +18,19 @@ class Graphe
 		std::vector<Sommet*> m_sommets;
 		std::vector<Arete*> m_aretes;
 		std::list<graphePareto> m_souGraphePareto;
+		bool m_avecCycles;
 		
 	public:
 		std::bitset<nombreMaxPoids> m_typeTriPareto;
 
 	public:
-		Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMaxPoids> typeTriPareto = std::bitset<nombreMaxPoids>(0) ); //Nom du fichier sans le .txt
+		Graphe(MenuDonnees); //Nom du fichier sans le .txt
 
 		std::bitset<nombreMaxAretes> Prim();
 		std::bitset<nombreMaxAretes> Dijkstra();
 		std::list<graphePareto> TriPareto();
 
-		std::vector<std::bitset<nombreMaxAretes>> DeterminerSousGraphe(bool avecCycles);
+		std::vector<std::bitset<nombreMaxAretes>> DeterminerSousGraphe();
 		bool isConnexe(std::bitset<nombreMaxAretes>);
 		std::vector<float> sommePoidsCoutMin(std::bitset<nombreMaxAretes>);
 		std::vector<float> sommePoidsCoutDist(std::bitset<nombreMaxAretes>);
@@ -39,6 +42,8 @@ class Graphe
 		const int getNombreSommets();
 		const int getNombreAretes();
 		const int getNombreSousGraphe();
+
+		void free();
 		~Graphe();
 };
 

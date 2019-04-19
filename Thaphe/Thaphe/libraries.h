@@ -12,6 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <queue>
+#include <map>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>

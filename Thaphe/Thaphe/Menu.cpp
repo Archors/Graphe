@@ -14,11 +14,9 @@ ALLEGRO_KEYBOARD_STATE keyboard;
 ALLEGRO_FONT* font8;
 ALLEGRO_MOUSE_STATE mouse;
 
-int NombreMaxPoids = 3;
-
 void textbox(int coordinate_x, int coordinate_y, int number_signs, int coordinate_command_prompt, int number_text_box);
 
-void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
+void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 {
 	ALLEGRO_BITMAP* imagepresentation;
 	ALLEGRO_BITMAP* imagechoix;
@@ -34,10 +32,7 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 	menudonnees.oriente = false;
 	menudonnees.cycle = false;
 	menudonnees.algoChoix = 0;
-	for (int i = 0; i < NombreMaxPoids ; i++)
-	{
-		menudonnees.poids.push_back(false);
-	}
+
 	if (!al_init_image_addon())
 	{
 		cout<<"couldn't initialize image addon\n";
@@ -434,8 +429,8 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 				vline(((1 * disp_data.width / 5 + 100) + (1 * disp_data.width / 5 + 130)) / 2, (hauteur1 + hauteur1 + 30) / 2 + 5, colorcase);
 
 			//Choix optimisation bi objectif
-			int i = 0;
-			for (auto poidActuel : menudonnees.poids)
+			
+			for (int i = 0; i <nombreMaxPoids; i++)
 			{
 				int affichage = i + 1;
 				al_draw_textf(font8, al_map_rgb(100, 0, 0), largeur+i*150, hauteur3, ALLEGRO_ALIGN_CENTRE, "poids : %d",affichage);
@@ -445,15 +440,14 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 				{
 					if (event.mouse.x >= largeur + i * 150 + 60 && event.mouse.x < largeur + i * 150 + 90 && event.mouse.y >= hauteur3 && event.mouse.y < hauteur3 + 30)
 					{
-						if (!poidActuel)
-							poidActuel = true;
+						if (!menudonnees.poids[i])
+							menudonnees.poids[i] = true;
 						else
-							poidActuel = false;
+							menudonnees.poids[i] = false;
 					}
 				}
-				if (poidActuel)
+				if (menudonnees.poids[i])
 					vline(((largeur + i * 150 + 60) + (largeur + i * 150 + 90)) / 2, (hauteur3 + hauteur3 + 30) / 2 + 5, colorcase);
-				i++;
 			}
 
 			//Finir d'édieter les parametres
@@ -581,4 +575,39 @@ void vline(int x1, int y1,ALLEGRO_COLOR couleur)
 {
 	al_draw_line(x1, y1, x1 - 19, y1 - 19, couleur, 2);
 	al_draw_line(x1, y1, x1 + 24, y1 - 24, couleur, 2);
+}
+
+
+
+void chargerChoixMenu(MenuDonnees& choix)
+{
+	std::ifstream ifs{ "choix.txt" };
+
+	if (!ifs)
+		throw std::runtime_error("Impossible d'ouvrir le fichier contenant les choix menu");
+
+	ifs >> choix.graphe; if (ifs.fail()) throw std::runtime_error("Probleme lecture graphe");
+	ifs >> choix.poid; if (ifs.fail()) throw std::runtime_error("Probleme lecture weights");
+	ifs >> choix.oriente; if (ifs.fail()) throw std::runtime_error("Probleme lecture orientation");
+	ifs >> choix.algoChoix; if (ifs.fail()) throw std::runtime_error("Probleme lecture choix algo");
+
+	switch (choix.algoChoix)
+	{
+	case 1: //Dijkstra
+		ifs >> choix.quelPoid; if (ifs.fail()) throw std::runtime_error("Probleme lecture poids de travail");
+		ifs >> choix.depart; if (ifs.fail()) throw std::runtime_error("Probleme lecture id depart");
+		ifs >> choix.arrivee; if (ifs.fail()) throw std::runtime_error("Probleme lecture id arrivee");
+		break;
+	case 2: //Prim
+		ifs >> choix.quelPoid; if (ifs.fail()) throw std::runtime_error("Probleme lecture poids de travail");
+		ifs >> choix.depart; if (ifs.fail()) throw std::runtime_error("Probleme lecture id depart");
+		break;
+	case 3: //Pareto
+		ifs >> choix.cycle; if (ifs.fail()) throw std::runtime_error("Probleme lecture choix avec ou sans cycle");
+		ifs >> choix.poids; if (ifs.fail()) throw std::runtime_error("Probleme lecture poids a opti avec dijkstra pareto");
+		break;
+	default:
+		throw std::runtime_error("Algo choisi inconnu");
+	}
+	
 }

@@ -1,14 +1,10 @@
 #include "libraries.h"
-#include <allegro5/allegro5.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_image.h>
 
 #define KEY_SEEN     1
 #define KEY_RELEASED 2
 //Structure de toutes les varaibles utilisés dans le menu
 
-//int NombreMaxPoids = 3;
+//int nombreMaxPoids = 3;
 
 struct MenuDonnees
 {
@@ -21,8 +17,10 @@ struct MenuDonnees
 	std::string depart;
 	std::string arrivee;
 	bool cycle;
-	std::vector<bool> poids;
+	std::bitset<nombreMaxPoids> poids;
 };
 
-void leMenu(MenuDonnees menudonnees, ALLEGRO_DISPLAY * display);
+void leMenu(MenuDonnees &menudonnees, ALLEGRO_DISPLAY * display);
 void vline(int x1, int y1, ALLEGRO_COLOR couleur);
+
+void chargerChoixMenu(MenuDonnees& choix);

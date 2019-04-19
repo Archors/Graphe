@@ -5,6 +5,7 @@
 int main(int argc, char** argv) 
 {
 	bool showGraphs = true;
+	bool menu = false;
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -21,10 +22,6 @@ int main(int argc, char** argv)
 		throw std::runtime_error("Probleme init ttf addon");
 	if (!al_init_image_addon())
 		throw std::runtime_error("Probleme init image addon");
-
-	double start = al_get_time();
-
-	Graphe gr("manhattan", false, std::bitset<nombreMaxPoids>(0));
 
 	al_get_display_mode(al_get_num_display_modes() - 1, &disp_data);
 
@@ -52,15 +49,26 @@ int main(int argc, char** argv)
 
 	ALLEGRO_FONT* font;
 	font = al_load_font("simple_font.ttf", 30, 0);
-	//MenuDonnees choix;
-	//leMenu(choix, display);
+
+	MenuDonnees choix;
+	if (menu)
+		leMenu(choix, display);
+	else
+	{
+		chargerChoixMenu(choix);
+	}
+
+	double start = al_get_time();
+
+	Graphe gr(choix);
+
 
 	//TOUS LES SOUS GRAPHES CONNEXES AVEC OU SANS CYCLES
 	if (false)
 	{
 		
 		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
-		tousLesSousGraphes = gr.DeterminerSousGraphe(false);
+		tousLesSousGraphes = gr.DeterminerSousGraphe();
 
 		for (auto ssg : tousLesSousGraphes)
 		{
@@ -104,12 +112,11 @@ int main(int argc, char** argv)
 	if (true)
 	{
 		//double start = al_get_time();
-
 		std::list<graphePareto>  tousLesSousGraphes{ gr.TriPareto() };
 
 		int width = (double)((double)sqrt( (double)((disp_data.height * disp_data.width) / ((int)tousLesSousGraphes.size())) / (double)((double)disp_data.width / (double)disp_data.height) ));
 		
-		std::cout << width << "  " << (double)((double)disp_data.width / (double)disp_data.height) << std::endl;
+		//std::cout << width << "  " << (double)((double)disp_data.width / (double)disp_data.height) << std::endl;
 		int i = 0, x, y, divx = (disp_data.width / width);
 		if (divx > (int)tousLesSousGraphes.size())
 			divx = (int)tousLesSousGraphes.size();

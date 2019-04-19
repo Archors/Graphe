@@ -222,6 +222,56 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 	}
 }
 
+float Sommet::Dijtances(std::bitset<nombreMaxAretes> ssg, int indicePoids, int nbSommets)
+{
+	std::list<std::pair<const Sommet*, float>> file;
+	std::vector<float> dist;
+	dist.resize(nbSommets, 30000000000000000000000000000000000000.0);//Taille max float = 3.10^38 ~ infini
+	int length = 0;
+	std::vector<bool> sommets;
+	sommets.resize(nbSommets);
+
+	file.push_back(std::make_pair( this, 0 ));
+	dist[m_id] = 0;
+	sommets[m_id] = true;
+
+	for (int i = 0; i < nbSommets; i++)
+	{
+		for (auto s : file.front().first->m_voisins)
+		{
+			if (ssg[s.second->getId()] && !sommets[s.first->m_id])
+			{
+				if (dist[s.first->m_id] > file.front().second + s.second->getPoids(indicePoids))
+				{
+					file.push_back( std::make_pair(s.first, file.begin()->second + s.second->getPoids(indicePoids)) );
+					dist[s.first->m_id] = file.front().second + s.second->getPoids(indicePoids);
+				}
+					
+			}
+		}
+		sommets[file.begin()->first->m_id] = true;
+		length += file.begin()->second;
+		file.pop_front();
+		if (file.empty())
+			break;
+		file.sort(compDistDij);
+		while (sommets[file.begin()->first->m_id])
+		{
+			file.pop_front();
+			if (file.empty())
+				break;
+		}
+	}
+
+	return length;
+
+}
+
+bool compDistDij(std::pair<const Sommet*, float> s1, std::pair<const Sommet*, float> s2)
+{
+	return (s1.second < s2.second);
+}
+
 const Coords Sommet::getCoords() const
 {
 	return m_coords;

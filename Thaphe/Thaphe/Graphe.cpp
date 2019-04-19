@@ -1,16 +1,15 @@
 #include "Graphe.h"
+#include "Menu.h"
 
 //Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
-Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMaxPoids> typeTriPareto)
-	: m_typeTriPareto{ typeTriPareto }
+Graphe::Graphe(MenuDonnees choix)
 {
-	std::ifstream ifs{ nomFichier+".txt" };
-
+	std::ifstream ifs{ choix.graphe+".txt" };
 
 	if (!ifs)
-		throw std::runtime_error("Impossible d'ouvrir en lecture " + nomFichier);
+		throw std::runtime_error("Impossible d'ouvrir en lecture " + choix.graphe);
 
-	std::ifstream ifs2{ nomFichier + "_weights_0.txt" };
+	std::ifstream ifs2{ choix.graphe + "_weights_" + choix.poid + ".txt" };
 	if (ifs2.fail())
 		throw std::runtime_error("Probleme lecture taille du graphe");
 
@@ -72,14 +71,14 @@ Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMa
 		for (int j=0; j<nbPoids; ++j)
 		{
 			ifs2 >> poids; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
-			vectPoids.push_back(poids);
+			vectPoids.push_back(-poids);
 			//std::cout << poids << " ";
 		}
 		std::cout << "\n";
 
-		m_aretes.push_back( new Arete{ id_ar, m_sommets[id], m_sommets[id_voisin], vectPoids, oriented } );
+		m_aretes.push_back( new Arete{ id_ar, m_sommets[id], m_sommets[id_voisin], vectPoids, choix.oriente } );
 
-		if (!oriented)
+		if (!choix.oriente)
 		{
 			//std::cout << id << " <--> " << id_voisin << std::endl;
 			m_sommets[id]->AjouterVoisin( m_sommets[id_voisin], m_aretes[id_ar] );
@@ -90,11 +89,14 @@ Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMa
 		
 	}
 
+	m_typeTriPareto = choix.poids;
+	m_avecCycles = choix.cycle;
+
 	ifs.close();
 	ifs2.close();
 }
 
-std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe(bool avecCycles)
+std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 {
 	std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
 	double start = al_get_time();
@@ -112,7 +114,7 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe(bool avec
 
 		int nbar = (int)(ssg = std::bitset<nombreMaxAretes>(++i)).count();
 
-		if ((nbar >= minAretes && avecCycles) || (nbar == minAretes && !avecCycles))
+		if ((nbar >= minAretes && m_avecCycles) || (nbar == minAretes && !m_avecCycles))
 		{
 			if (isConnexe(ssg))
 				tousLesSousGraphes.push_back(ssg);
@@ -173,7 +175,7 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra()
 
 std::list<graphePareto> Graphe::TriPareto()
 {
-	std::vector<std::bitset<nombreMaxAretes>> tousSsG = DeterminerSousGraphe((m_typeTriPareto.count() > 0));
+	std::vector<std::bitset<nombreMaxAretes>> tousSsG = DeterminerSousGraphe();
 
 	const int nbPoids = m_aretes[0]->getNombrePoids();
 	//std::cout << "Nombre de poids : " << nbPoids << "\n";
@@ -220,27 +222,27 @@ std::list<graphePareto> Graphe::TriPareto()
 
 			if (i->sommePoids[k] < min[k]) //On a trouvé un poids minimal (c'est le graphe qui a le plus petit poids k, c'est donc un optima de Pareto
 			{
-				
+				int km = k - 1;
 				min[k] = i->sommePoids[k];
 				supp = false;
-				if (lastmin[k - 1]->sommePoids[0] == i->sommePoids[0]) //Si on a trouvé un minimal et que le premier poids est le même que le précedent graphe avec ce poids minimal il faut effacer l'ancien graphe
+				if (lastmin[km]->sommePoids[0] == i->sommePoids[0]) //Si on a trouvé un minimal et que le premier poids est le même que le précedent graphe avec ce poids minimal il faut effacer l'ancien graphe
 				{
 					if (nbPoids > 2) //Pour passer tout ça comme c'est impossible d'avoir un double si il n'y a qu'une valeur dans le vector
 					{
 						int multipleMin = 0;
 						for (auto m : lastmin) //On check si le graphe avec ce poids minimal n'a pas un autre poids minimal
 						{
-							if (m == lastmin[k - 1])
+							if (m == lastmin[km])
 								multipleMin++;
 						}
 						if (multipleMin < 1) //Si c'est son seul poids minimal on peut l'effacer
-							m_souGraphePareto.erase(lastmin[k - 1]);
+							m_souGraphePareto.erase(lastmin[km]);
 					}
 					else
 						m_souGraphePareto.erase(lastmin[0]);
 				}
 					
-				lastmin[k - 1] = i; //Le graphe détenteur du poids minimal k est le graphe actuel (i pointe sur lui)
+				lastmin[km] = i; //Le graphe détenteur du poids minimal k est le graphe actuel (i pointe sur lui)
 			}
 		}
 
@@ -322,7 +324,7 @@ std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
 		{
 			for (int i = 0; i < getNombreSommets(); i++)
 			{
-				sommePoids[j] += m_sommets[i]->Dijkstra(getNombreSommets(), j, ssg).second;
+				sommePoids[j] += m_sommets[i]->Dijtances(ssg, j, getNombreSommets());
 			}
 		}
 		
@@ -418,11 +420,33 @@ const int Graphe::getNombreSousGraphe()
 }
 
 
+void Graphe::free()
+{
+	std::vector<Sommet*> freeS;
+
+	for (auto s : m_sommets)
+		delete s;
+	m_sommets.swap(freeS);
+	m_sommets.clear();
+	freeS.clear();
+
+	std::vector<Arete*> freeA;
+
+	for (auto a : m_aretes)
+		delete a;
+	m_aretes.swap(freeA);
+
+	m_aretes.clear();
+	freeA.clear();
+
+	std::list<graphePareto> freeG;
+	m_souGraphePareto.swap(freeG);
+
+	m_souGraphePareto.clear();
+	freeA.clear();
+}
+
+
 Graphe::~Graphe()
 {
 }
-/*
-00000000110111011010001011101101
-00000000110111011010101011001101
-00000000010111011010101011101101
-*/

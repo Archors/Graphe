@@ -23,10 +23,12 @@ public:
 	const Coords getCoords() const;
 	const int getId() const;
 	std::pair<std::vector<const Arete*>, float> Dijkstra(int nombreSommets, int indicePoids, std::bitset<nombreMaxAretes> grapheDeTravail = std::bitset<nombreMaxAretes>( (pow(2,nombreMaxAretes)-1) ), const Sommet* arrivee=nullptr ) const;
+	float Dijtances(std::bitset<nombreMaxAretes> ssg, int indicePoidsn, int nbSommets);
 
 	virtual ~Sommet();
 };
 
 std::string inttostring(int a);
+bool compDistDij(std::pair<const Sommet*, float> s1, std::pair<const Sommet*, float> s2);
 
 #endif // SOMMET_H_INCLUDED
