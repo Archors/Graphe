@@ -232,12 +232,12 @@ const int Sommet::getId() const
 	return m_id;
 }
 
-std::vector<const Arete*> Sommet::BFS(int nbSommets, std::string ssg)
+int Sommet::BFSnbAretes(int nbSommets, std::bitset<nombreMaxAretes> ssg)
 {
 	std::vector<int> discovered;
 	discovered.resize(nbSommets);
 	std::queue<const Sommet*> file;
-	std::vector<const Arete*> path;
+	int nbAr = 0;
 
 	discovered[0] = 1;
 	file.push(this);
@@ -247,17 +247,17 @@ std::vector<const Arete*> Sommet::BFS(int nbSommets, std::string ssg)
 
 		for (auto s : file.front()->m_voisins)
 		{
-			if (!discovered[s.first->m_id] && ssg[s.second->getId()] == '1')
+			if (!discovered[s.first->m_id] && ssg[s.second->getId()])
 			{
 				file.push(s.first);
 				discovered[s.first->m_id] = 1;
-				path.push_back(s.second);
+				nbAr++;
 			}
 		}
 		file.pop();
 	}
 
-	return path;
+	return nbAr;
 }
 int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<nombreMaxAretes> ssg)
 {
