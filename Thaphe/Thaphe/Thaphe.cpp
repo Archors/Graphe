@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Graphe.h"
+#include "Menu.h"
 
 int main(int argc, char** argv) 
 {
@@ -25,7 +26,6 @@ int main(int argc, char** argv)
 
 	Graphe gr("manhattan", false, std::bitset<nombreMaxPoids>(0));
 
-
 	al_get_display_mode(al_get_num_display_modes() - 1, &disp_data);
 
 	al_set_new_display_flags(ALLEGRO_FULLSCREEN);
@@ -48,11 +48,12 @@ int main(int argc, char** argv)
 	if (!al_install_mouse())
 		throw std::runtime_error("Impossible d'utiliser la souris");
 
-
 	al_clear_to_color(al_map_rgb(133, 50, 50));
 
 	ALLEGRO_FONT* font;
 	font = al_load_font("simple_font.ttf", 30, 0);
+	//MenuDonnees choix;
+	//leMenu(choix, display);
 
 	//TOUS LES SOUS GRAPHES CONNEXES AVEC OU SANS CYCLES
 	if (false)
