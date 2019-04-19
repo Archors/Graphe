@@ -14,6 +14,8 @@ ALLEGRO_KEYBOARD_STATE keyboard;
 ALLEGRO_FONT* font8;
 ALLEGRO_MOUSE_STATE mouse;
 
+int NombreMaxPoids = 3;
+
 void textbox(int coordinate_x, int coordinate_y, int number_signs, int coordinate_command_prompt, int number_text_box);
 
 void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
@@ -25,9 +27,15 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 	bool pres = true;
 	bool choix = false;
 	bool choixcase = false;
-	bool optionsAlgo=false;
+	bool primDijkstra=false;
+	bool pareto = false;
 	menudonnees.oriente = false;
 	menudonnees.cycle = false;
+	menudonnees.algoChoix = 0;
+	for (int i = 0; i < NombreMaxPoids ; i++)
+	{
+		menudonnees.poids.push_back(false);
+	}
 	if (!al_init_image_addon())
 	{
 		cout<<"couldn't initialize image addon\n";
@@ -144,7 +152,7 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 
 			al_draw_text(fontMatrix, al_map_rgb(100, 0, 0), width / 2, height / 8, ALLEGRO_ALIGN_CENTRE, "OPTIONS");
 			al_draw_text(font8, al_map_rgb(100, 0, 0), width/6, height / 3, ALLEGRO_ALIGN_CENTRE, "GRAPHE :");
-			al_draw_text(font8, al_map_rgb(100, 0, 0), width/6, height / 2, ALLEGRO_ALIGN_CENTRE, "POID :");
+			al_draw_text(font8, al_map_rgb(100, 0, 0), width/6, height / 2, ALLEGRO_ALIGN_CENTRE, "POIDS :");
 			//Creation des endroits pour écrire
 			textbox(width/4, height/3, 15, 25, 0);
 			textbox(width/4, height/2, 15, 25, 1);
@@ -158,7 +166,7 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 			{
 				al_draw_rounded_rectangle(5 * width / 8, 7 * height / 8 - 50, 7 * width / 8 + 20, 7 * height / 8 + 50, 50, 50, al_map_rgb(255, 0, 0), 10);
 				al_draw_text(font8, al_map_rgb(255, 0, 0), ((5 * width / 8)+ (7 * width / 8 + 20))/2,((7 * height / 8 - 50)+(7 * height / 8 + 50))/2-10, ALLEGRO_ALIGN_CENTRE, "SUITE ->");
-				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && menudonnees.graphe.empty() != true && menudonnees.poid.empty()!= true)
 				{
 					choix = false;
 					choixcase = true;
@@ -200,7 +208,7 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 			if (menudonnees.oriente)
 				vline(((1 * width / 5 + 100) + (1 * width / 5 + 130)) / 2, (hauteurOriente + hauteurOriente + 30) / 2 + 5, colorcase);
 
-			//Choix de l'ordre de tri des poid
+			//Choix de l'ordre de tri des poids
 			al_draw_text(font8, al_map_rgb(100, 0, 0), 1 * width / 7, hauteurTRI, ALLEGRO_ALIGN_LEFT, "ORDRE DE TRI :");
 
 			al_draw_text(font8, al_map_rgb(100, 0, 0), 2 * width / 7, hauteurTRI, ALLEGRO_ALIGN_LEFT, "choix individuel");
@@ -291,10 +299,16 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 			{
 				al_draw_rounded_rectangle(5 * width / 8, 7 * height / 8 - 50, 7 * width / 8 + 20, 7 * height / 8 + 50, 50, 50, al_map_rgb(255, 0, 0), 10);
 				al_draw_text(font8, al_map_rgb(255, 0, 0), ((5 * width / 8) + (7 * width / 8 + 20)) / 2, ((7 * height / 8 - 50) + (7 * height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "SUITE ->");
-				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+				if (menudonnees.algoChoix != 0)
 				{
-					choixcase = false;
-					optionsAlgo = true;
+					if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && menudonnees.ordreTriPoid != 0 && menudonnees.algoChoix != 0)
+					{
+						choixcase = false;
+						if (menudonnees.algoChoix == 1 || menudonnees.algoChoix == 2)
+							primDijkstra = true;
+						else if (menudonnees.algoChoix == 3)
+							pareto = true;
+					}
 				}
 			}
 			else
@@ -322,7 +336,8 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 		}
 
 		//3eme page des options
-		if (optionsAlgo)
+		//Si PrimoOu Dijkstra est selectionné
+		if (primDijkstra)
 		{
 			int hauteurArrivee = height / 4 + 160;
 			int hauteurDepart = hauteurArrivee + 80;
@@ -335,16 +350,12 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 			al_get_mouse_state(&mouse);
 			al_get_keyboard_state(&keyboard);
 			al_draw_text(fontMatrix, al_map_rgb(100, 0, 0), width / 2, height / 8, ALLEGRO_ALIGN_CENTRE, "OPTIONS");
-
-			//Si Prim Ou Dijkstra est selectionnée
-			if (menudonnees.algoChoix == 1 || menudonnees.algoChoix == 2) 
-			{
 				al_draw_text(font8, al_map_rgb(100, 0, 0), width / 6, hauteurDepart, ALLEGRO_ALIGN_CENTRE, "DEPART :");
 
 				//Si Dijkstra est selectionnée
 				if (menudonnees.algoChoix == 1)
 					al_draw_text(font8, al_map_rgb(100, 0, 0), width / 6, hauteurArrivee, ALLEGRO_ALIGN_CENTRE, "ARRIVEE :");
-				al_draw_text(font8, al_map_rgb(100, 0, 0), width / 6, hauteurordre, ALLEGRO_ALIGN_CENTRE, "QUEL POID :");
+				al_draw_text(font8, al_map_rgb(100, 0, 0), width / 6, hauteurordre, ALLEGRO_ALIGN_CENTRE, "QUELS POIDS :");
 				//Creation des endroits pour écrire
 				textbox(width / 4, hauteurDepart, 5, 25, 2);
 				if (menudonnees.algoChoix == 1)
@@ -354,31 +365,6 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 				menudonnees.depart = text_boxes[2].c_str();
 				menudonnees.arrivee = text_boxes[3].c_str();
 				menudonnees.quelPoid = text_boxes[4].c_str();
-			}
-			//Si Pareto est selectionnée
-			else
-			{
-				//Choix si il y a un cycle ou non
-				al_draw_text(font8, al_map_rgb(100, 0, 0), width / 6, hauteurDepart, ALLEGRO_ALIGN_CENTRE, "CYCLE");
-				al_draw_rectangle(1 * width / 5 + 100, hauteurDepart, 1 * width / 5 + 130, hauteurDepart + 30, colorcase, 2);
-				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
-				{
-					if (event.mouse.x >= 1 * width / 5 + 100 && event.mouse.x < 1 * width / 5 + 130 && event.mouse.y >= hauteurDepart && event.mouse.y < hauteurDepart + 30)
-					{
-						if (!menudonnees.cycle)
-							menudonnees.cycle = true;
-						else
-							menudonnees.cycle = false;
-					}
-				}
-				if (menudonnees.cycle)
-					vline(((1 * width / 5 + 100) + (1 * width / 5 + 130)) / 2, (hauteurDepart + hauteurDepart + 30) / 2 + 5, colorcase);
-
-				//Choix optimisation bi objectif
-				//
-				//
-			}
-
 			ALLEGRO_EVENT event;
 			al_wait_for_event(queue, &event);
 
@@ -389,7 +375,7 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 				{
 					boucle=false;
-					optionsAlgo = false;
+					primDijkstra = false;
 				}
 			}
 			else
@@ -405,8 +391,94 @@ void leMenu(MenuDonnees menudonnees,ALLEGRO_DISPLAY* display)
 				al_draw_text(font8, al_map_rgb(255, 0, 0), ((3 * width / 8) + (1 * width / 8 - 20)) / 2, ((7 * height / 8 - 50) + (7 * height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "<-- PRECEDENT");
 				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 				{
-					optionsAlgo = false;
+					primDijkstra = false;
 					choixcase = true;
+				}
+			}
+			else
+			{
+				al_draw_rounded_rectangle(1 * width / 8 - 20, 7 * height / 8 - 50, 3 * width / 8, 7 * height / 8 + 50, 50, 50, al_map_rgb(0, 255, 0), 10);
+				al_draw_text(font8, al_map_rgb(0, 255, 0), ((3 * width / 8) + (1 * width / 8 - 20)) / 2, ((7 * height / 8 - 50) + (7 * height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "<-- PRECEDENT");
+			}
+		}
+
+		//3eme pas des options BIS
+		//Si pareto est selectionné
+		if (pareto)
+		{
+			ALLEGRO_EVENT event;
+			al_wait_for_event(queue, &event);
+			al_draw_bitmap(imagechoix, 0, 0, 0);
+			al_draw_text(fontMatrix, al_map_rgb(100, 0, 0), width / 2, height / 8, ALLEGRO_ALIGN_CENTRE, "OPTIONS");
+			int hauteur2 = height / 4 + 160;
+			int hauteur3 = hauteur2 + 80;
+			int hauteur1 = hauteur2 - 80;
+			int largeur = width / 6;
+			//Choix si il y a un cycle ou non
+			al_draw_text(font8, al_map_rgb(100, 0, 0), width / 6, hauteur1, ALLEGRO_ALIGN_CENTRE, "CYCLE :");
+			al_draw_rectangle(1 * width / 5 + 100, hauteur1, 1 * width / 5 + 130, hauteur1 + 30, colorcase, 2);
+			if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+			{
+				if (event.mouse.x >= 1 * width / 5 + 100 && event.mouse.x < 1 * width / 5 + 130 && event.mouse.y >= hauteur1 && event.mouse.y < hauteur1 + 30)
+				{
+					if (!menudonnees.cycle)
+						menudonnees.cycle = true;
+					else
+						menudonnees.cycle = false;
+				}
+			}
+			if (menudonnees.cycle)
+				vline(((1 * width / 5 + 100) + (1 * width / 5 + 130)) / 2, (hauteur1 + hauteur1 + 30) / 2 + 5, colorcase);
+
+			//Choix optimisation bi objectif
+			int i = 0;
+			for (auto poidActuel : menudonnees.poids)
+			{
+				int affichage = i + 1;
+				al_draw_textf(font8, al_map_rgb(100, 0, 0), largeur+i*150, hauteur3, ALLEGRO_ALIGN_CENTRE, "poids : %d",affichage);
+				al_draw_rectangle(largeur + i * 150+60, hauteur3, largeur + i * 150+90, hauteur3+30, colorcase, 2);
+
+				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+				{
+					if (event.mouse.x >= largeur + i * 150 + 60 && event.mouse.x < largeur + i * 150 + 90 && event.mouse.y >= hauteur3 && event.mouse.y < hauteur3 + 30)
+					{
+						if (!poidActuel)
+							poidActuel = true;
+						else
+							poidActuel = false;
+					}
+				}
+				if (poidActuel)
+					vline(((largeur + i * 150 + 60) + (largeur + i * 150 + 90)) / 2, (hauteur3 + hauteur3 + 30) / 2 + 5, colorcase);
+				i++;
+			}
+
+			//Finir d'édieter les parametres
+			if (event.mouse.x >= 5 * width / 8 && event.mouse.x < 7 * width / 8 + 20 && event.mouse.y >= 7 * height / 8 - 50 && event.mouse.y < 7 * height / 8 + 50)
+			{
+				al_draw_rounded_rectangle(5 * width / 8, 7 * height / 8 - 50, 7 * width / 8 + 20, 7 * height / 8 + 50, 50, 50, al_map_rgb(255, 0, 0), 10);
+				al_draw_text(font8, al_map_rgb(255, 0, 0), ((5 * width / 8) + (7 * width / 8 + 20)) / 2, ((7 * height / 8 - 50) + (7 * height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "FIN");
+				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+				{
+					boucle = false;
+					pareto = false;
+				}
+			}
+			else
+			{
+				al_draw_rounded_rectangle(5 * width / 8, 7 * height / 8 - 50, 7 * width / 8 + 20, 7 * height / 8 + 50, 50, 50, al_map_rgb(0, 255, 0), 10);
+				al_draw_text(font8, al_map_rgb(0, 255, 0), ((5 * width / 8) + (7 * width / 8 + 20)) / 2, ((7 * height / 8 - 50) + (7 * height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "FIN");
+			}
+
+			//Revenir au menu precedent
+			if (event.mouse.x >= 1 * width / 8 - 20 && event.mouse.x < 3 * width / 8 && event.mouse.y >= 7 * height / 8 - 50 && event.mouse.y < 7 * height / 8 + 50)
+			{
+				al_draw_rounded_rectangle(1 * width / 8 - 20, 7 * height / 8 - 50, 3 * width / 8, 7 * height / 8 + 50, 50, 50, al_map_rgb(255, 0, 0), 10);
+				al_draw_text(font8, al_map_rgb(255, 0, 0), ((3 * width / 8) + (1 * width / 8 - 20)) / 2, ((7 * height / 8 - 50) + (7 * height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "<-- PRECEDENT");
+				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+				{
+					choixcase = true;
+					pareto = false;
 				}
 			}
 			else

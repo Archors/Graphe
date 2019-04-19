@@ -10,6 +10,7 @@
 
 const int width = 1800;
 const int height = 1000;
+//int NombreMaxPoids = 3;
 
 struct MenuDonnees
 {
@@ -22,6 +23,7 @@ struct MenuDonnees
 	std::string depart;
 	std::string arrivee;
 	bool cycle;
+	std::vector<bool> poids;
 };
 
 void leMenu(MenuDonnees menudonnees, ALLEGRO_DISPLAY * display);
