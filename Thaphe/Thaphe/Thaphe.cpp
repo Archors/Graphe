@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 
 	double start = al_get_time();
 
-	Graphe gr("manhattan", false, std::bitset<nombreMaxPoids>(0));
+	Graphe gr("manhattan", false, std::bitset<nombreMaxPoids>(2));
 
 
 	al_get_display_mode(al_get_num_display_modes() - 1, &disp_data);
@@ -103,8 +103,7 @@ int main(int argc, char** argv)
 	if (true)
 	{
 		double start = al_get_time();
-		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
-		tousLesSousGraphes = gr.TriPareto();
+		std::list<graphePareto>  tousLesSousGraphes{ gr.TriPareto() };
 
 		int width = sqrt((disp_data.height*disp_data.width)/((int)tousLesSousGraphes.size()+1));
 		
@@ -116,18 +115,12 @@ int main(int argc, char** argv)
 		al_clear_to_color(al_map_rgb(133, 50, 50));
 		for (auto ssg : tousLesSousGraphes)
 		{
-			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(ssg);
+			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphePar(ssg);
 			al_set_target_backbuffer(display);
 
 			x = i % (disp_data.width / width) * width + (disp_data.width - (disp_data.width / width) * width) / 2;
 			y = (i / (disp_data.width / width)) * width + (disp_data.height - (((int)tousLesSousGraphes.size()-1) / (disp_data.width / width) +1) * width)/2 + disp_data.height / 200;
 			al_draw_scaled_bitmap(graphe, 0, 0, al_get_bitmap_width(graphe), al_get_bitmap_height(graphe), x, y, width - disp_data.height/100, width - disp_data.height / 100, 0);
-			//std::cout << disp_data.width / width << " / " << disp_data.height / width << " (" << disp_data.height << ")\n";
-			//std::cout << i % (disp_data.width / width)* width << " " << (i / (disp_data.height / width)) * width << std::endl;
-			//al_draw_bitmap(graphe, (i%3)*500, (i/3)*500, 0);
-			//al_draw_text(font, al_map_rgb(0, 0, 0), (i % 3) * 500, (i / 3) * 500+20, 0, ssg.to_string().c_str());
-			//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
-			//std::cout << ssg << std::endl;
 
 			al_destroy_bitmap(graphe);
 			i++;

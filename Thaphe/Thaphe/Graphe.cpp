@@ -10,7 +10,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMa
 	if (!ifs)
 		throw std::runtime_error("Impossible d'ouvrir en lecture " + nomFichier);
 
-	std::ifstream ifs2{ nomFichier + "_weights_0.txt" };
+	std::ifstream ifs2{ nomFichier + "_weights_1.txt" };
 	if (ifs2.fail())
 		throw std::runtime_error("Probleme lecture taille du graphe");
 
@@ -73,7 +73,9 @@ Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMa
 		{
 			ifs2 >> poids; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
 			vectPoids.push_back(poids);
+			std::cout << poids << " ";
 		}
+		std::cout << "\n";
 
 		m_aretes.push_back( new Arete{ id_ar, m_sommets[id], m_sommets[id_voisin], vectPoids, oriented } );
 
@@ -100,34 +102,21 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe(bool avec
 	std::cout << "Looking for every graph possible...\n";
 
 	int minAretes = m_sommets[0]->BFSnbAretes( getNombreSommets(), std::bitset<nombreMaxAretes>(pow(2, getNombreAretes()) - 1) );
-	std::cout << "Min ar : " << minAretes << std::endl;
+	//std::cout << "Min ar : " << minAretes << std::endl;
 
 	int imax = pow(2, getNombreAretes());
 	int i = pow(2, minAretes) - 1;
-	while (i<imax)
+	while (i < imax)
 	{
 		std::bitset<nombreMaxAretes> ssg;
-		
-		int nbar = (ssg = std::bitset<nombreMaxAretes>(++i)).count();
-		
-		if ( (nbar >= minAretes && avecCycles) || (nbar == minAretes && !avecCycles) )
+
+		int nbar = (int)(ssg = std::bitset<nombreMaxAretes>(++i)).count();
+
+		if ((nbar >= minAretes && avecCycles) || (nbar == minAretes && !avecCycles))
 		{
-			//std::cout << ssg.count() << std::endl;
 			if (isConnexe(ssg))
-			{
-				//std::cout << ssg << " Found one !\n";
 				tousLesSousGraphes.push_back(ssg);
-			}
 		}
-		
-		/*
-		if ( (int)(((int)100 * i) / (int)(pow(2, getNombreAretes()) - 1)) > pr)
-		{
-			pr = ((int)100 * i) / (int)(pow(2, getNombreAretes()) - 1);
-			std::cout << pr << "%\n";
-		}*/
-			
-		//std::cout << i << " : " << tousLesSousGraphes.back() << std::endl;
 	}
 
 	std::cout << "Done ! (" << al_get_time() - start << " sec)\n";
@@ -182,12 +171,12 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra()
 }
 
 
-std::vector<std::bitset<nombreMaxAretes>> Graphe::TriPareto()
+std::list<graphePareto> Graphe::TriPareto()
 {
 	std::vector<std::bitset<nombreMaxAretes>> tousSsG = DeterminerSousGraphe((m_typeTriPareto.count() > 0));
-	std::list<graphePareto> tousGraphePareto;
 
 	const int nbPoids = m_aretes[0]->getNombrePoids();
+	//std::cout << "Nombre de poids : " << nbPoids << "\n";
 
 	for (auto ssg : tousSsG)
 	{
@@ -197,66 +186,82 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::TriPareto()
 		else
 			sommePoids = sommePoidsCoutDist(ssg);
 
-		tousGraphePareto.push_back(graphePareto{ sommePoids, ssg });
+		m_souGraphePareto.push_back(graphePareto{ sommePoids, ssg });
 	}
 
-	tousGraphePareto.sort(compGraphesPareto);
-	/*for (auto g : tousGraphePareto)
+	m_souGraphePareto.sort(compGraphesPareto);
+	
+	/*for (auto g : m_souGraphePareto)
 	{
 		std::cout << g.aretes;
-		std::cout << " (" << g.sommePoids[0] << "; " << g.sommePoids[1] << ")\n";
+		std::cout << " (" << g.sommePoids[0] << "; " << g.sommePoids[1] << "; " << g.sommePoids[2] << ")\n";
 	}*/
 
 	std::vector<float> min;
-	for (auto f : tousGraphePareto.front().sommePoids)
-		min.push_back(f);
+	for (auto f : m_souGraphePareto.front().sommePoids)
+			min.push_back(f);	
 
-	std::list<graphePareto>::iterator i = tousGraphePareto.begin();
-	std::list<graphePareto>::iterator lastmin = i;
+	std::list<graphePareto>::iterator i = m_souGraphePareto.begin();
+	std::vector<std::list<graphePareto>::iterator> lastmin;
+	for (int m = 1; m<nbPoids; m++)
+		lastmin.push_back(i);
 
-	while (i != tousGraphePareto.end())
+	while (i != m_souGraphePareto.end())
 	{
-		//std::cout << i->aretes << " : " << i->sommePoids[0] << " " << i->sommePoids[1] << std::endl;
+		//std::cout << i->aretes << " : " << i->sommePoids[0] << " " << i->sommePoids[1] << " " << i->sommePoids[2] << std::endl;
 
 		bool supp = true;
-
 		for (int k = 1; k < nbPoids; k++)
 		{
-			//std::cout << i->sommePoids[k] << " - " << min[k] << std::endl;
-			if (i->sommePoids[k] < min[k])
+			//for (int c = 0; c < nombreMaxPoids; c++)
+			//	std::cout << i->sommePoids[c] << " ";
+			//std::cout << "\n" << k << " : " << i->sommePoids[k] << " - " << min[k] << std::endl;
+
+
+			if (i->sommePoids[k] < min[k]) //On a trouvé un poids minimal (c'est le graphe qui a le plus petit poids k, c'est donc un optima de Pareto
 			{
+				
 				min[k] = i->sommePoids[k];
 				supp = false;
-				if (lastmin->sommePoids[0] == i->sommePoids[0])
+				if (lastmin[k - 1]->sommePoids[0] == i->sommePoids[0]) //Si on a trouvé un minimal et que le premier poids est le même que le précedent graphe avec ce poids minimal il faut effacer l'ancien graphe
 				{
-					tousGraphePareto.erase(lastmin);
+					if (nbPoids > 2) //Pour passer tout ça comme c'est impossible d'avoir un double si il n'y a qu'une valeur dans le vector
+					{
+						int multipleMin = 0;
+						for (auto m : lastmin) //On check si le graphe avec ce poids minimal n'a pas un autre poids minimal
+						{
+							if (m == lastmin[k - 1])
+								multipleMin++;
+						}
+						if (multipleMin < 1) //Si c'est son seul poids minimal on peut l'effacer
+							m_souGraphePareto.erase(lastmin[k - 1]);
+					}
+					else
+						m_souGraphePareto.erase(lastmin[0]);
 				}
-				lastmin = i;
+					
+				lastmin[k - 1] = i; //Le graphe détenteur du poids minimal k est le graphe actuel (i pointe sur lui)
 			}
 		}
 
-		if (supp && i != tousGraphePareto.begin()) tousGraphePareto.erase(i++);
-		else 
-		{
-			if (i->sommePoids[0] == tousGraphePareto.begin()->sommePoids[0] && i != tousGraphePareto.begin())
-			{
-				tousGraphePareto.erase(tousGraphePareto.begin());
-				std::cout << "First has been erased from existence \n";
-			}
-				
-			//std::cout << i->aretes << std::endl;
-			++i;
-		}		
+		
+
+		if (supp && i != m_souGraphePareto.begin()) m_souGraphePareto.erase(i++);
+		else ++i;
 	}
 
+	
 	std::cout << "Les optimums de Pareto trouves : \n";
-	for (auto g : tousGraphePareto)
+	for (auto g : m_souGraphePareto)
 	{
-		std::cout << g.aretes << " : " << g.sommePoids[0] << " " << g.sommePoids[1] << std::endl;
-		m_souGraphePareto.push_back(g.aretes);
+		std::cout << g.aretes << " :";
+		for (auto p : g.sommePoids)
+			std::cout << " " << p;
+		std::cout << "\n";
 	}
 		
-	std::cout << tousGraphePareto.size() << " graphes (sur " << tousSsG.size() << ")\n";
+		
+	std::cout << m_souGraphePareto.size() << " graphes (sur " << tousSsG.size() << ")\n";
 		
 	return m_souGraphePareto;
 }
@@ -371,12 +376,29 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes)
 	return dessin;
 }
 
-ALLEGRO_BITMAP* Graphe::DessinerSousGraphePar(int id)
+ALLEGRO_BITMAP* Graphe::DessinerSousGraphePar(graphePareto ssg)
 {
-	if (id < m_souGraphePareto.size())
-		DessinerSousGraphe(m_souGraphePareto[id]);
-	else
-		throw std::runtime_error("Sous graphe inexistant");
+	ALLEGRO_BITMAP* bmp = DessinerSousGraphe(ssg.aretes);
+	ALLEGRO_FONT* font;
+	font = al_load_font("simple_font.ttf", 40, 0);
+
+	al_set_target_bitmap(bmp);
+
+	std::string toAff="";
+	int i = 0;
+	for (auto poids : ssg.sommePoids)
+	{
+		std::ostringstream strs;
+		strs << poids;
+		toAff = toAff + ((i) ? "; " : "") + strs.str();
+		i = 1;
+	}
+
+	al_draw_text(font, al_map_rgb(50, 50, 50), 5, 5, ALLEGRO_ALIGN_LEFT, toAff.c_str());
+
+	al_destroy_font(font);
+
+	return bmp;
 }
 
 

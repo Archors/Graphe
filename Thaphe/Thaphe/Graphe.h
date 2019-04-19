@@ -4,12 +4,18 @@
 #include "libraries.h"
 #include "Sommet.h"
 
+struct graphePareto
+{
+	std::vector<float> sommePoids;
+	std::bitset<nombreMaxAretes> aretes;
+};
+
 class Graphe
 {
 	private:
 		std::vector<Sommet*> m_sommets;
 		std::vector<Arete*> m_aretes;
-		std::vector<std::bitset<nombreMaxAretes>> m_souGraphePareto;
+		std::list<graphePareto> m_souGraphePareto;
 		
 	public:
 		std::bitset<nombreMaxPoids> m_typeTriPareto;
@@ -19,7 +25,7 @@ class Graphe
 
 		std::bitset<nombreMaxAretes> Prim();
 		std::bitset<nombreMaxAretes> Dijkstra();
-		std::vector<std::bitset<nombreMaxAretes>> TriPareto();
+		std::list<graphePareto> TriPareto();
 
 		std::vector<std::bitset<nombreMaxAretes>> DeterminerSousGraphe(bool avecCycles);
 		bool isConnexe(std::bitset<nombreMaxAretes>);
@@ -28,19 +34,12 @@ class Graphe
 
 		ALLEGRO_BITMAP* DessinerGraphe();
 		ALLEGRO_BITMAP* DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes);
-		ALLEGRO_BITMAP* DessinerSousGraphePar(int id);
+		ALLEGRO_BITMAP* DessinerSousGraphePar(graphePareto);
 	
 		const int getNombreSommets();
 		const int getNombreAretes();
 		const int getNombreSousGraphe();
 		~Graphe();
-};
-
-
-struct graphePareto
-{
-	std::vector<float> sommePoids;
-	std::bitset<nombreMaxAretes> aretes;
 };
 
 bool compGraphesPareto(graphePareto, graphePareto);

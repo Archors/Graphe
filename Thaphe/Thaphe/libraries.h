@@ -20,4 +20,4 @@
 #include <allegro5/allegro_image.h>
 
 #define nombreMaxAretes 24
-#define nombreMaxPoids 2
+#define nombreMaxPoids 4
