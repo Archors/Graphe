@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 
 	double start = al_get_time();
 
-	Graphe gr("manhattan", false, std::bitset<nombreMaxPoids>(2));
+	Graphe gr("manhattan", false, std::bitset<nombreMaxPoids>(0));
 
 
 	al_get_display_mode(al_get_num_display_modes() - 1, &disp_data);
@@ -102,24 +102,29 @@ int main(int argc, char** argv)
 	//PARETO
 	if (true)
 	{
-		double start = al_get_time();
+		//double start = al_get_time();
+
 		std::list<graphePareto>  tousLesSousGraphes{ gr.TriPareto() };
 
-		int width = sqrt((disp_data.height*disp_data.width)/((int)tousLesSousGraphes.size()+1));
+		int width = (double)((double)sqrt( (double)((disp_data.height * disp_data.width) / ((int)tousLesSousGraphes.size())) / (double)((double)disp_data.width / (double)disp_data.height) ));
 		
-		if (width > disp_data.height / ((tousLesSousGraphes.size()+1) / (disp_data.width / width)))
-			width = disp_data.height / ((tousLesSousGraphes.size() + 1) / (disp_data.width / width));
+		std::cout << width << "  " << (double)((double)disp_data.width / (double)disp_data.height) << std::endl;
+		int i = 0, x, y, divx = (disp_data.width / width);
+		if (divx > (int)tousLesSousGraphes.size())
+			divx = (int)tousLesSousGraphes.size();
 			
-		int i = 0; 
-		int x, y;
+		/*
+		int divy = 1; (((int)tousLesSousGraphes.size() - 1) / divx + ((((int)tousLesSousGraphes.size() - 1) % divx != 0) ? 1 : 0));
+		*/
 		al_clear_to_color(al_map_rgb(133, 50, 50));
+
 		for (auto ssg : tousLesSousGraphes)
 		{
 			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphePar(ssg);
 			al_set_target_backbuffer(display);
 
-			x = i % (disp_data.width / width) * width + (disp_data.width - (disp_data.width / width) * width) / 2;
-			y = (i / (disp_data.width / width)) * width + (disp_data.height - (((int)tousLesSousGraphes.size()-1) / (disp_data.width / width) +1) * width)/2 + disp_data.height / 200;
+			x = i % divx * width  /*(disp_data.width - divx * width) / 2 */+ disp_data.height / 200;
+			y = (i / divx) * width  /*(disp_data.height - divy * width) / 2 */+ disp_data.height / 200;
 			al_draw_scaled_bitmap(graphe, 0, 0, al_get_bitmap_width(graphe), al_get_bitmap_height(graphe), x, y, width - disp_data.height/100, width - disp_data.height / 100, 0);
 
 			al_destroy_bitmap(graphe);

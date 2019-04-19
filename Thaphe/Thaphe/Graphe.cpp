@@ -10,7 +10,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMa
 	if (!ifs)
 		throw std::runtime_error("Impossible d'ouvrir en lecture " + nomFichier);
 
-	std::ifstream ifs2{ nomFichier + "_weights_1.txt" };
+	std::ifstream ifs2{ nomFichier + "_weights_0.txt" };
 	if (ifs2.fail())
 		throw std::runtime_error("Probleme lecture taille du graphe");
 
@@ -73,7 +73,7 @@ Graphe::Graphe(std::string nomFichier, const bool oriented, std::bitset<nombreMa
 		{
 			ifs2 >> poids; if (ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
 			vectPoids.push_back(poids);
-			std::cout << poids << " ";
+			//std::cout << poids << " ";
 		}
 		std::cout << "\n";
 
