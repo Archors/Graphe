@@ -16,11 +16,12 @@ struct MenuDonnees
 	std::string graphe;
 	std::string poid;
 	bool oriente;
-	int ordreTriPoid;
-	int algoChoix;
+	int ordreTriPoid; // 1=choix individuel 2=croissant 3=decroissant
+	int algoChoix; //1=dijkstra 2=Prim 3=Pareto
 	int depart;
 	int arrivee;
 	bool cycle;
 };
 
 void leMenu(MenuDonnees menudonnees, ALLEGRO_DISPLAY * display);
+void vline(int x1, int y1, ALLEGRO_COLOR couleur);
