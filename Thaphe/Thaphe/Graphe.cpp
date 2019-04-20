@@ -4,6 +4,7 @@
 //Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
 Graphe::Graphe(MenuDonnees choix)
 {
+	std::cout << choix.graphe;
 	std::ifstream ifs{ choix.graphe+".txt" };
 
 	if (!ifs)

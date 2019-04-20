@@ -181,7 +181,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 		//2eme page des options
 		if (choixcase)
 		{
-			int hauteurTRI = disp_data.height / 4 + 160;
+			int hauteurTRI = disp_data.height / 4 + 200;
 			int hauteurAlgo = hauteurTRI + 80;
 			int hauteurOriente = hauteurTRI - 80;
 			ALLEGRO_EVENT event;
@@ -205,7 +205,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			if (menudonnees.oriente)
 				vline(((1 * disp_data.width / 5 + 100) + (1 * disp_data.width / 5 + 130)) / 2, (hauteurOriente + hauteurOriente + 30) / 2 + 5, colorcase);
 
-			//Choix de l'ordre de tri des poids
+			/*//Choix de l'ordre de tri des poids
 			al_draw_text(font8, al_map_rgb(100, 0, 0), 1 * disp_data.width / 7, hauteurTRI, ALLEGRO_ALIGN_LEFT, "ORDRE DE TRI :");
 
 			al_draw_text(font8, al_map_rgb(100, 0, 0), 2 * disp_data.width / 7, hauteurTRI, ALLEGRO_ALIGN_LEFT, "choix individuel");
@@ -246,7 +246,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			else if (menudonnees.ordreTriPoid == 2)
 				vline(((3 * disp_data.width / 7 - 52) + (3 * disp_data.width / 7 - 22)) / 2, (hauteurTRI + hauteurTRI + 30) / 2 + 5, colorcase);
 			else if (menudonnees.ordreTriPoid == 3)
-				vline(((4 * disp_data.width / 7 - 90) + (4 * disp_data.width / 7 - 120)) / 2, (hauteurTRI + hauteurTRI + 30) / 2 + 5, colorcase);
+				vline(((4 * disp_data.width / 7 - 90) + (4 * disp_data.width / 7 - 120)) / 2, (hauteurTRI + hauteurTRI + 30) / 2 + 5, colorcase);*/
 
 			//Choix de l'algorithme
 			al_draw_text(font8, al_map_rgb(100, 0, 0), 1 * disp_data.width / 7, hauteurAlgo, ALLEGRO_ALIGN_LEFT, "ALGORITHME :");
@@ -333,10 +333,10 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 		}
 
 		//3eme page des options
-		//Si PrimoOu Dijkstra est selectionné
+		//Si Primo Ou Dijkstra est selectionné
 		if (primDijkstra)
 		{
-			int hauteurArrivee = disp_data.height / 4 + 160;
+			int hauteurArrivee = disp_data.height / 4 + 200;
 			int hauteurDepart = hauteurArrivee + 80;
 			int hauteurordre = hauteurArrivee - 80;
 			ALLEGRO_EVENT ev;
@@ -450,14 +450,13 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 					vline(((largeur + i * 150 + 60) + (largeur + i * 150 + 90)) / 2, (hauteur3 + hauteur3 + 30) / 2 + 5, colorcase);
 			}
 
-			//Finir d'édieter les parametres
+			//Finir d'éditer les parametres
 			if (event.mouse.x >= 5 * disp_data.width / 8 && event.mouse.x < 7 * disp_data.width / 8 + 20 && event.mouse.y >= 7 * disp_data.height / 8 - 50 && event.mouse.y < 7 * disp_data.height / 8 + 50)
 			{
 				al_draw_rounded_rectangle(5 * disp_data.width / 8, 7 * disp_data.height / 8 - 50, 7 * disp_data.width / 8 + 20, 7 * disp_data.height / 8 + 50, 50, 50, al_map_rgb(255, 0, 0), 10);
 				al_draw_text(font8, al_map_rgb(255, 0, 0), ((5 * disp_data.width / 8) + (7 * disp_data.width / 8 + 20)) / 2, ((7 * disp_data.height / 8 - 50) + (7 * disp_data.height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "FIN");
 				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 				{
-					cout << "sort";
 					boucle = false;
 					pareto = false;
 					break;
@@ -488,7 +487,6 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 		}
 		
 	}
-
 	//al_draw_bitmap(imagepresentation, 100, 100, 0);
 	//al_destroy_bitmap(imagepresentation);
 }

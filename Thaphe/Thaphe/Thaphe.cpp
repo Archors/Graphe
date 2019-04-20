@@ -5,7 +5,7 @@
 int main(int argc, char** argv) 
 {
 	bool showGraphs = true;
-	bool menu = false;
+	bool menu = true;
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -57,6 +57,14 @@ int main(int argc, char** argv)
 	{
 		chargerChoixMenu(choix);
 	}
+	/*std::cout <<"graphe : "<< choix.graphe<<std::endl;
+	std::cout <<" poid : "<< choix.poid << std::endl;
+	std::cout << "quel poid : " << choix.quelPoid << std::endl;
+	std::cout << "ordreTriPoid : " << choix.ordreTriPoid << std::endl;
+	std::cout << "algochoix : " << choix.algoChoix << std::endl;
+	std::cout << "depart : " << choix.depart << std::endl;
+	std::cout << "arrivee : " << choix.arrivee << std::endl;
+	std::cout << "choix poids : " << choix.poids << std::endl;*/
 
 	double start = al_get_time();
 
@@ -90,7 +98,7 @@ int main(int argc, char** argv)
 	}
 	
 	//DIJKSTRA OU PRIM
-	if (false)
+	if (true)
 	{
 		//ALLEGRO_BITMAP* graphe = gr.DessinerGraphe(); // a virer
 		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
@@ -109,7 +117,7 @@ int main(int argc, char** argv)
 	}
 	
 	//PARETO
-	if (true)
+	if (false)
 	{
 		//double start = al_get_time();
 		std::list<graphePareto>  tousLesSousGraphes{ gr.TriPareto() };
