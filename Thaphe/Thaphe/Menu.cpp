@@ -352,9 +352,10 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 					textbox(disp_data.width / 4, hauteurArrivee, 5, 25, 3);
 				textbox(disp_data.width / 4, hauteurordre, 5, 25, 4);
 				//On recupere ce qui est écrit
-				menudonnees.depart = text_boxes[2].c_str();
-				menudonnees.arrivee = text_boxes[3].c_str();
-				menudonnees.quelPoid = text_boxes[4].c_str();
+
+				menudonnees.depart = std::stoi( ((text_boxes[2].empty())?(std::string)"0": text_boxes[2]) );
+				menudonnees.arrivee = std::stoi( ((text_boxes[3].empty()) ? (std::string)"0" : text_boxes[3]) );
+				menudonnees.quelPoid = std::stoi( ((text_boxes[4].empty()) ? (std::string)"0" : text_boxes[4]) );
 			ALLEGRO_EVENT event;
 			al_wait_for_event(queue, &event);
 

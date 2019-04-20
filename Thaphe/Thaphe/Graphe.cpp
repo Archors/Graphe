@@ -100,7 +100,7 @@ Graphe::Graphe(MenuDonnees choix)
 
 std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 {
-	std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
+	std::vector<std::bitset<nombreMaxAretes>> grapheResults;
 	double start = al_get_time();
 
 	std::cout << "Looking for every graph possible...\n";
@@ -121,7 +121,7 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 			if (!m_oriented)
 			{
 				if (isConnexe(ssg, m_sommets[0]))
-					tousLesSousGraphes.push_back(ssg);
+					grapheResults.push_back(ssg);
 			}
 			else
 			{
@@ -135,7 +135,7 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 					}
 				}
 				if (fortementConnexe)
-					tousLesSousGraphes.push_back(ssg);
+					grapheResults.push_back(ssg);
 			}
 			
 		}
@@ -143,7 +143,7 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 
 	std::cout << "Done ! (" << al_get_time() - start << " sec)\n";
 
-	return tousLesSousGraphes;
+	return grapheResults;
 }
 
 
@@ -153,15 +153,20 @@ bool Graphe::isConnexe(std::bitset<nombreMaxAretes> ssg, Sommet* depart)
 }
 
 
-std::bitset<nombreMaxAretes> Graphe::Prim()
+std::bitset<nombreMaxAretes> Graphe::Prim(int poids, int sommetDepart)
 {
-	std::cout << "Lancement prim depuis le sommet 0...\n";
+	if (sommetDepart < 0 || sommetDepart > getNombreSommets() - 1)
+		sommetDepart = 0;
+	if (poids < 0 || poids > m_aretes[0]->getNombrePoids() - 1)
+		poids = 0;
 
-	std::vector<Arete*> aretePrim = m_sommets[0]->Prim(0);
+	std::cout << "Lancement prim depuis le sommet " << sommetDepart << " selon le poids " << poids << "...\n";
 
-	std::bitset<nombreMaxAretes> ssg;
+	std::vector<Arete*> aretePrim = m_sommets[sommetDepart]->Prim(poids);
 
 	std::cout << "Nombre d'arretes minimal : " << aretePrim.size() << std::endl;
+
+	std::bitset<nombreMaxAretes> ssg;
 
 	for (auto a : aretePrim)
 		ssg[a->getId()] = 1;
@@ -172,20 +177,23 @@ std::bitset<nombreMaxAretes> Graphe::Prim()
 }
 
 
-std::bitset<nombreMaxAretes> Graphe::Dijkstra()
+std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int sommetArrivée)
 {
-	std::cout << "Lancement de dijkstra depuis le sommet 0...\n";
+	if (sommetDepart < 0 || sommetDepart > getNombreSommets() - 1)
+		sommetDepart = 0;
+	if (sommetArrivée < 0 || sommetArrivée > getNombreSommets() - 1)
+		sommetArrivée = -1;
+	if (poids < 0 || poids > m_aretes[0]->getNombrePoids() - 1)
+		poids = 0;
 
-	std::vector<const Arete*> areteDijkstra = m_sommets[0]->Dijkstra(getNombreSommets(), 0).first;
+	//std::cout << "Lancement Dijkstra depuis le sommet " << sommetDepart << "jusqu'au sommet (-1 pour tous) " << sommetArrivée << " selon le poids " << poids << "...\n";
+
+	std::vector<const Arete*> areteDijkstra = m_sommets[sommetDepart]->Dijkstra(getNombreSommets(), 0, ((sommetArrivée!=-1)?m_sommets[sommetArrivée]:nullptr)).first;
 
 	std::bitset<nombreMaxAretes> ssg;
 
-	std::cout << "Nombre d'arretes minimal pour tout relier en partant de 0 : " << areteDijkstra.size() << std::endl;
-
 	for (auto a : areteDijkstra)
 		ssg[a->getId()] = 1;
-
-	std::cout << "Graphe de poids minimal trouve\n";
 
 	return ssg;
 }
