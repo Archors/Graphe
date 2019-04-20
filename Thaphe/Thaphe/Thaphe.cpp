@@ -5,7 +5,7 @@
 int main(int argc, char** argv) 
 {
 	bool showGraphs = true;
-	bool menu = false;
+	bool menu = true;
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -93,8 +93,8 @@ int main(int argc, char** argv)
 	if (false)
 	{
 		//ALLEGRO_BITMAP* graphe = gr.DessinerGraphe(); // a virer
-		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
-		//ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
+		//ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
+		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
 		al_set_target_backbuffer(display);
 
 		al_clear_to_color(al_map_rgb(133, 50, 50));
@@ -114,30 +114,36 @@ int main(int argc, char** argv)
 		//double start = al_get_time();
 		std::list<graphePareto>  tousLesSousGraphes{ gr.TriPareto() };
 
-		int width = (double)((double)sqrt( (double)((disp_data.height * disp_data.width) / ((int)tousLesSousGraphes.size())) / (double)((double)disp_data.width / (double)disp_data.height) ));
-		
-		//std::cout << width << "  " << (double)((double)disp_data.width / (double)disp_data.height) << std::endl;
-		int i = 0, x, y, divx = (disp_data.width / width);
-		if (divx > (int)tousLesSousGraphes.size())
-			divx = (int)tousLesSousGraphes.size();
-			
-		/*
-		int divy = 1; (((int)tousLesSousGraphes.size() - 1) / divx + ((((int)tousLesSousGraphes.size() - 1) % divx != 0) ? 1 : 0));
-		*/
-		al_clear_to_color(al_map_rgb(133, 50, 50));
-
-		for (auto ssg : tousLesSousGraphes)
+		if (!tousLesSousGraphes.empty())
 		{
-			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphePar(ssg);
-			al_set_target_backbuffer(display);
+			int width = (double)((double)sqrt((double)((disp_data.height * disp_data.width) / ((int)tousLesSousGraphes.size())) / (double)((double)disp_data.width / (double)disp_data.height)));
 
-			x = i % divx * width  /*(disp_data.width - divx * width) / 2 */+ disp_data.height / 200;
-			y = (i / divx) * width  /*(disp_data.height - divy * width) / 2 */+ disp_data.height / 200;
-			al_draw_scaled_bitmap(graphe, 0, 0, al_get_bitmap_width(graphe), al_get_bitmap_height(graphe), x, y, width - disp_data.height/100, width - disp_data.height / 100, 0);
+			//std::cout << width << "  " << (double)((double)disp_data.width / (double)disp_data.height) << std::endl;
+			int i = 0, x, y, divx = (disp_data.width / width);
+			if (divx > (int)tousLesSousGraphes.size())
+				divx = (int)tousLesSousGraphes.size();
 
-			al_destroy_bitmap(graphe);
-			i++;
+			/*
+			int divy = 1; (((int)tousLesSousGraphes.size() - 1) / divx + ((((int)tousLesSousGraphes.size() - 1) % divx != 0) ? 1 : 0));
+			*/
+			al_clear_to_color(al_map_rgb(133, 50, 50));
+
+			for (auto ssg : tousLesSousGraphes)
+			{
+				ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphePar(ssg);
+				al_set_target_backbuffer(display);
+
+				x = i % divx * width  /*(disp_data.width - divx * width) / 2 */ + disp_data.height / 200;
+				y = (i / divx) * width  /*(disp_data.height - divy * width) / 2 */ + disp_data.height / 200;
+				al_draw_scaled_bitmap(graphe, 0, 0, al_get_bitmap_width(graphe), al_get_bitmap_height(graphe), x, y, width - disp_data.height / 100, width - disp_data.height / 100, 0);
+
+				al_destroy_bitmap(graphe);
+				i++;
+			}
 		}
+		else
+			al_draw_text(font, al_map_rgb(255, 255, 255), 20, 20, 0, "Aucun graphe ne repondant a ces criteres");
+		
 		al_flip_display();
 		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
 	}

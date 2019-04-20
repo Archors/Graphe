@@ -297,7 +297,7 @@ int Sommet::BFSnbAretes(int nbSommets, std::bitset<nombreMaxAretes> ssg)
 
 		for (auto s : file.front()->m_voisins)
 		{
-			if (!discovered[s.first->m_id] && ssg[s.second->getId()])
+			if (!discovered[s.first->m_id] && ssg[s.second->getId()]) //Si le sommet n'est pas découvert et si l'arete est dans le graphe
 			{
 				file.push(s.first);
 				discovered[s.first->m_id] = 1;
@@ -309,13 +309,15 @@ int Sommet::BFSnbAretes(int nbSommets, std::bitset<nombreMaxAretes> ssg)
 
 	return nbAr;
 }
+
+
 int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<nombreMaxAretes> ssg)
 {
 	std::vector<int> discovered;
 	discovered.resize(nbSommets);
 	std::queue<const Sommet*> file;
 
-	discovered[0] = 1;
+	discovered[m_id] = 1;
 	file.push(this);
 
 	while (!(file.empty()))

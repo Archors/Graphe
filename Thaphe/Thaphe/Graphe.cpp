@@ -91,6 +91,7 @@ Graphe::Graphe(MenuDonnees choix)
 
 	m_typeTriPareto = choix.poids;
 	m_avecCycles = choix.cycle;
+	m_oriented = choix.oriente;
 
 	ifs.close();
 	ifs2.close();
@@ -116,8 +117,26 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 
 		if ((nbar >= minAretes && m_avecCycles) || (nbar == minAretes && !m_avecCycles))
 		{
-			if (isConnexe(ssg))
-				tousLesSousGraphes.push_back(ssg);
+			if (!m_oriented)
+			{
+				if (isConnexe(ssg, m_sommets[0]))
+					tousLesSousGraphes.push_back(ssg);
+			}
+			else
+			{
+				bool fortementConnexe = true;
+				for (auto s : m_sommets)
+				{
+					if (!isConnexe(ssg, s))
+					{
+						fortementConnexe = false;
+						break;
+					}
+				}
+				if (fortementConnexe)
+					tousLesSousGraphes.push_back(ssg);
+			}
+			
 		}
 	}
 
@@ -127,11 +146,9 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 }
 
 
-bool Graphe::isConnexe(std::bitset<nombreMaxAretes> ssg)
+bool Graphe::isConnexe(std::bitset<nombreMaxAretes> ssg, Sommet* depart)
 {
-	if (m_sommets[0]->tailleComposanteConnexe(getNombreSommets(), ssg) < getNombreSommets())
-		return false;
-	return true;
+	return !(depart->tailleComposanteConnexe(getNombreSommets(), ssg) < getNombreSommets());
 }
 
 

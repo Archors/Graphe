@@ -19,6 +19,7 @@ class Graphe
 		std::vector<Arete*> m_aretes;
 		std::list<graphePareto> m_souGraphePareto;
 		bool m_avecCycles;
+		bool m_oriented;
 		
 	public:
 		std::bitset<nombreMaxPoids> m_typeTriPareto;
@@ -31,7 +32,7 @@ class Graphe
 		std::list<graphePareto> TriPareto();
 
 		std::vector<std::bitset<nombreMaxAretes>> DeterminerSousGraphe();
-		bool isConnexe(std::bitset<nombreMaxAretes>);
+		bool isConnexe(std::bitset<nombreMaxAretes>, Sommet*);
 		std::vector<float> sommePoidsCoutMin(std::bitset<nombreMaxAretes>);
 		std::vector<float> sommePoidsCoutDist(std::bitset<nombreMaxAretes>);
 

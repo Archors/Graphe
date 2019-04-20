@@ -2,7 +2,7 @@
 
 using namespace std;
 
-float FPS = 10;
+float FPS = 60;
 
 int number_text_boxes = 5;	// the number of textboxes 
 
@@ -33,11 +33,6 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 	menudonnees.cycle = false;
 	menudonnees.algoChoix = 0;
 
-	if (!al_init_image_addon())
-	{
-		cout<<"couldn't initialize image addon\n";
-	}
-
 	//Chargement de l'image de garde
 	imagepresentation = al_load_bitmap("presentation.png");
 	if (!imagepresentation)
@@ -59,8 +54,6 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 	//Initialisation de la gestion d'evenements
 	ALLEGRO_EVENT_QUEUE* queue;
 	queue = al_create_event_queue();
-	al_install_keyboard();
-	al_install_mouse();
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_mouse_event_source());
 

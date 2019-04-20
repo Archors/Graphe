@@ -10,7 +10,8 @@ void Arete::Dessiner(ALLEGRO_BITMAP* bmp)
 {
 	al_set_target_bitmap(bmp);
 	al_draw_line((float)m_sommets.first->getCoords().getX(), (float)m_sommets.first->getCoords().getY(), (float)m_sommets.second->getCoords().getX(), (float)m_sommets.second->getCoords().getY(), al_map_rgb(170, 170, 170), 5);
-	
+	if (m_oriente)
+		al_draw_line((float)m_sommets.second->getCoords().getX(), (float)m_sommets.second->getCoords().getY(), (float)(m_sommets.second->getCoords().getX()-(m_sommets.second->getCoords().getX()- m_sommets.first->getCoords().getX())/2.5), (float)(m_sommets.second->getCoords().getY() - (m_sommets.second->getCoords().getY()-m_sommets.first->getCoords().getY())/2.5), al_map_rgb(230, 70, 30), 5);
 	ALLEGRO_FONT* font;
 	font = al_load_font("simple_font.ttf", 14, 0);
 
