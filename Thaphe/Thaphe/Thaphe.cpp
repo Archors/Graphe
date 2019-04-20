@@ -57,6 +57,7 @@ int main(int argc, char** argv)
 	{
 		chargerChoixMenu(choix);
 	}
+	al_rest(10);
 	/*std::cout <<"graphe : "<< choix.graphe<<std::endl;
 	std::cout <<" poid : "<< choix.poid << std::endl;
 	std::cout << "quel poid : " << choix.quelPoid << std::endl;
