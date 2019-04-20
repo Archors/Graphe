@@ -72,14 +72,16 @@ int main(int argc, char** argv)
 	{
 		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes{ gr.DeterminerSousGraphe() };
 		for (auto ssg : tousLesSousGraphes)
-			grapheResults.push_back(graphePareto{ {0.0}, ssg });
+			grapheResults.push_back(graphePareto{ {(float)ssg.count()}, ssg });
 	}
 	if (choix.algoChoix == 5)
-		grapheResults.push_back(graphePareto{ {0.0}, std::bitset<nombreMaxAretes>(pow(2, gr.getNombreAretes() - 1)) });
+		grapheResults.push_back(graphePareto{ {(float)gr.getNombreAretes()}, std::bitset<nombreMaxAretes>(pow(2, gr.getNombreAretes())-1) });
 
 
 	if (!grapheResults.empty())
 	{
+		std::cout << "Temps de recherche des graphes : " << al_get_time() - start << " sec\n";
+
 		int width = (double)((double)sqrt((double)((disp_data.height * disp_data.width) / ((int)grapheResults.size())) / (double)((double)disp_data.width / (double)disp_data.height)));
 
 		//std::cout << width << "  " << (double)((double)disp_data.width / (double)disp_data.height) << std::endl;
@@ -87,9 +89,6 @@ int main(int argc, char** argv)
 		if (divx > (int)grapheResults.size())
 			divx = (int)grapheResults.size();
 
-		/*
-		int divy = 1; (((int)grapheResults.size() - 1) / divx + ((((int)grapheResults.size() - 1) % divx != 0) ? 1 : 0));
-		*/
 		al_clear_to_color(al_map_rgb(133, 50, 50));
 
 		for (auto ssg : grapheResults)
@@ -106,10 +105,10 @@ int main(int argc, char** argv)
 		}
 	}
 	else
-		al_draw_text(font, al_map_rgb(255, 255, 255), 20, 20, 0, "Aucun graphe ne repondant a afficher");
+		al_draw_text(font, al_map_rgb(255, 255, 255), 20, 20, 0, "Aucun graphe a afficher");
 
 	al_flip_display();
-	std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
+	std::cout << "Temps d'execution total : " << al_get_time() - start << " sec\n";
 
 	if (showGraphs)
 	{

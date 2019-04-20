@@ -279,6 +279,7 @@ std::list<graphePareto> Graphe::TriPareto()
 	}
 
 	
+	/*
 	std::cout << "Les optimums de Pareto trouves : \n";
 	for (auto g : m_souGraphePareto)
 	{
@@ -287,7 +288,7 @@ std::list<graphePareto> Graphe::TriPareto()
 			std::cout << " " << p;
 		std::cout << "\n";
 	}
-		
+	*/
 		
 	std::cout << m_souGraphePareto.size() << " graphes (sur " << tousSsG.size() << ")\n";
 		
