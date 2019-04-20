@@ -30,6 +30,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 	bool choixcase = false;
 	bool primDijkstra=false;
 	bool pareto = false;
+	bool parcourirtout = false;
 	menudonnees.oriente = false;
 	menudonnees.cycle = false;
 	menudonnees.algoChoix = 0;
@@ -329,9 +330,9 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 						choixcase = false;
 						if (menudonnees.algoChoix == 1 || menudonnees.algoChoix == 2)
 							primDijkstra = true;
-						else if (menudonnees.algoChoix == 3)
+						else if (menudonnees.algoChoix == 3 || menudonnees.algoChoix == 4)
 							pareto = true;
-						else if (menudonnees.algoChoix == 4 || menudonnees.algoChoix == 5)
+						else if ( menudonnees.algoChoix == 5)
 						{
 							choixcase = false;
 							boucle = false;
@@ -396,14 +397,33 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			ALLEGRO_EVENT event;
 			al_wait_for_event(queue, &event);
 
+			//Choisir -1 pour parcourir tout le graphe
+			al_draw_text(font8, al_map_rgb(100, 0, 0), disp_data.width / 3+20, hauteurordre, ALLEGRO_ALIGN_LEFT, "Parcourir tout le graphe");
+			al_draw_rectangle(disp_data.width / 2 + 40, hauteurordre, 1 * disp_data.width / 2 + 70, hauteurordre + 30, colorcase, 2);
+			if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+			{
+				if (event.mouse.x >= disp_data.width / 2 + 40 && event.mouse.x < disp_data.width / 2 + 70 && event.mouse.y >= hauteurordre && event.mouse.y < hauteurordre + 30)
+				{
+					if (!parcourirtout)
+						parcourirtout = true;
+					else
+						parcourirtout = false;
+				}
+			}
+			if (parcourirtout)
+				vline(((disp_data.width / 2 + 40) + (disp_data.width / 2 + 70)) / 2, (hauteurordre + hauteurordre + 30) / 2 + 5, colorcase);
+
+			//Sortir des options
 			if (event.mouse.x >= 5 * disp_data.width / 8 && event.mouse.x < 7 * disp_data.width / 8 + 20 && event.mouse.y >= 7 * disp_data.height / 8 - 50 && event.mouse.y < 7 * disp_data.height / 8 + 50)
 			{
 				al_draw_rounded_rectangle(5 * disp_data.width / 8, 7 * disp_data.height / 8 - 50, 7 * disp_data.width / 8 + 20, 7 * disp_data.height / 8 + 50, 50, 50, al_map_rgb(255, 0, 0), 10);
 				al_draw_text(font8, al_map_rgb(255, 0, 0), ((5 * disp_data.width / 8) + (7 * disp_data.width / 8 + 20)) / 2, ((7 * disp_data.height / 8 - 50) + (7 * disp_data.height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "FIN");
-				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && menudonnees.quelPoid.empty() != 1 && menudonnees.depart.empty() != 1)
 				{
 					boucle=false;
 					primDijkstra = false;
+					if (parcourirtout)
+						menudonnees.quelPoid = "-1";
 				}
 			}
 			else
@@ -417,7 +437,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			{
 				al_draw_rounded_rectangle(1 * disp_data.width / 8 - 20, 7 * disp_data.height / 8 - 50, 3 * disp_data.width / 8, 7 * disp_data.height / 8 + 50, 50, 50, al_map_rgb(255, 0, 0), 10);
 				al_draw_text(font8, al_map_rgb(255, 0, 0), ((3 * disp_data.width / 8) + (1 * disp_data.width / 8 - 20)) / 2, ((7 * disp_data.height / 8 - 50) + (7 * disp_data.height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "<-- PRECEDENT");
-				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN )
 				{
 					primDijkstra = false;
 					choixcase = true;
@@ -431,7 +451,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 		}
 
 		//3eme pas des options BIS
-		//Si pareto est selectionné
+		//Si pareto ou graphe connexe est selectionné
 		if (pareto)
 		{
 			ALLEGRO_EVENT event;
@@ -459,27 +479,27 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 				vline(((1 * disp_data.width / 5 + 100) + (1 * disp_data.width / 5 + 130)) / 2, (hauteur1 + hauteur1 + 30) / 2 + 5, colorcase);
 
 			//Choix optimisation bi objectif
-			
-			for (int i = 0; i <nombreMaxPoids; i++)
-			{
-				int affichage = i + 1;
-				al_draw_textf(font8, al_map_rgb(100, 0, 0), largeur+i*150, hauteur3, ALLEGRO_ALIGN_CENTRE, "poids : %d",affichage);
-				al_draw_rectangle(largeur + i * 150+60, hauteur3, largeur + i * 150+90, hauteur3+30, colorcase, 2);
-
-				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+			if (menudonnees.algoChoix == 3) {
+				for (int i = 0; i < nombreMaxPoids; i++)
 				{
-					if (event.mouse.x >= largeur + i * 150 + 60 && event.mouse.x < largeur + i * 150 + 90 && event.mouse.y >= hauteur3 && event.mouse.y < hauteur3 + 30)
-					{
-						if (!menudonnees.poids[i])
-							menudonnees.poids[i] = true;
-						else
-							menudonnees.poids[i] = false;
-					}
-				}
-				if (menudonnees.poids[i])
-					vline(((largeur + i * 150 + 60) + (largeur + i * 150 + 90)) / 2, (hauteur3 + hauteur3 + 30) / 2 + 5, colorcase);
-			}
+					int affichage = i + 1;
+					al_draw_textf(font8, al_map_rgb(100, 0, 0), largeur + i * 150, hauteur3, ALLEGRO_ALIGN_CENTRE, "poids : %d", affichage);
+					al_draw_rectangle(largeur + i * 150 + 60, hauteur3, largeur + i * 150 + 90, hauteur3 + 30, colorcase, 2);
 
+					if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+					{
+						if (event.mouse.x >= largeur + i * 150 + 60 && event.mouse.x < largeur + i * 150 + 90 && event.mouse.y >= hauteur3 && event.mouse.y < hauteur3 + 30)
+						{
+							if (!menudonnees.poids[i])
+								menudonnees.poids[i] = true;
+							else
+								menudonnees.poids[i] = false;
+						}
+					}
+					if (menudonnees.poids[i])
+						vline(((largeur + i * 150 + 60) + (largeur + i * 150 + 90)) / 2, (hauteur3 + hauteur3 + 30) / 2 + 5, colorcase);
+				}
+			}
 			//Finir d'éditer les parametres
 			if (event.mouse.x >= 5 * disp_data.width / 8 && event.mouse.x < 7 * disp_data.width / 8 + 20 && event.mouse.y >= 7 * disp_data.height / 8 - 50 && event.mouse.y < 7 * disp_data.height / 8 + 50)
 			{
@@ -525,7 +545,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 //Code pour créer des boites de text dans Allegro 5 récupérer sur internet
 //https://www.youtube.com/watch?v=EEowjItqdOc
 //https://drive.google.com/file/d/0B-kt8cFQnmYNTURobFVsQlpTVE0/view
-void textbox(int coordinate_x, int coordinate_y, int number_signs, int coordinate_command_prompt, int number_text_box)
+void textbox(int coordinate_x, int coordinate_y, int number_signs, int coordinate_command_prompt, int number_text_box)	
 {
 	//Affichage de la feunetre d'ecriture
 	al_draw_rectangle(coordinate_x - 2, coordinate_y - 2, coordinate_x + 16 * number_signs + 2, coordinate_y + 32, al_map_rgba(255, 255, 255, 255), 1);
