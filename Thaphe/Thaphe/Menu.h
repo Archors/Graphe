@@ -16,7 +16,7 @@ struct MenuDonnees
 	int algoChoix; //1=dijkstra 2=Prim 3=Pareto
 	std::string depart;
 	std::string arrivee;
-	bool cycle;
+	bool cycle; //Pareto
 	std::bitset<nombreMaxPoids> poids;
 };
 
