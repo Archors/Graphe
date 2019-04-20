@@ -419,12 +419,12 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			{
 				al_draw_rounded_rectangle(5 * disp_data.width / 8, 7 * disp_data.height / 8 - 50, 7 * disp_data.width / 8 + 20, 7 * disp_data.height / 8 + 50, 50, 50, al_map_rgb(255, 0, 0), 10);
 				al_draw_text(font8, al_map_rgb(255, 0, 0), ((5 * disp_data.width / 8) + (7 * disp_data.width / 8 + 20)) / 2, ((7 * disp_data.height / 8 - 50) + (7 * disp_data.height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "FIN");
-				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && menudonnees.quelPoid.empty() != 1 && menudonnees.depart.empty() != 1)
+				if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && !text_boxes[4].empty() && !text_boxes[2].empty())
 				{
 					boucle=false;
 					primDijkstra = false;
 					if (parcourirtout)
-						menudonnees.quelPoid = "-1";
+						menudonnees.quelPoid = -1;
 				}
 			}
 			else
