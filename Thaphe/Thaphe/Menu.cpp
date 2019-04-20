@@ -291,7 +291,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 				al_draw_text(font8, al_map_rgb(255, 0, 0), ((5 * disp_data.width / 8) + (7 * disp_data.width / 8 + 20)) / 2, ((7 * disp_data.height / 8 - 50) + (7 * disp_data.height / 8 + 50)) / 2 - 10, ALLEGRO_ALIGN_CENTRE, "SUITE ->");
 				if (menudonnees.algoChoix != 0)
 				{
-					if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && menudonnees.ordreTriPoid != 0 && menudonnees.algoChoix != 0)
+					if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && menudonnees.algoChoix != 0)
 					{
 						choixcase = false;
 						if (menudonnees.algoChoix == 1 || menudonnees.algoChoix == 2)
