@@ -50,113 +50,66 @@ int main(int argc, char** argv)
 	ALLEGRO_FONT* font;
 	font = al_load_font("simple_font.ttf", 30, 0);
 
-	MenuDonnees choix;
+	MenuDonnees choix{ ((std::string)"broadway"), ((std::string)"1"), 0, false, 4, 0, 3, false, std::bitset<nombreMaxPoids>(0) };
 	if (menu)
 		leMenu(choix, display);
 	else
-	{
 		chargerChoixMenu(choix);
-	}
-	al_rest(10);
-	/*std::cout <<"graphe : "<< choix.graphe<<std::endl;
-	std::cout <<" poid : "<< choix.poid << std::endl;
-	std::cout << "quel poid : " << choix.quelPoid << std::endl;
-	std::cout << "ordreTriPoid : " << choix.ordreTriPoid << std::endl;
-	std::cout << "algochoix : " << choix.algoChoix << std::endl;
-	std::cout << "depart : " << choix.depart << std::endl;
-	std::cout << "arrivee : " << choix.arrivee << std::endl;
-	std::cout << "choix poids : " << choix.poids << std::endl;*/
 
 	double start = al_get_time();
 
+	std::list<graphePareto> grapheResults;
 	Graphe gr(choix);
-
-
-	//TOUS LES SOUS GRAPHES CONNEXES AVEC OU SANS CYCLES
-	if (false)
-	{
-		
-		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes;
-		tousLesSousGraphes = gr.DeterminerSousGraphe();
-
-		for (auto ssg : tousLesSousGraphes)
-		{
-			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(ssg);
-			al_set_target_backbuffer(display);
-
-			al_clear_to_color(al_map_rgb(133, 50, 50));
-			al_draw_bitmap(graphe, 500, 100, 0);
-			al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.to_string().c_str());
-			//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
-			//std::cout << ssg << std::endl;
-
-			al_flip_display();
-			al_rest(0.5);
-			al_destroy_bitmap(graphe);
-		}
-
-		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
-	}
 	
-	//DIJKSTRA OU PRIM
-	if (true)
+	//Un switch ignore l'initialisation de grapheResults
+	if (choix.algoChoix == 1)
+		grapheResults.push_back(graphePareto{ {(float)gr.Dijkstra(choix.quelPoid, choix.depart, choix.arrivee).count()}, gr.Dijkstra(choix.quelPoid, choix.depart, choix.arrivee) });
+	if (choix.algoChoix == 2)
+		grapheResults.push_back(graphePareto{ {(float)gr.Prim(choix.quelPoid, choix.depart).count()}, gr.Prim(choix.quelPoid, choix.depart) });
+	if (choix.algoChoix == 3)
+		grapheResults = gr.TriPareto();
+	if (choix.algoChoix == 4)
 	{
-		//ALLEGRO_BITMAP* graphe = gr.DessinerGraphe(); // a virer
-		//ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Dijkstra());
-		ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphe(gr.Prim());
-		al_set_target_backbuffer(display);
+		std::vector<std::bitset<nombreMaxAretes>> tousLesSousGraphes{ gr.DeterminerSousGraphe() };
+		for (auto ssg : tousLesSousGraphes)
+			grapheResults.push_back(graphePareto{ {(float)ssg.count()}, ssg });
+	}
+	if (choix.algoChoix == 5)
+		grapheResults.push_back(graphePareto{ {(float)gr.getNombreAretes()}, std::bitset<nombreMaxAretes>(pow(2, gr.getNombreAretes())-1) });
+
+
+	if (!grapheResults.empty())
+	{
+		std::cout << "Temps de recherche des graphes : " << al_get_time() - start << " sec\n";
+
+		int width = (double)((double)sqrt((double)((disp_data.height * disp_data.width) / ((int)grapheResults.size())) / (double)((double)disp_data.width / (double)disp_data.height)));
+
+		//std::cout << width << "  " << (double)((double)disp_data.width / (double)disp_data.height) << std::endl;
+		int i = 0, x, y, divx = (disp_data.width / width);
+		if (divx > (int)grapheResults.size())
+			divx = (int)grapheResults.size();
 
 		al_clear_to_color(al_map_rgb(133, 50, 50));
-		al_draw_bitmap(graphe, 500, 100, 0);
-		//al_draw_text(font, al_map_rgb(0, 0, 0), 500, 80, 0, ssg.c_str());
-		//al_draw_text(font, al_map_rgb(0, 0, 0), 700, 80, 0, ((gr.isConnexe(ssg)) ? "co" : "paco"));
-		//std::cout << ssg << std::endl;
 
-		al_flip_display();
-		al_rest(0.3);
-		al_destroy_bitmap(graphe);
-	}
-	
-	//PARETO
-	if (false)
-	{
-		//double start = al_get_time();
-		std::list<graphePareto>  tousLesSousGraphes{ gr.TriPareto() };
-
-		if (!tousLesSousGraphes.empty())
+		for (auto ssg : grapheResults)
 		{
-			int width = (double)((double)sqrt((double)((disp_data.height * disp_data.width) / ((int)tousLesSousGraphes.size())) / (double)((double)disp_data.width / (double)disp_data.height)));
+			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphePar(ssg);
+			al_set_target_backbuffer(display);
 
-			//std::cout << width << "  " << (double)((double)disp_data.width / (double)disp_data.height) << std::endl;
-			int i = 0, x, y, divx = (disp_data.width / width);
-			if (divx > (int)tousLesSousGraphes.size())
-				divx = (int)tousLesSousGraphes.size();
+			x = i % divx * width  /*(disp_data.width - divx * width) / 2 */ + disp_data.height / 200;
+			y = (i / divx) * width  /*(disp_data.height - divy * width) / 2 */ + disp_data.height / 200;
+			al_draw_scaled_bitmap(graphe, 0, 0, al_get_bitmap_width(graphe), al_get_bitmap_height(graphe), x, y, width - disp_data.height / 100, width - disp_data.height / 100, 0);
 
-			/*
-			int divy = 1; (((int)tousLesSousGraphes.size() - 1) / divx + ((((int)tousLesSousGraphes.size() - 1) % divx != 0) ? 1 : 0));
-			*/
-			al_clear_to_color(al_map_rgb(133, 50, 50));
-
-			for (auto ssg : tousLesSousGraphes)
-			{
-				ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphePar(ssg);
-				al_set_target_backbuffer(display);
-
-				x = i % divx * width  /*(disp_data.width - divx * width) / 2 */ + disp_data.height / 200;
-				y = (i / divx) * width  /*(disp_data.height - divy * width) / 2 */ + disp_data.height / 200;
-				al_draw_scaled_bitmap(graphe, 0, 0, al_get_bitmap_width(graphe), al_get_bitmap_height(graphe), x, y, width - disp_data.height / 100, width - disp_data.height / 100, 0);
-
-				al_destroy_bitmap(graphe);
-				i++;
-			}
+			al_destroy_bitmap(graphe);
+			i++;
 		}
-		else
-			al_draw_text(font, al_map_rgb(255, 255, 255), 20, 20, 0, "Aucun graphe ne repondant a ces criteres");
-		
-		al_flip_display();
-		std::cout << "Temps d'execution : " << al_get_time() - start << std::endl;
 	}
-	
+	else
+		al_draw_text(font, al_map_rgb(255, 255, 255), 20, 20, 0, "Aucun graphe a afficher");
+
+	al_flip_display();
+	std::cout << "Temps d'execution total : " << al_get_time() - start << " sec\n";
+
 	if (showGraphs)
 	{
 		al_register_event_source(event_queue, al_get_display_event_source(display));

@@ -27,8 +27,8 @@ class Graphe
 	public:
 		Graphe(MenuDonnees); //Nom du fichier sans le .txt
 
-		std::bitset<nombreMaxAretes> Prim();
-		std::bitset<nombreMaxAretes> Dijkstra();
+		std::bitset<nombreMaxAretes> Prim(int poids, int sommetDepart);
+		std::bitset<nombreMaxAretes> Dijkstra(int poids, int sommetDepart, int sommetArrivée = -1);
 		std::list<graphePareto> TriPareto();
 
 		std::vector<std::bitset<nombreMaxAretes>> DeterminerSousGraphe();

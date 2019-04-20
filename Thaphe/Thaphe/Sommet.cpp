@@ -113,7 +113,7 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 	return aretePrim;
 }
 
-std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,int indicePoids, std::bitset<nombreMaxAretes> grapheDeTravail, const Sommet* arrivee) const
+std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee, std::bitset<nombreMaxAretes> grapheDeTravail) const
 {
 	//std::cout << "Dijkstra depuis le sommet : " << this->getId() << " ,  nombre de sommets : " << nombreSommets << " ,  indice de poids : " << indicePoids << std::endl;
 	/*

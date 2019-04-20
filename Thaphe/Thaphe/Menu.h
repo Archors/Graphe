@@ -10,12 +10,11 @@ struct MenuDonnees
 {
 	std::string graphe;
 	std::string poid;
-	std::string quelPoid;
+	int quelPoid;
 	bool oriente;
-	int ordreTriPoid; // 1=choix individuel 2=croissant 3=decroissant
 	int algoChoix; //1=dijkstra 2=Prim 3=Pareto
-	std::string depart;
-	std::string arrivee;
+	int depart;
+	int arrivee;
 	bool cycle; //Pareto
 	std::bitset<nombreMaxPoids> poids;
 };
