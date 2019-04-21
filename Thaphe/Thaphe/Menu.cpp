@@ -673,6 +673,7 @@ void chargerChoixMenu(MenuDonnees& choix)
 	ifs >> choix.graphe; if (ifs.fail()) throw std::runtime_error("Probleme lecture graphe");
 	ifs >> choix.poid; if (ifs.fail()) throw std::runtime_error("Probleme lecture weights");
 	ifs >> choix.oriente; if (ifs.fail()) throw std::runtime_error("Probleme lecture orientation");
+	ifs >> choix.colorG; if (ifs.fail()) throw std::runtime_error("Probleme lecture color ou non");
 	ifs >> choix.algoChoix; if (ifs.fail()) throw std::runtime_error("Probleme lecture choix algo");
 
 	switch (choix.algoChoix)

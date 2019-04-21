@@ -20,6 +20,7 @@ class Graphe
 		std::list<graphePareto> m_souGraphePareto;
 		bool m_avecCycles;
 		bool m_oriented;
+		bool m_diametre;
 public:
 		std::vector<ALLEGRO_COLOR> m_colors;
 		
@@ -38,6 +39,7 @@ public:
 		bool isConnexe(std::bitset<nombreMaxAretes>, Sommet*);
 		std::vector<float> sommePoidsCoutMin(std::bitset<nombreMaxAretes>);
 		std::vector<float> sommePoidsCoutDist(std::bitset<nombreMaxAretes>);
+		std::vector<float> sommePoidsDiametre(std::bitset<nombreMaxAretes>);
 		void createColors();
 
 		ALLEGRO_BITMAP* DessinerGraphe();

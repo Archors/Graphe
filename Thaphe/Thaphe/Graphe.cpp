@@ -93,6 +93,7 @@ Graphe::Graphe(MenuDonnees choix)
 	m_typeTriPareto = choix.poids;
 	m_avecCycles = choix.cycle;
 	m_oriented = choix.oriente;
+	m_diametre = choix.diametre;
 	m_colors.push_back(al_map_rgb(255, 255, 255));
 
 	ifs.close();
@@ -180,6 +181,7 @@ std::bitset<nombreMaxAretes> Graphe::Prim(int poids, int sommetDepart)
 
 std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int sommetArrivée)
 {
+	std::cout << sommetDepart << "->" << sommetArrivée << "\n";
 	if (sommetDepart < 0 || sommetDepart > getNombreSommets() - 1)
 		sommetDepart = 0;
 	if (sommetArrivée < 0 || sommetArrivée > getNombreSommets() - 1)
@@ -212,6 +214,8 @@ std::list<graphePareto> Graphe::TriPareto()
 		std::vector<float> sommePoids;
 		if (m_typeTriPareto.count() == 0)
 			sommePoids = sommePoidsCoutMin(ssg);
+		else if (m_diametre)
+			sommePoids = sommePoidsDiametre(ssg);
 		else
 			sommePoids = sommePoidsCoutDist(ssg);
 
@@ -328,6 +332,41 @@ std::vector<float> Graphe::sommePoidsCoutMin(std::bitset<nombreMaxAretes> ssg)
 	return sommePoids;
 }
 
+
+std::vector<float> Graphe::sommePoidsDiametre(std::bitset<nombreMaxAretes> ssg)
+{
+	const int nbPoids = m_aretes[0]->getNombrePoids();
+
+	std::vector<float> sommePoids;
+	sommePoids.resize(nbPoids);
+
+	for (int j = 0; j < nbPoids; j++)
+	{
+		if (!m_typeTriPareto[j])
+		{
+			for (int i = 0; i < getNombreAretes(); i++)
+			{
+				if (ssg[i])
+				{
+					sommePoids[j] += m_aretes[i]->getPoids(j);
+				}
+			}
+		}
+		else
+		{
+			sommePoids[j] = 0;
+			for (int i = 0; i < getNombreSommets(); i++)
+			{
+				float dist = m_sommets[i]->Dijkstra(getNombreSommets(), j, nullptr, ssg).second;
+				if (dist > sommePoids[j])
+					sommePoids[j] = dist;
+			}
+		}
+
+	}
+
+	return sommePoids;
+}
 
 std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
 {
