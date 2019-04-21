@@ -50,7 +50,7 @@ int main(int argc, char** argv)
 	ALLEGRO_FONT* font;
 	font = al_load_font("simple_font.ttf", 30, 0);
 
-	MenuDonnees choix{ ((std::string)"broadway"), ((std::string)"1"), 0, false, 4, 0, 3, false, std::bitset<nombreMaxPoids>(0) };
+	MenuDonnees choix{ ((std::string)"broadway"), ((std::string)"1"), 0, false, 4, 0, 3, false, std::bitset<nombreMaxPoids>(0),false };
 	if (menu)
 		leMenu(choix, display);
 	else

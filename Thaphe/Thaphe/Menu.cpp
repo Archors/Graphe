@@ -34,6 +34,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 	menudonnees.oriente = false;
 	menudonnees.cycle = false;
 	menudonnees.algoChoix = 0;
+	menudonnees.colorG = false;
 
 	//Chargement de l'image de garde
 	imagepresentation = al_load_bitmap("presentation.png");
@@ -208,6 +209,21 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			if (menudonnees.oriente)
 				vline(((1 * disp_data.width / 5 + 100 + 20) + (1 * disp_data.width / 5 + 130 + 20)) / 2, (hauteurOriente + hauteurOriente + 30) / 2 + 5, colorcase);
 
+			//Choix si graphe coloré
+			al_draw_text(font8, al_map_rgb(100, 0, 0), 1 * disp_data.width / 7 + 20, hauteurTRI, ALLEGRO_ALIGN_LEFT, "COLORER LES GRAPHES :");
+			al_draw_rectangle(1 * disp_data.width / 4 + 130, hauteurTRI, 1 * disp_data.width / 4 + 160, hauteurTRI + 30, colorcase, 2);
+			if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+			{
+				if (event.mouse.x >= 1 * disp_data.width / 4 + 130 && event.mouse.x < 1 * disp_data.width / 4 + 160 && event.mouse.y >= hauteurTRI && event.mouse.y < hauteurTRI + 30)
+				{
+					if (!menudonnees.colorG)
+						menudonnees.colorG = true;
+					else
+						menudonnees.colorG = false;
+				}
+			}
+			if (menudonnees.colorG)
+				vline(((1 * disp_data.width / 4 + 130) + (1 * disp_data.width / 4 + 160)) / 2, (hauteurTRI + hauteurTRI + 30) / 2 + 5, colorcase);
 			/*//Choix de l'ordre de tri des poids
 			al_draw_text(font8, al_map_rgb(100, 0, 0), 1 * disp_data.width / 7, hauteurTRI, ALLEGRO_ALIGN_LEFT, "ORDRE DE TRI :");
 
