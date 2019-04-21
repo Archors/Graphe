@@ -191,7 +191,7 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int s
 
 	//std::cout << "Lancement Dijkstra depuis le sommet " << sommetDepart << "jusqu'au sommet (-1 pour tous) " << sommetArrivée << " selon le poids " << poids << "...\n";
 
-	std::vector<const Arete*> areteDijkstra = m_sommets[sommetDepart]->Dijkstra(getNombreSommets(), 0, ((sommetArrivée!=-1)?m_sommets[sommetArrivée]:nullptr), ssg).first;
+	std::vector<const Arete*> areteDijkstra = m_sommets[sommetDepart]->Dijkstra(getNombreSommets(), sommetDepart, ((sommetArrivée!=-1)?m_sommets[sommetArrivée]:nullptr), ssg).first;
 
 	std::bitset<nombreMaxAretes> ssg2;
 
