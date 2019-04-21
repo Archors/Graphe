@@ -5,11 +5,14 @@
 class Coords
 {
 public:
-	Coords();
+	//Coords(int x, int y);
+	Coords(double x, double y);
+	const double getX() const;
+	const double getY() const;
 	~Coords();
 private:
-	int m_x;
-	int m_y;
+	double m_x;
+	double m_y;
 };
 
 #endif // COORDS_H_INCLUDED
