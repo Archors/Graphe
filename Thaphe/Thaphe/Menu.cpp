@@ -35,6 +35,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 	menudonnees.cycle = false;
 	menudonnees.algoChoix = 0;
 	menudonnees.colorG = false;
+	menudonnees.parcourirTout = false;
 
 	//Chargement de l'image de garde
 	imagepresentation = al_load_bitmap("presentation.png");
@@ -421,13 +422,13 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			{
 				if (event.mouse.x >= disp_data.width / 2 + 40 && event.mouse.x < disp_data.width / 2 + 70 && event.mouse.y >= hauteurordre && event.mouse.y < hauteurordre + 30)
 				{
-					if (!parcourirtout)
-						parcourirtout = true;
+					if (!menudonnees.parcourirTout)
+						menudonnees.parcourirTout = true;
 					else
-						parcourirtout = false;
+						menudonnees.parcourirTout = false;
 				}
 			}
-			if (parcourirtout)
+			if (menudonnees.parcourirTout)
 				vline(((disp_data.width / 2 + 40) + (disp_data.width / 2 + 70)) / 2, (hauteurordre + hauteurordre + 30) / 2 + 5, colorcase);
 
 			//Sortir des options
@@ -575,8 +576,6 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 	//al_destroy_bitmap(imagepresentation);
 	al_draw_scaled_bitmap(finBOB, 0, 0, al_get_bitmap_width(finBOB), al_get_bitmap_height(finBOB), 0, 0, disp_data.width, disp_data.height, 0);
 	al_flip_display();
-	if (parcourirtout)
-		menudonnees.quelPoid = -1;
 }
 
 //Code pour créer des boites de text dans Allegro 5 récupérer sur internet
