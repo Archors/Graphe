@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 
 	al_get_display_mode(al_get_num_display_modes() - 1, &disp_data);
 
-	al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+	//al_set_new_display_flags(ALLEGRO_FULLSCREEN);
 
 	display = al_create_display(disp_data.width, disp_data.height);
 	if (!display) {
