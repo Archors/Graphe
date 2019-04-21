@@ -36,6 +36,8 @@ std::pair<Sommet*, Sommet*> Arete::getSommets()
 
 const float Arete::getPoids(int indice) const
 {
+	if (indice > m_poids.size()-1 || indice < 0)
+		throw std::runtime_error("Probleme acces poids arete");
 	return m_poids[indice];
 }
 

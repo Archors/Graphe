@@ -116,8 +116,6 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 /// choix2emeRetour permet de choisir ce qui sera dans le float de la paire retournée. 1 -> poids total    2 -> plus long des pcc
 std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee, std::bitset<nombreMaxAretes> grapheDeTravail, int choix2emeRetour) const
 {
-	//std::cout << "Lancement Dijkstra" << std::endl;
-	std::cout << "Depart val arete : " << m_voisins.cbegin()->second->getPoids(indicePoids)<<std::endl;
 	std::vector<const Arete*> dijkstraTous = {}, dijkstraArrivee = {}; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
 	std::vector<float> distancesFinales = {};
 	std::unordered_set<const Sommet*> sommetsMarques = {};
@@ -130,9 +128,10 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 	sommetsMarques.insert(this);			/// On marque le sommet de départ
 	for (const auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
 	{										/// et on renseigne que this est son prédécesseur
-		//std::cout<<s.second->getPoids(indicePoids)<<std::endl;
+	
 		if (grapheDeTravail[s.second->getId()]) /// Si l'arête est comprise dans le graphe de travail
 		{
+			//std::cout << "indice poids : " << indicePoids << "\n";
 			distances.insert({ s.first, s.second->getPoids(indicePoids) }); /// On l'ajoute aux distances
 			predecesseurs.insert({ s.first, this });	/// et on ajoute le sommet aux predecesseurs
 		}
@@ -155,7 +154,6 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 			}
 		}
 		sommetsMarques.insert(somMarq);
-		std::cout << "Sommet marque : " << somMarq->getId() << "   Distance avec " << this->getId() << " : " << distances.find(somMarq)->second << std::endl;
 		if(distances.find(somMarq)->second>SomLePlusLoin.second)
 			SomLePlusLoin.first = somMarq;
 		distancesFinales.push_back(distances.find(somMarq)->second);
