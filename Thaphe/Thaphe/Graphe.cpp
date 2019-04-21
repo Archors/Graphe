@@ -203,7 +203,7 @@ std::bitset<nombreMaxAretes> Graphe::Prim(int poids, int sommetDepart)
 
 std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int sommetArrivée, std::bitset<nombreMaxAretes> ssg, bool trajetMax)
 {
-	std::cout << "Dijkstra : " << sommetDepart << "->" << sommetArrivée << "\n";
+	//std::cout << "Dijkstra : " << sommetDepart << "->" << sommetArrivée << "\n";
 	if (sommetDepart < 0 || sommetDepart > getNombreSommets() - 1)
 		sommetDepart = 0;
 	if (sommetArrivée < 0 || sommetArrivée > getNombreSommets() - 1)
@@ -539,7 +539,7 @@ ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ss
 
 	float distMax = 0;
 	int indiceDuGraphe;
-	graphePareto grapheAafficher;
+	std::bitset<nombreMaxAretes> grapheAafficher;
 	//std::bitset<nombreMaxAretes> graphePlusLongTrajet;
 
 	for (int j = 0; j < nbPoids; j++)
@@ -553,7 +553,7 @@ ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ss
 				if (dist > distMax)
 				{
 					distMax = dist;
-					grapheAafficher = graphePareto{ {(float)j,-1}, Dijkstra(j, i, -1, ssg, true) };
+					grapheAafficher = Dijkstra(j, i, -1, ssg, true);
 				}
 					
 			}
@@ -561,7 +561,7 @@ ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ss
 
 	}
 
-	return DessinerSousGraphePar(grapheAafficher);
+	return DessinerSousGraphe(grapheAafficher);
 }
 
 

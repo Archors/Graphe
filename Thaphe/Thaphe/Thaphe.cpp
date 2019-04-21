@@ -5,7 +5,7 @@
 int main(int argc, char** argv)
 {
 	bool showGraphs = true;
-	bool menu = false;
+	bool menu = true;
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -71,7 +71,7 @@ int main(int argc, char** argv)
 		std::cout << "Algo : " << choix.algoChoix << "\n";
 		if (choix.parcourirTout)
 			choix.arrivee = -1;
-		std::cout << "Sommet d'arrivee : " << choix.arrivee << "\n";
+		//std::cout << "Sommet d'arrivee : " << choix.arrivee << "\n";
 
 		//Un switch ignore l'initialisation de grapheResults
 		if (choix.algoChoix == 1)
