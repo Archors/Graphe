@@ -1,7 +1,6 @@
 #ifndef ARETE_H_INCLUDED	
 #define ARETE_H_INCLUDED
 
-#include <allegro5/allegro.h>
 #include "libraries.h"
 #include "Sommet.h"
 
@@ -21,10 +20,10 @@ public:
 	void Dessiner(ALLEGRO_BITMAP*);
 
 	std::pair <Sommet*, Sommet*> getSommets();
-	const float getPoids(int indice);
+	const float getPoids(int indice) const;
 	const int getNombrePoids();
 	const int getId() const;
-
+	
 	~Arete();
 };
 
