@@ -35,6 +35,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 	menudonnees.cycle = false;
 	menudonnees.algoChoix = 0;
 	menudonnees.colorG = false;
+	menudonnees.parcourirTout = false;
 
 	//Chargement de l'image de garde
 	imagepresentation = al_load_bitmap("presentation.png");
@@ -421,13 +422,13 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			{
 				if (event.mouse.x >= disp_data.width / 2 + 40 && event.mouse.x < disp_data.width / 2 + 70 && event.mouse.y >= hauteurordre && event.mouse.y < hauteurordre + 30)
 				{
-					if (!parcourirtout)
-						parcourirtout = true;
+					if (!menudonnees.parcourirTout)
+						menudonnees.parcourirTout = true;
 					else
-						parcourirtout = false;
+						menudonnees.parcourirTout = false;
 				}
 			}
-			if (parcourirtout)
+			if (menudonnees.parcourirTout)
 				vline(((disp_data.width / 2 + 40) + (disp_data.width / 2 + 70)) / 2, (hauteurordre + hauteurordre + 30) / 2 + 5, colorcase);
 
 			//Sortir des options
@@ -697,3 +698,28 @@ void chargerChoixMenu(MenuDonnees& choix)
 	}
 	
 }
+
+
+/*
+REMPLIR choix.txt :
+
+Quel graphe
+quel weights
+orienté ou non
+coloré ou non
+pareto selon le diametre
+choix de l'algo (1 à 5)
+
+SI 1
+	selon quel poids
+	sommmet de depart
+	sommet d'arrivée
+
+SI 2
+	selon quel poids
+	sommmet de depart
+
+SI 3
+	cycle ou non
+	chaine de bit pour savoir quel poids va subir dijkstra (diametre ou non) 0000 pour pareto normal
+*/

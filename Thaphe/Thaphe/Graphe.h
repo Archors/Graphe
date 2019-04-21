@@ -21,16 +21,16 @@ class Graphe
 		bool m_avecCycles;
 		bool m_oriented;
 		bool m_diametre;
+		std::vector<ALLEGRO_COLOR> m_colors;
 		
 	public:
 		std::bitset<nombreMaxPoids> m_typeTriPareto;
-		std::vector<ALLEGRO_COLOR> m_colors;
-
+		
 	public:
 		Graphe(MenuDonnees); //Nom du fichier sans le .txt
 
 		std::bitset<nombreMaxAretes> Prim(int poids, int sommetDepart);
-		std::bitset<nombreMaxAretes> Dijkstra(int poids, int sommetDepart, int sommetArrivée = -1);
+		std::bitset<nombreMaxAretes> Dijkstra(int poids, int sommetDepart, int sommetArrivée = -1, std::bitset<nombreMaxAretes> ssg = std::bitset<nombreMaxAretes>(pow(2,nombreMaxAretes)-1));
 		std::list<graphePareto> TriPareto();
 		void Colorer(std::bitset<nombreMaxAretes> ssg);
 
