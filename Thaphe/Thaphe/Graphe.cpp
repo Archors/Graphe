@@ -93,6 +93,7 @@ Graphe::Graphe(MenuDonnees choix)
 	m_typeTriPareto = choix.poids;
 	m_avecCycles = choix.cycle;
 	m_oriented = choix.oriente;
+	m_colors.push_back(al_map_rgb(255, 255, 255));
 
 	ifs.close();
 	ifs2.close();
@@ -361,6 +362,47 @@ std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
 }
 
 
+void Graphe::Colorer(std::bitset<nombreMaxAretes> ssg)
+{
+	if (!m_oriented)
+	{
+		std::list<somOrdre> sommets;
+		for (auto s : m_sommets)
+		{
+			sommets.push_back(somOrdre{ s->getOrdre(), s });
+			s->m_color = 0;
+		}
+			
+
+		sommets.sort(compSomOrdre);
+
+		for (auto s : sommets)
+		{
+			int col = 0;
+			do
+			{
+				col++;
+			} while (s.sommet->avoisineCol(col, ssg));
+			s.sommet->m_color = col;
+		}
+	}
+}
+
+bool compSomOrdre(somOrdre s1, somOrdre s2)
+{
+	return (s1.ordre > s2.ordre);
+}
+
+
+void Graphe::createColors()
+{
+	srand(time(NULL));
+
+	for (int i = 0; i < getNombreSommets(); i++)
+		m_colors.push_back(al_map_rgb(rand() % 255, rand() % 255, rand() % 255));
+
+}
+
 
 ALLEGRO_BITMAP* Graphe::DessinerGraphe()
 {
@@ -388,7 +430,7 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes)
 	ALLEGRO_BITMAP* dessin = al_create_bitmap(width + min, width + min);
 
 	al_set_target_bitmap(dessin);
-	al_clear_to_color(al_map_rgb(180, 230, 150));
+	al_clear_to_color(al_map_rgb(255, 210, 180));
 
 	int i = 0;
 	for (auto arete : m_aretes)
@@ -399,7 +441,7 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes)
 	}
 		
 	for (auto sommet : m_sommets)
-		sommet->Dessiner(dessin);
+		sommet->Dessiner(dessin, m_colors);
 
 
 	return dessin;

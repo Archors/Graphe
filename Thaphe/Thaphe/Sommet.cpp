@@ -1,7 +1,7 @@
 #include "Sommet.h"
 
 Sommet::Sommet(int id, double x, double y)
-	:m_id{id},m_coords{x,y}
+	:m_id{ id }, m_coords{ x,y }, m_color{ 0 }
 {}
 
 
@@ -10,13 +10,13 @@ void Sommet::AjouterVoisin(const Sommet* som, Arete* ar)
 	m_voisins.insert({ som,ar });
 }
 
-void Sommet::Dessiner(ALLEGRO_BITMAP* bmp)
+void Sommet::Dessiner(ALLEGRO_BITMAP* bmp, std::vector<ALLEGRO_COLOR> colors)
 {
 	ALLEGRO_FONT* font;
 	al_set_target_bitmap(bmp);
 	font = al_load_font("simple_font.ttf", 28, 0);
-	al_draw_filled_circle(m_coords.getX(), m_coords.getY(), 20, al_map_rgb(255, 255, 255));
-	al_draw_text(font, al_map_rgb(0, 0, 0), m_coords.getX(), m_coords.getY()-14, ALLEGRO_ALIGN_CENTRE, inttostring(m_id).c_str() );
+	al_draw_filled_circle(m_coords.getX(), m_coords.getY(), 20, colors[m_color]);
+	al_draw_text(font, al_map_rgb((1-colors[m_color].r)*255, 255*(1-colors[m_color].g), 255*(1-colors[m_color].b)), m_coords.getX(), m_coords.getY()-14, ALLEGRO_ALIGN_CENTRE, inttostring(m_id).c_str() );
 	al_destroy_font(font);
 }
 
@@ -312,6 +312,22 @@ int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<nombreMaxAretes> 
 	}
 
 	return std::accumulate(discovered.begin(), discovered.end(), 0);
+}
+
+
+bool Sommet::avoisineCol(int color, std::bitset<nombreMaxAretes> ssg) const
+{
+	for (auto s : m_voisins)
+	{
+		if (ssg[s.second->getId()] && s.first->m_color == color)
+			return true;
+	}
+	return false;
+}
+
+const int Sommet::getOrdre() const
+{
+	return m_voisins.size();
 }
 
 
