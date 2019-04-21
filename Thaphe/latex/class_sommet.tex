@@ -1,0 +1,189 @@
+\hypertarget{class_sommet}{}\section{Sommet Class Reference}
+\label{class_sommet}\index{Sommet@{Sommet}}
+
+
+{\ttfamily \#include $<$Sommet.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_sommet_a82587ed9c751f6adb8812d63bedd03f5}{Sommet}} (int id, double x, double y)
+\item 
+void \mbox{\hyperlink{class_sommet_af5a33fae4988ecf89be18415ff20907a}{Ajouter\+Voisin}} (const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$som, \mbox{\hyperlink{class_arete}{Arete}} $\ast$ar)
+\item 
+int \mbox{\hyperlink{class_sommet_a38d86fb9fc07ede7cd1d4d315d55358b}{B\+F\+Snb\+Aretes}} (int nb\+Sommets, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$)
+\item 
+int \mbox{\hyperlink{class_sommet_a065fa3896a679494ef98d6f618b57988}{taille\+Composante\+Connexe}} (int nb\+Sommets, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg)
+\item 
+bool \mbox{\hyperlink{class_sommet_a6ba31187835569c2ae5b14ffd3a8a792}{avoisine\+Col}} (int color, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg) const
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$ \mbox{\hyperlink{class_sommet_acb6082560f8722ecfeb70c77f745a85f}{Prim}} (int indice\+Poids)
+\item 
+std\+::pair$<$ std\+::vector$<$ const \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$, float $>$ \mbox{\hyperlink{class_sommet_af820c0df076867eb7e32e6bf83dc19e6}{Dijkstra}} (int nombre\+Sommets, int indice\+Poids, const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$arrivee=nullptr, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ graphe\+De\+Travail=std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$((pow(2, \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}) -\/ 1)), int choix2eme\+Retour=2) const
+\begin{DoxyCompactList}\small\item\em choix2eme\+Retour permet de choisir ce qui sera dans le float de la paire retournée. 1 -\/$>$ poids total 2 -\/$>$ plus long des pcc \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_sommet_aed49d95952162e549c45d8c6175d0198}{Dijtances}} (std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg, int indice\+Poidsn, int nb\+Sommets)
+\item 
+void \mbox{\hyperlink{class_sommet_a219fd6f8ee76fb65627be729fd0cd957}{Dessiner}} (A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$bmp, std\+::vector$<$ A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR $>$)
+\item 
+const \mbox{\hyperlink{class_coords}{Coords}} \mbox{\hyperlink{class_sommet_a2fea09a46012a720ec1af2d7a74cbcd6}{get\+Coords}} () const
+\item 
+const int \mbox{\hyperlink{class_sommet_a5a7effa279d36f5998de94fc4af1629c}{get\+Id}} () const
+\item 
+const int \mbox{\hyperlink{class_sommet_a7743157f17c719899a90899112b9ef89}{get\+Ordre}} () const
+\item 
+virtual \mbox{\hyperlink{class_sommet_a23a7ad681b25488d94737c8b5ae50eb4}{$\sim$\+Sommet}} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_sommet_aa3f32e2f44a3f46f9d1cc1a58e4ce9d5}{m\+\_\+color}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_sommet_a82587ed9c751f6adb8812d63bedd03f5}\label{class_sommet_a82587ed9c751f6adb8812d63bedd03f5}} 
+\index{Sommet@{Sommet}!Sommet@{Sommet}}
+\index{Sommet@{Sommet}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{Sommet()}{Sommet()}}
+{\footnotesize\ttfamily Sommet\+::\+Sommet (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{double}]{x,  }\item[{double}]{y }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_sommet_a23a7ad681b25488d94737c8b5ae50eb4}\label{class_sommet_a23a7ad681b25488d94737c8b5ae50eb4}} 
+\index{Sommet@{Sommet}!````~Sommet@{$\sim$Sommet}}
+\index{````~Sommet@{$\sim$Sommet}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{$\sim$Sommet()}{~Sommet()}}
+{\footnotesize\ttfamily Sommet\+::$\sim$\+Sommet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_sommet_af5a33fae4988ecf89be18415ff20907a}\label{class_sommet_af5a33fae4988ecf89be18415ff20907a}} 
+\index{Sommet@{Sommet}!AjouterVoisin@{AjouterVoisin}}
+\index{AjouterVoisin@{AjouterVoisin}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{AjouterVoisin()}{AjouterVoisin()}}
+{\footnotesize\ttfamily void Sommet\+::\+Ajouter\+Voisin (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$}]{som,  }\item[{\mbox{\hyperlink{class_arete}{Arete}} $\ast$}]{ar }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_sommet_a6ba31187835569c2ae5b14ffd3a8a792}\label{class_sommet_a6ba31187835569c2ae5b14ffd3a8a792}} 
+\index{Sommet@{Sommet}!avoisineCol@{avoisineCol}}
+\index{avoisineCol@{avoisineCol}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{avoisineCol()}{avoisineCol()}}
+{\footnotesize\ttfamily bool Sommet\+::avoisine\+Col (\begin{DoxyParamCaption}\item[{int}]{color,  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_sommet_a38d86fb9fc07ede7cd1d4d315d55358b}\label{class_sommet_a38d86fb9fc07ede7cd1d4d315d55358b}} 
+\index{Sommet@{Sommet}!BFSnbAretes@{BFSnbAretes}}
+\index{BFSnbAretes@{BFSnbAretes}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{BFSnbAretes()}{BFSnbAretes()}}
+{\footnotesize\ttfamily int Sommet\+::\+B\+F\+Snb\+Aretes (\begin{DoxyParamCaption}\item[{int}]{nb\+Sommets,  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_sommet_a219fd6f8ee76fb65627be729fd0cd957}\label{class_sommet_a219fd6f8ee76fb65627be729fd0cd957}} 
+\index{Sommet@{Sommet}!Dessiner@{Dessiner}}
+\index{Dessiner@{Dessiner}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{Dessiner()}{Dessiner()}}
+{\footnotesize\ttfamily void Sommet\+::\+Dessiner (\begin{DoxyParamCaption}\item[{A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$}]{bmp,  }\item[{std\+::vector$<$ A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR $>$}]{colors }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_sommet_af820c0df076867eb7e32e6bf83dc19e6}\label{class_sommet_af820c0df076867eb7e32e6bf83dc19e6}} 
+\index{Sommet@{Sommet}!Dijkstra@{Dijkstra}}
+\index{Dijkstra@{Dijkstra}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{Dijkstra()}{Dijkstra()}}
+{\footnotesize\ttfamily std\+::pair$<$ std\+::vector$<$ const \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$, float $>$ Sommet\+::\+Dijkstra (\begin{DoxyParamCaption}\item[{int}]{nombre\+Sommets,  }\item[{int}]{indice\+Poids,  }\item[{const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$}]{arrivee = {\ttfamily nullptr},  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{graphe\+De\+Travail = {\ttfamily std\+:\+:bitset$<$\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}$>$((pow(2,~\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}})~-\/~1))},  }\item[{int}]{choix2eme\+Retour = {\ttfamily 2} }\end{DoxyParamCaption}) const}
+
+
+
+choix2eme\+Retour permet de choisir ce qui sera dans le float de la paire retournée. 1 -\/$>$ poids total 2 -\/$>$ plus long des pcc 
+
+dijkstra\+Tous \+: arêtes de tous les pcc vers tous les sommets ; dijkstra\+Arrivee \+: arêtes de this à arrivée
+
+second = distance de first par rapport à this
+
+second = predecesseur de first
+
+Pointeur pour le sommet qui sera marqué à chaque tour
+
+Pour le dijkstra\+Arrivee
+
+Permet de comparer les distances pour marquer un sommet
+
+On marque le sommet de départ
+
+On ajoute la distance de chaque voisin du sommet de départ
+
+et on renseigne que this est son prédécesseur
+
+Si l\textquotesingle{}arête est comprise dans le graphe de travail
+
+On l\textquotesingle{}ajoute aux distances
+
+et on ajoute le sommet aux predecesseurs
+
+Tous les sommets sont non marqués, sauf le this Sélectionner et marquer le sommet ayant la plus petite distance au sommet initial
+
+Tant qu\textquotesingle{}il reste des sommets non marqués
+
+Marquer le sommet avec la plus petite distance
+
+Ajout de l\textquotesingle{}arête
+
+On met à jour les distances avec le nouveau sommet marqué
+
+Pour chaque voisin du sommet marqué v est une paire (\mbox{\hyperlink{class_sommet}{Sommet}} $\ast$, Arete$\ast$)
+
+Mise à jour de la distance de chaque voisin si d(som\+Marq) + poids (som\+Marq -\/ v) $<$ d(v)
+
+Si le voisin n\textquotesingle{}a pas de distance dans distances, on l\textquotesingle{}ajoute
+
+som\+Marq devient le prédécesseur de v
+
+et on met à jour la distance de v qui vaut alors d(som\+Marq) + poids (som\+Marq -\/ v)
+
+Une fois que j\textquotesingle{}ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore
+
+Pour ce cas on ne s\textquotesingle{}intéresse pas à la longueur du chemin \mbox{\Hypertarget{class_sommet_aed49d95952162e549c45d8c6175d0198}\label{class_sommet_aed49d95952162e549c45d8c6175d0198}} 
+\index{Sommet@{Sommet}!Dijtances@{Dijtances}}
+\index{Dijtances@{Dijtances}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{Dijtances()}{Dijtances()}}
+{\footnotesize\ttfamily float Sommet\+::\+Dijtances (\begin{DoxyParamCaption}\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg,  }\item[{int}]{indice\+Poidsn,  }\item[{int}]{nb\+Sommets }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_sommet_a2fea09a46012a720ec1af2d7a74cbcd6}\label{class_sommet_a2fea09a46012a720ec1af2d7a74cbcd6}} 
+\index{Sommet@{Sommet}!getCoords@{getCoords}}
+\index{getCoords@{getCoords}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{getCoords()}{getCoords()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_coords}{Coords}} Sommet\+::get\+Coords (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_sommet_a5a7effa279d36f5998de94fc4af1629c}\label{class_sommet_a5a7effa279d36f5998de94fc4af1629c}} 
+\index{Sommet@{Sommet}!getId@{getId}}
+\index{getId@{getId}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily const int Sommet\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_sommet_a7743157f17c719899a90899112b9ef89}\label{class_sommet_a7743157f17c719899a90899112b9ef89}} 
+\index{Sommet@{Sommet}!getOrdre@{getOrdre}}
+\index{getOrdre@{getOrdre}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{getOrdre()}{getOrdre()}}
+{\footnotesize\ttfamily const int Sommet\+::get\+Ordre (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_sommet_acb6082560f8722ecfeb70c77f745a85f}\label{class_sommet_acb6082560f8722ecfeb70c77f745a85f}} 
+\index{Sommet@{Sommet}!Prim@{Prim}}
+\index{Prim@{Prim}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{Prim()}{Prim()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$ Sommet\+::\+Prim (\begin{DoxyParamCaption}\item[{int}]{indice\+Poids }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_sommet_a065fa3896a679494ef98d6f618b57988}\label{class_sommet_a065fa3896a679494ef98d6f618b57988}} 
+\index{Sommet@{Sommet}!tailleComposanteConnexe@{tailleComposanteConnexe}}
+\index{tailleComposanteConnexe@{tailleComposanteConnexe}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{tailleComposanteConnexe()}{tailleComposanteConnexe()}}
+{\footnotesize\ttfamily int Sommet\+::taille\+Composante\+Connexe (\begin{DoxyParamCaption}\item[{int}]{nb\+Sommets,  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_sommet_aa3f32e2f44a3f46f9d1cc1a58e4ce9d5}\label{class_sommet_aa3f32e2f44a3f46f9d1cc1a58e4ce9d5}} 
+\index{Sommet@{Sommet}!m\_color@{m\_color}}
+\index{m\_color@{m\_color}!Sommet@{Sommet}}
+\subsubsection{\texorpdfstring{m\_color}{m\_color}}
+{\footnotesize\ttfamily int Sommet\+::m\+\_\+color}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_sommet_8h}{Sommet.\+h}}\item 
+\mbox{\hyperlink{_sommet_8cpp}{Sommet.\+cpp}}\end{DoxyCompactItemize}

@@ -123,6 +123,7 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 	std::unordered_map<const Sommet*, const Sommet*> predecesseurs = {}; /// second = predecesseur de first
 	const Sommet* somMarq = nullptr;	/// Pointeur pour le sommet qui sera marqué à chaque tour 
 	const Sommet* pred1, * pred2;		/// Pour le dijkstraArrivee
+	std::pair<const Sommet*, float> SomLePlusLoin;	
 	float distanceMin, distance, distanceMax = 0.0;				/// Permet de comparer les distances pour marquer un sommet
 	sommetsMarques.insert(this);			/// On marque le sommet de départ
 	for (const auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
@@ -151,6 +152,8 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 			}
 		}
 		sommetsMarques.insert(somMarq);
+		if(distances.find(somMarq)->second>SomLePlusLoin.second)
+			SomLePlusLoin.first = somMarq;
 		distancesFinales.push_back(distances.find(somMarq)->second);
 		dijkstraTous.push_back(predecesseurs.find(somMarq)->second->m_voisins.find(somMarq)->second); /// Ajout de l'arête 
 		/// On met à jour les distances avec le nouveau sommet marqué
@@ -182,7 +185,16 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 		}
 		else if (choix2emeRetour == 2)
 		{
-			return { dijkstraTous, *std::max_element(distancesFinales.cbegin(), distancesFinales.cend()) };
+			pred1 = SomLePlusLoin.first;
+			pred2 = predecesseurs.find(SomLePlusLoin.first)->second;
+			dijkstraArrivee.push_back(pred2->m_voisins.find(pred1)->second);
+			while (pred2 != this)
+			{
+				pred1 = pred2;
+				pred2 = predecesseurs.find(pred2)->second;
+				dijkstraArrivee.push_back(pred2->m_voisins.find(pred1)->second);
+			}
+			return { dijkstraArrivee, *std::max_element(distancesFinales.cbegin(), distancesFinales.cend()) };
 		}
 	}
 	else
