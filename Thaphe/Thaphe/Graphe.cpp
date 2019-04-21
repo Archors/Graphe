@@ -192,7 +192,7 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int s
 
 	std::bitset<nombreMaxAretes> ssg;
 
-	for (auto a : areteDijkstra)
+	for (auto a : areteDijkstra) 
 		ssg[a->getId()] = 1;
 
 	return ssg;
