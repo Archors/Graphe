@@ -29,88 +29,88 @@ std::string inttostring(int a)
 
 std::vector<Arete*> Sommet::Prim(int indicePoids)
 {
-	std::vector<Arete*> aretePrim;
-	std::list<Arete*> areteDecouverte;
-	std::vector<Sommet*> sommetPrim;
-	sommetPrim.push_back(this);
-	/*for (auto x : this->m_voisins)
-		std::cout << x.first->m_id;*/
+	//Creation des type de données utiles à l'algorithme de Prim
+	std::vector<Arete*> aretePrim; //Vecteur des arretes pour Prim
+	std::list<Arete*> areteDecouverte; //Liste des arretes déjà decouvertes
+	std::vector<Sommet*> sommetPrim; //Tableau des sommets ou l'on est déjà passé
+	sommetPrim.push_back(this); //On ajoute le sommet de depart au vecteur de sommet
 	do
 	{
 		for (auto arete : sommetPrim.back()->m_voisins)//On check les voisins du dernier sommet ajouté
 		{
-			//On vérifie que l'arrete n'est pas déjà ajoutée
-			bool present = false;
-			bool sommet1 = false;
-			bool sommet2 = false;
-			for (auto sommetDejaAjoute : sommetPrim)
+			//
+			bool present = false; // Si l'arrete est deja presente dans le graphe
+			bool sommet1 = false; //1er sommet de l'arete en cours de verification
+			bool sommet2 = false; //2eme sommet de l'arete en cours de verification
+			for (auto sommetDejaAjoute : sommetPrim) //On parcours la liste des sommets déjà ajoutée dans le graphe
 			{
-				if (arete.second->getSommets().first == sommetDejaAjoute)
-					sommet1 = true;
-				if (arete.second->getSommets().second == sommetDejaAjoute)
-					sommet2 = true;
-				if (sommet1 && sommet2)
+				if (arete.second->getSommets().first == sommetDejaAjoute) //Si le premier sommet est déjà dans le graphe
+					sommet1 = true; //On dit que le sommet 1 est dans le graphe
+				if (arete.second->getSommets().second == sommetDejaAjoute) //Si le deuxieme sommet est déjà dans le graphe
+					sommet2 = true; //On dit que le sommet 2 est dans le graphe
+				if (sommet1 && sommet2) //Si les deux sommets de l'arrete sont dans le graphe alors l'arrete est déjà dans le graphe
 				{
-					present = true;
+					present = true; //On dit que l'arrete est dans le graphe
 					break;
 				}
 			}
 
-			if (!present) //Si elle ne l'est pas on l'ajoute aux aretes decouvertes
+			if (!present) //Si l'arete n'est pas dans le graphe, on l'ajoute aux aretes decouvertes
 			{
 				if (areteDecouverte.empty()) //Si il n'y a pas encore d'arrete decouverte
-					areteDecouverte.push_back(arete.second);
+					areteDecouverte.push_back(arete.second); //On peut ajouter l'arrete directement en 1er
 				else
 				{
 					//On classe les arretes par poid
 					bool ajout = false;
-					for (std::list<Arete*>::iterator it = areteDecouverte.begin(); it != areteDecouverte.end(); ++it)
+					for (std::list<Arete*>::iterator it = areteDecouverte.begin(); it != areteDecouverte.end(); ++it) //On parcours les arretes par poid
 					{
-						if ((*it)->getPoids(indicePoids) > arete.second->getPoids(indicePoids))
+						if ((*it)->getPoids(indicePoids) > arete.second->getPoids(indicePoids)) //Si l'arrete en cours d'ajout est de poid plus faible que celle parcouru
 						{
-							areteDecouverte.insert(it, arete.second);
-							ajout = true;
+							areteDecouverte.insert(it, arete.second); //On l'ajoute avant
+							ajout = true; //On dit qu'elle a été ajouté pour ne stoper la boucle
 							break;
 						}
 					}
-					if (!ajout)
-						areteDecouverte.push_back(arete.second);
+					if (!ajout) //Si elle n'a pas été ajouté à la fin c'est qu'elle est de poid superieur aux autres
+						areteDecouverte.push_back(arete.second); //On l'ajoute donc à la fin
 				}
 			}
 		}
-		bool sommet1 = false;
+		bool sommet1 = false; //On remet les booleen à false une fois utilisés
 		bool sommet2 = false;
 		for (auto sommetDansPrim : sommetPrim) //On verifie qu'il n'y a pas de cycle
 		{
-			if (areteDecouverte.front()->getSommets().first == sommetDansPrim)
+			if (areteDecouverte.front()->getSommets().first == sommetDansPrim) //On verifie si le 1er sommet est dans le graphe
 				sommet1 = true;
-			if (areteDecouverte.front()->getSommets().second == sommetDansPrim)
+			if (areteDecouverte.front()->getSommets().second == sommetDansPrim) //On vérifie si le 2ème sommet est dans le graphe
 				sommet2 = true;
-			if (sommet1 && sommet2) //Si il y a un cycle on supprimme l'arete
+			if (sommet1 && sommet2) //Il y a un cycle si les deux sommets sont déjà dans le graphe
 			{
-				areteDecouverte.pop_front();
+				areteDecouverte.pop_front(); //Si il y a un cycle on supprimme l'arete
 				break;
 			}
 		}
 		if (!sommet1 || !sommet2) //Si il n'y a pas de cycle on ajoute l'arete
 		{
-			aretePrim.push_back(areteDecouverte.front());
-			for (auto sommet : sommetPrim) //On ajoute le nouveau sommet au vecteur
+			aretePrim.push_back(areteDecouverte.front()); //On ajoute la premiere arrete de la pile dans le graphe
+			//On ajoute le nouveau sommet au vecteur
+			for (auto sommet : sommetPrim) //On parcourt les sommets déjà present
 			{
-				if (areteDecouverte.front()->getSommets().first == sommet)
-					sommetPrim.push_back(areteDecouverte.front()->getSommets().second);
-				if(areteDecouverte.front()->getSommets().second == sommet)
-					sommetPrim.push_back(areteDecouverte.front()->getSommets().first);
+				if (areteDecouverte.front()->getSommets().first == sommet) //Si le sommet 1 est deja present
+					sommetPrim.push_back(areteDecouverte.front()->getSommets().second); //Alors c'est le sommet 2 qui n'y était pas encore
+				if(areteDecouverte.front()->getSommets().second == sommet) //Si le sommet 2 est deja present
+					sommetPrim.push_back(areteDecouverte.front()->getSommets().first); //Alors c'est le sommet 1 qui n'y était pas encore
 			}
-			areteDecouverte.pop_front();
+			areteDecouverte.pop_front(); //Une fois l'arrete ajouté on l'enleve de la pile
 		}
-		if (areteDecouverte.empty()) //Si il n'y a plus d'arrete decouverte on quitte
+		if (areteDecouverte.empty()) //Si la pile est vide, on sort de la boucle pour gagner du temps
 			break;
 
-	} while (!areteDecouverte.empty());
+	} while (!areteDecouverte.empty()); //Tant que la pile n'est pas vide on continu
 
 
-	return aretePrim;
+	return aretePrim; //On retourne un vecteur d'arrete pour parcourir le graphe en faisant le chemin de poid minimal
 }
 
 /// choix2emeRetour permet de choisir ce qui sera dans le float de la paire retournée. 1 -> poids total    2 -> plus long des pcc
