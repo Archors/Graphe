@@ -109,7 +109,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 		if (pres)
 		{
 			ALLEGRO_EVENT event;
-			al_wait_for_event(queue, &event);
+			
 			al_draw_scaled_bitmap(imagepresentation, 0, 0, al_get_bitmap_width(imagepresentation), al_get_bitmap_height(imagepresentation), 0, 0, disp_data.width, disp_data.height, 0);
 			al_draw_text(fontMatrix, al_map_rgb(0, 255, 0), disp_data.width / 2, disp_data.height / 6, ALLEGRO_ALIGN_CENTRE, "Theorie des graphes");
 			al_draw_rounded_rectangle(disp_data.width / 4 + 20, disp_data.height / 2 + 50, 3 * disp_data.width / 4 - 20, disp_data.height / 2 + 200, 50, 50, al_map_rgb(255, 0, 0), 10);
@@ -117,6 +117,8 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			al_draw_text(fontMatrixPetit, al_map_rgb(150, 0, 0), 20, disp_data.height - 130, ALLEGRO_ALIGN_LEFT, "Combe Antoine");
 			al_draw_text(fontMatrixPetit, al_map_rgb(150, 0, 0), 20, disp_data.height - 90, ALLEGRO_ALIGN_LEFT, "De Malliard Jean");
 			al_draw_text(fontMatrixPetit, al_map_rgb(150, 0, 0), 20, disp_data.height - 50, ALLEGRO_ALIGN_LEFT, "Gaucher Matthieu");
+
+			al_wait_for_event(queue, &event);
 
 			if (event.mouse.x >= disp_data.width / 4 + 20 && event.mouse.x < 3 * disp_data.width / 4 - 20 && event.mouse.y >= disp_data.height / 2 + 50 && event.mouse.y < disp_data.height / 2 + 200)
 			{
@@ -177,8 +179,6 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 				al_draw_rounded_rectangle(5 * disp_data.width / 8, 7 * disp_data.height / 8 - 50, 7 * disp_data.width / 8 + 20, 7 * disp_data.height / 8 + 50, 50, 50, al_map_rgb(0, 255, 0), 10);
 				al_draw_text(font8, al_map_rgb(0, 255, 0), ((5 * disp_data.width / 8) + (7 * disp_data.width / 8 + 20)) / 2, ((7 * disp_data.height / 8 - 50) + (7 * disp_data.height / 8 + 50)) / 2-10, ALLEGRO_ALIGN_CENTRE, "SUITE ->");
 			}
-
-
 		}
 
 		//2eme page des options
@@ -472,7 +472,6 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 		if (pareto)
 		{
 			ALLEGRO_EVENT event;
-			al_wait_for_event(queue, &event);
 			al_draw_scaled_bitmap(imagechoix, 0, 0, al_get_bitmap_width(imagechoix), al_get_bitmap_height(imagechoix), 0, 0, disp_data.width, disp_data.height, 0);
 			al_draw_text(fontMatrix, al_map_rgb(100, 0, 0), disp_data.width / 2, disp_data.height / 8, ALLEGRO_ALIGN_CENTRE, "OPTIONS");
 			int hauteur2 = disp_data.height / 4 + 160;
@@ -482,6 +481,9 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			//Choix si il y a un cycle ou non
 			al_draw_text(font8, al_map_rgb(100, 0, 0), disp_data.width / 6, hauteur1, ALLEGRO_ALIGN_CENTRE, "CYCLE :");
 			al_draw_rectangle(1 * disp_data.width / 5 + 100, hauteur1, 1 * disp_data.width / 5 + 130, hauteur1 + 30, colorcase, 2);
+
+			al_wait_for_event(queue, &event);
+
 			if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 			{
 				if (event.mouse.x >= 1 * disp_data.width / 5 + 100 && event.mouse.x < 1 * disp_data.width / 5 + 130 && event.mouse.y >= hauteur1 && event.mouse.y < hauteur1 + 30)
@@ -494,6 +496,22 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			}
 			if (menudonnees.cycle)
 				vline(((1 * disp_data.width / 5 + 100) + (1 * disp_data.width / 5 + 130)) / 2, (hauteur1 + hauteur1 + 30) / 2 + 5, colorcase);
+
+			//Choix si il y a un cycle ou non
+			al_draw_text(font8, al_map_rgb(100, 0, 0), disp_data.width / 6, hauteur2, ALLEGRO_ALIGN_CENTRE, "DIAMETRE :");
+			al_draw_rectangle(1 * disp_data.width / 5 + 100, hauteur2, 1 * disp_data.width / 5 + 130, hauteur2 + 30, colorcase, 2);
+			if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+			{
+				if (event.mouse.x >= 1 * disp_data.width / 5 + 100 && event.mouse.x < 1 * disp_data.width / 5 + 130 && event.mouse.y >= hauteur2 && event.mouse.y < hauteur2 + 30)
+				{
+					if (!menudonnees.diametre)
+						menudonnees.diametre = true;
+					else
+						menudonnees.diametre = false;
+				}
+			}
+			if (menudonnees.diametre)
+				vline(((1 * disp_data.width / 5 + 100) + (1 * disp_data.width / 5 + 130)) / 2, (hauteur2 + hauteur2 + 30) / 2 + 5, colorcase);
 
 			//Choix optimisation bi objectif
 			if (menudonnees.algoChoix == 3) {

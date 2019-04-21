@@ -27,7 +27,7 @@ public:
 
 	std::vector<Arete*> Prim(int indicePoids); //Renvoie les arrêtes du graphe de poids minimal
 	//Renvoie les arrêtes pour le trajet le plus court entre 2 sommets ainsi que la somme des trajets de tous les sommets rencontrés 
-	std::pair<std::vector<const Arete*>, float> Dijkstra(int nombreSommets, int indicePoids, const Sommet* arrivee=nullptr, std::bitset<nombreMaxAretes> grapheDeTravail = std::bitset<nombreMaxAretes>((pow(2, nombreMaxAretes) - 1))) const;
+	std::pair<std::vector<const Arete*>, float> Dijkstra(int nombreSommets, int indicePoids, const Sommet* arrivee=nullptr, std::bitset<nombreMaxAretes> grapheDeTravail = std::bitset<nombreMaxAretes>((pow(2, nombreMaxAretes) - 1)), int choix2emeRetour = 2) const;
 	float Dijtances(std::bitset<nombreMaxAretes> ssg, int indicePoidsn, int nbSommets);//Renvoie la somme des distances de tous les points au point de départ
 
 	void Dessiner(ALLEGRO_BITMAP* bmp, std::vector<ALLEGRO_COLOR>); //Dessine le sommet sur la bitmap
