@@ -128,8 +128,10 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 	sommetsMarques.insert(this);			/// On marque le sommet de départ
 	for (const auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
 	{										/// et on renseigne que this est son prédécesseur
+	
 		if (grapheDeTravail[s.second->getId()]) /// Si l'arête est comprise dans le graphe de travail
 		{
+			//std::cout << "indice poids : " << indicePoids << "\n";
 			distances.insert({ s.first, s.second->getPoids(indicePoids) }); /// On l'ajoute aux distances
 			predecesseurs.insert({ s.first, this });	/// et on ajoute le sommet aux predecesseurs
 		}
