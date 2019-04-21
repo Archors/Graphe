@@ -114,45 +114,43 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 }
 
 /// choix2emeRetour permet de choisir ce qui sera dans le float de la paire retournée. 1 -> poids total    2 -> plus long des pcc
-std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int choix2emeRetour, int nombreSommets,int indicePoids, const Sommet* arrivee, std::bitset<nombreMaxAretes> grapheDeTravail) const
+std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int choix2emeRetour, int nombreSommets, int indicePoids, const Sommet* arrivee, std::bitset<nombreMaxAretes> grapheDeTravail) const
 {
-	std::vector<const Arete*> dijkstraTous, dijkstraArrivee; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
-	//float distancesTotales=0.0;
+	std::vector<const Arete*> dijkstraTous = {}, dijkstraArrivee = {}; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
 	std::vector<float> distancesFinales = {};
-	std::unordered_set<const Sommet*> sommetsMarques;
-	std::unordered_map<const Sommet*, float> distances;		/// second = distance de first par rapport à this
-	std::unordered_map<const Sommet*, const Sommet*> predecesseurs; /// second = predecesseur de first
-	const Sommet* somMarq=nullptr;	/// Pointeur pour le sommet qui sera marqué à chaque tour 
-	const Sommet* pred1, *pred2;		/// Pour le dijkstraArrivee
-	float distanceMin,distance,distanceMax=0.0;				/// Permet de comparer les distances pour marquer un sommet
+	std::unordered_set<const Sommet*> sommetsMarques = {};
+	std::unordered_map<const Sommet*, float> distances = {};		/// second = distance de first par rapport à this
+	std::unordered_map<const Sommet*, const Sommet*> predecesseurs = {}; /// second = predecesseur de first
+	const Sommet* somMarq = nullptr;	/// Pointeur pour le sommet qui sera marqué à chaque tour 
+	const Sommet* pred1, * pred2;		/// Pour le dijkstraArrivee
+	float distanceMin, distance, distanceMax = 0.0;				/// Permet de comparer les distances pour marquer un sommet
 	sommetsMarques.insert(this);			/// On marque le sommet de départ
-	for (auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
+	for (const auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
 	{										/// et on renseigne que this est son prédécesseur
 		if (grapheDeTravail[s.second->getId()]) /// Si l'arête est comprise dans le graphe de travail
 		{
 			distances.insert({ s.first, s.second->getPoids(indicePoids) }); /// On l'ajoute aux distances
-			predecesseurs.insert({s.first, this});	/// et on ajoute le sommet aux predecesseurs
+			predecesseurs.insert({ s.first, this });	/// et on ajoute le sommet aux predecesseurs
 		}
 	}
 
 	/// Tous les sommets sont non marqués, sauf le this
 	///Sélectionner et marquer le sommet ayant la plus petite distance au sommet initial
-	while (sommetsMarques.size()<nombreSommets)  /// Tant qu'il reste des sommets non marqués
+	while (sommetsMarques.size() < nombreSommets)  /// Tant qu'il reste des sommets non marqués
 	{
 		/// Marquer le sommet avec la plus petite distance
 		distanceMin = distances.cbegin()->second;
 		somMarq = distances.cbegin()->first;
-		for (auto s : distances)			
+		for (const auto s : distances)
 		{
 			distance = s.second;
 			if (distance < distanceMin)
 			{
-				distanceMin = distance;				
-				somMarq=s.first;												
+				distanceMin = distance;
+				somMarq = s.first;
 			}
 		}
 		sommetsMarques.insert(somMarq);
-		//distancesTotales += distances.find(somMarq)->second; /// Une fois qu'on marque sommet on ajoute sa distance à la somme de toutes les distances
 		distancesFinales.push_back(distances.find(somMarq)->second);
 		dijkstraTous.push_back(predecesseurs.find(somMarq)->second->m_voisins.find(somMarq)->second); /// Ajout de l'arête 
 		/// On met à jour les distances avec le nouveau sommet marqué
@@ -164,18 +162,11 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int choix2emeRetour
 				/// si d(somMarq) + poids (somMarq - v) < d(v)
 				if (sommetsMarques.count(v.first) == 0)
 				{
-					if (distances.count(v.first) == 0)  /// Si le voisin n'a pas de distance dans distances, on l'ajoute
-					{
-						predecesseurs.insert({ v.first, somMarq });
-						distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
-						distances.insert({ v.first , distance });
-
-					}
-					else if (distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids) < distances.find(v.first)->second)
+					distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
+					if (distances.count(v.first) == 0 || distance < distances.find(v.first)->second)  /// Si le voisin n'a pas de distance dans distances, on l'ajoute
 					{
 						predecesseurs[v.first] = somMarq;	/// somMarq devient le prédécesseur de v
-						distances[v.first] = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
-						/// et on met à jour la distance de v qui vaut alors d(somMarq) + poids (somMarq - v)
+						distances[v.first] = distance;		/// et on met à jour la distance de v qui vaut alors d(somMarq) + poids (somMarq - v)
 					}
 				}
 			}
@@ -185,13 +176,13 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int choix2emeRetour
 
 	if (arrivee == nullptr)
 	{
-		if (choix2emeRetour == 1) 
+		if (choix2emeRetour == 1)
 		{
-			return std::make_pair(dijkstraTous, std::accumulate(distancesFinales.cbegin(), distancesFinales.cend(), 0.0));
+			return { dijkstraTous, std::accumulate(distancesFinales.cbegin(), distancesFinales.cend(), 0.0) };
 		}
 		else if (choix2emeRetour == 2)
 		{
-			return std::make_pair(dijkstraTous, *std::max_element(distancesFinales.cbegin(), distancesFinales.cend()));
+			return { dijkstraTous, *std::max_element(distancesFinales.cbegin(), distancesFinales.cend()) };
 		}
 	}
 	else
@@ -205,7 +196,7 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int choix2emeRetour
 			pred2 = predecesseurs.find(pred2)->second;
 			dijkstraArrivee.push_back(pred2->m_voisins.find(pred1)->second);
 		}
-		return std::make_pair(dijkstraArrivee, 0.0); /// Pour ce cas on ne s'intéresse pas à la longueur du chemin
+		return { dijkstraArrivee, 0.0 }; /// Pour ce cas on ne s'intéresse pas à la longueur du chemin
 	}
 }
 
