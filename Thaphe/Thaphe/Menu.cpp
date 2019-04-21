@@ -697,3 +697,28 @@ void chargerChoixMenu(MenuDonnees& choix)
 	}
 	
 }
+
+
+/*
+REMPLIR choix.txt :
+
+Quel graphe
+quel weights
+orienté ou non
+coloré ou non
+pareto selon le diametre
+choix de l'algo (1 à 5)
+
+SI 1
+	selon quel poids
+	sommmet de depart
+	sommet d'arrivée
+
+SI 2
+	selon quel poids
+	sommmet de depart
+
+SI 3
+	cycle ou non
+	chaine de bit pour savoir quel poids va subir dijkstra (diametre ou non) 0000 pour pareto normal
+*/

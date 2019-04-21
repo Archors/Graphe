@@ -179,9 +179,9 @@ std::bitset<nombreMaxAretes> Graphe::Prim(int poids, int sommetDepart)
 }
 
 
-std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int sommetArrivée)
+std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int sommetArrivée, std::bitset<nombreMaxAretes> ssg )
 {
-	std::cout << sommetDepart << "->" << sommetArrivée << "\n";
+	std::cout << "Dijkstra : " << sommetDepart << "->" << sommetArrivée << "\n";
 	if (sommetDepart < 0 || sommetDepart > getNombreSommets() - 1)
 		sommetDepart = 0;
 	if (sommetArrivée < 0 || sommetArrivée > getNombreSommets() - 1)
@@ -191,14 +191,14 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int s
 
 	//std::cout << "Lancement Dijkstra depuis le sommet " << sommetDepart << "jusqu'au sommet (-1 pour tous) " << sommetArrivée << " selon le poids " << poids << "...\n";
 
-	std::vector<const Arete*> areteDijkstra = m_sommets[sommetDepart]->Dijkstra(getNombreSommets(), 0, ((sommetArrivée!=-1)?m_sommets[sommetArrivée]:nullptr)).first;
+	std::vector<const Arete*> areteDijkstra = m_sommets[sommetDepart]->Dijkstra(getNombreSommets(), 0, ((sommetArrivée!=-1)?m_sommets[sommetArrivée]:nullptr), ssg).first;
 
-	std::bitset<nombreMaxAretes> ssg;
+	std::bitset<nombreMaxAretes> ssg2;
 
 	for (auto a : areteDijkstra) 
-		ssg[a->getId()] = 1;
+		ssg2[a->getId()] = 1;
 
-	return ssg;
+	return ssg2;
 }
 
 
@@ -517,6 +517,7 @@ ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ss
 
 	float distMax = 0;
 	int indiceDuGraphe;
+	graphePareto grapheAafficher;
 	//std::bitset<nombreMaxAretes> graphePlusLongTrajet;
 
 	for (int j = 0; j < nbPoids; j++)
@@ -530,7 +531,7 @@ ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ss
 				if (dist > distMax)
 				{
 					distMax = dist;
-					ssg = Dijkstra(j, i, -1);
+					grapheAafficher = graphePareto{ {(float)j,-1}, Dijkstra(j, i, -1, ssg) };
 				}
 					
 			}
@@ -538,7 +539,7 @@ ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ss
 
 	}
 
-	return DessinerSousGraphe(ssg);
+	return DessinerSousGraphePar(grapheAafficher);
 }
 
 
