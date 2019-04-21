@@ -5,7 +5,7 @@
 int main(int argc, char** argv) 
 {
 	bool showGraphs = true;
-	bool menu = true;
+	bool menu = false;
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -82,6 +82,8 @@ int main(int argc, char** argv)
 	{
 		std::cout << "Temps de recherche des graphes : " << al_get_time() - start << " sec\n";
 
+		gr.createColors();
+
 		int width = (double)((double)sqrt((double)((disp_data.height * disp_data.width) / ((int)grapheResults.size())) / (double)((double)disp_data.width / (double)disp_data.height)));
 
 		//std::cout << width << "  " << (double)((double)disp_data.width / (double)disp_data.height) << std::endl;
@@ -89,10 +91,13 @@ int main(int argc, char** argv)
 		if (divx > (int)grapheResults.size())
 			divx = (int)grapheResults.size();
 
-		al_clear_to_color(al_map_rgb(133, 50, 50));
+		al_clear_to_color(al_map_rgb(200, 250, 215));
+		for (int j = 0; j < 6; j++)
+			al_draw_filled_rectangle(disp_data.width - 6 * 10 + j * 10, disp_data.height - 10, disp_data.width - 5 * 10 + j * 10, disp_data.height, gr.m_colors[j]);
 
 		for (auto ssg : grapheResults)
 		{
+			gr.Colorer(ssg.aretes);
 			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphePar(ssg);
 			al_set_target_backbuffer(display);
 
