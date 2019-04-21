@@ -1,7 +1,7 @@
 #include "Sommet.h"
 
 Sommet::Sommet(int id, double x, double y)
-	:m_id{id},m_coords{x,y}
+	:m_id{ id }, m_coords{ x,y }, m_color{ 0 }
 {}
 
 
@@ -10,13 +10,13 @@ void Sommet::AjouterVoisin(const Sommet* som, Arete* ar)
 	m_voisins.insert({ som,ar });
 }
 
-void Sommet::Dessiner(ALLEGRO_BITMAP* bmp)
+void Sommet::Dessiner(ALLEGRO_BITMAP* bmp, std::vector<ALLEGRO_COLOR> colors)
 {
 	ALLEGRO_FONT* font;
 	al_set_target_bitmap(bmp);
 	font = al_load_font("simple_font.ttf", 28, 0);
-	al_draw_filled_circle(m_coords.getX(), m_coords.getY(), 20, al_map_rgb(255, 255, 255));
-	al_draw_text(font, al_map_rgb(0, 0, 0), m_coords.getX(), m_coords.getY()-14, ALLEGRO_ALIGN_CENTRE, inttostring(m_id).c_str() );
+	al_draw_filled_circle(m_coords.getX(), m_coords.getY(), 20, colors[m_color]);
+	al_draw_text(font, al_map_rgb((1-colors[m_color].r)*255, 255*(1-colors[m_color].g), 255*(1-colors[m_color].b)), m_coords.getX(), m_coords.getY()-14, ALLEGRO_ALIGN_CENTRE, inttostring(m_id).c_str() );
 	al_destroy_font(font);
 }
 
@@ -29,150 +29,138 @@ std::string inttostring(int a)
 
 std::vector<Arete*> Sommet::Prim(int indicePoids)
 {
-	std::vector<Arete*> aretePrim;
-	std::list<Arete*> areteDecouverte;
-	std::vector<Sommet*> sommetPrim;
-	sommetPrim.push_back(this);
-	/*for (auto x : this->m_voisins)
-		std::cout << x.first->m_id;*/
+	//Creation des type de données utiles à l'algorithme de Prim
+	std::vector<Arete*> aretePrim; //Vecteur des arretes pour Prim
+	std::list<Arete*> areteDecouverte; //Liste des arretes déjà decouvertes
+	std::vector<Sommet*> sommetPrim; //Tableau des sommets ou l'on est déjà passé
+	sommetPrim.push_back(this); //On ajoute le sommet de depart au vecteur de sommet
 	do
 	{
 		for (auto arete : sommetPrim.back()->m_voisins)//On check les voisins du dernier sommet ajouté
 		{
-			//On vérifie que l'arrete n'est pas déjà ajoutée
-			bool present = false;
-			bool sommet1 = false;
-			bool sommet2 = false;
-			for (auto sommetDejaAjoute : sommetPrim)
+			//
+			bool present = false; // Si l'arrete est deja presente dans le graphe
+			bool sommet1 = false; //1er sommet de l'arete en cours de verification
+			bool sommet2 = false; //2eme sommet de l'arete en cours de verification
+			for (auto sommetDejaAjoute : sommetPrim) //On parcours la liste des sommets déjà ajoutée dans le graphe
 			{
-				if (arete.second->getSommets().first == sommetDejaAjoute)
-					sommet1 = true;
-				if (arete.second->getSommets().second == sommetDejaAjoute)
-					sommet2 = true;
-				if (sommet1 && sommet2)
+				if (arete.second->getSommets().first == sommetDejaAjoute) //Si le premier sommet est déjà dans le graphe
+					sommet1 = true; //On dit que le sommet 1 est dans le graphe
+				if (arete.second->getSommets().second == sommetDejaAjoute) //Si le deuxieme sommet est déjà dans le graphe
+					sommet2 = true; //On dit que le sommet 2 est dans le graphe
+				if (sommet1 && sommet2) //Si les deux sommets de l'arrete sont dans le graphe alors l'arrete est déjà dans le graphe
 				{
-					present = true;
+					present = true; //On dit que l'arrete est dans le graphe
 					break;
 				}
 			}
 
-			if (!present) //Si elle ne l'est pas on l'ajoute aux aretes decouvertes
+			if (!present) //Si l'arete n'est pas dans le graphe, on l'ajoute aux aretes decouvertes
 			{
 				if (areteDecouverte.empty()) //Si il n'y a pas encore d'arrete decouverte
-					areteDecouverte.push_back(arete.second);
+					areteDecouverte.push_back(arete.second); //On peut ajouter l'arrete directement en 1er
 				else
 				{
 					//On classe les arretes par poid
 					bool ajout = false;
-					for (std::list<Arete*>::iterator it = areteDecouverte.begin(); it != areteDecouverte.end(); ++it)
+					for (std::list<Arete*>::iterator it = areteDecouverte.begin(); it != areteDecouverte.end(); ++it) //On parcours les arretes par poid
 					{
-						if ((*it)->getPoids(indicePoids) > arete.second->getPoids(indicePoids))
+						if ((*it)->getPoids(indicePoids) > arete.second->getPoids(indicePoids)) //Si l'arrete en cours d'ajout est de poid plus faible que celle parcouru
 						{
-							areteDecouverte.insert(it, arete.second);
-							ajout = true;
+							areteDecouverte.insert(it, arete.second); //On l'ajoute avant
+							ajout = true; //On dit qu'elle a été ajouté pour ne stoper la boucle
 							break;
 						}
 					}
-					if (!ajout)
-						areteDecouverte.push_back(arete.second);
+					if (!ajout) //Si elle n'a pas été ajouté à la fin c'est qu'elle est de poid superieur aux autres
+						areteDecouverte.push_back(arete.second); //On l'ajoute donc à la fin
 				}
 			}
 		}
-		bool sommet1 = false;
+		bool sommet1 = false; //On remet les booleen à false une fois utilisés
 		bool sommet2 = false;
 		for (auto sommetDansPrim : sommetPrim) //On verifie qu'il n'y a pas de cycle
 		{
-			if (areteDecouverte.front()->getSommets().first == sommetDansPrim)
+			if (areteDecouverte.front()->getSommets().first == sommetDansPrim) //On verifie si le 1er sommet est dans le graphe
 				sommet1 = true;
-			if (areteDecouverte.front()->getSommets().second == sommetDansPrim)
+			if (areteDecouverte.front()->getSommets().second == sommetDansPrim) //On vérifie si le 2ème sommet est dans le graphe
 				sommet2 = true;
-			if (sommet1 && sommet2) //Si il y a un cycle on supprimme l'arete
+			if (sommet1 && sommet2) //Il y a un cycle si les deux sommets sont déjà dans le graphe
 			{
-				areteDecouverte.pop_front();
+				areteDecouverte.pop_front(); //Si il y a un cycle on supprimme l'arete
 				break;
 			}
 		}
 		if (!sommet1 || !sommet2) //Si il n'y a pas de cycle on ajoute l'arete
 		{
-			aretePrim.push_back(areteDecouverte.front());
-			for (auto sommet : sommetPrim) //On ajoute le nouveau sommet au vecteur
+			aretePrim.push_back(areteDecouverte.front()); //On ajoute la premiere arrete de la pile dans le graphe
+			//On ajoute le nouveau sommet au vecteur
+			for (auto sommet : sommetPrim) //On parcourt les sommets déjà present
 			{
-				if (areteDecouverte.front()->getSommets().first == sommet)
-					sommetPrim.push_back(areteDecouverte.front()->getSommets().second);
-				if(areteDecouverte.front()->getSommets().second == sommet)
-					sommetPrim.push_back(areteDecouverte.front()->getSommets().first);
+				if (areteDecouverte.front()->getSommets().first == sommet) //Si le sommet 1 est deja present
+					sommetPrim.push_back(areteDecouverte.front()->getSommets().second); //Alors c'est le sommet 2 qui n'y était pas encore
+				if(areteDecouverte.front()->getSommets().second == sommet) //Si le sommet 2 est deja present
+					sommetPrim.push_back(areteDecouverte.front()->getSommets().first); //Alors c'est le sommet 1 qui n'y était pas encore
 			}
-			areteDecouverte.pop_front();
+			areteDecouverte.pop_front(); //Une fois l'arrete ajouté on l'enleve de la pile
 		}
-		if (areteDecouverte.empty()) //Si il n'y a plus d'arrete decouverte on quitte
+		if (areteDecouverte.empty()) //Si la pile est vide, on sort de la boucle pour gagner du temps
 			break;
 
-	} while (!areteDecouverte.empty());
+	} while (!areteDecouverte.empty()); //Tant que la pile n'est pas vide on continu
 
 
-	return aretePrim;
+	return aretePrim; //On retourne un vecteur d'arrete pour parcourir le graphe en faisant le chemin de poid minimal
 }
 
-std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee, std::bitset<nombreMaxAretes> grapheDeTravail) const
+/// choix2emeRetour permet de choisir ce qui sera dans le float de la paire retournée. 1 -> poids total    2 -> plus long des pcc
+std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee, std::bitset<nombreMaxAretes> grapheDeTravail, int choix2emeRetour) const
 {
-	//std::cout << "Dijkstra depuis le sommet : " << this->getId() << " ,  nombre de sommets : " << nombreSommets << " ,  indice de poids : " << indicePoids << std::endl;
-	/*
-	std::cout << "Voisins de " << this->getId() << " : ";
-	for (auto s : m_voisins)
-	{
-		std::cout << s.first->getId() << "  ";
-	}std::cout << std::endl;
-	*/
-	std::vector<const Arete*> dijkstraTous, dijkstraArrivee; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
-	float distancesTotales=0.0;
-	std::unordered_set<const Sommet*> sommetsMarques;
-	std::unordered_map<const Sommet*, float> distances;		/// second = distance de first par rapport à this
-	std::unordered_map<const Sommet*, const Sommet*> predecesseurs; /// second = predecesseur de first
-	const Sommet* somMarq=nullptr;	/// Pointeur pour le sommet qui sera marqué à chaque tour 
-	const Sommet* pred1, *pred2;		/// Pour le dijkstraArrivee
-	float distanceMin,distance;				/// Permet de comparer les distances pour marquer un sommet
+	//std::cout << "Lancement Dijkstra" << std::endl;
+	std::cout << "Depart val arete : " << m_voisins.cbegin()->second->getPoids(indicePoids)<<std::endl;
+	std::vector<const Arete*> dijkstraTous = {}, dijkstraArrivee = {}; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
+	std::vector<float> distancesFinales = {};
+	std::unordered_set<const Sommet*> sommetsMarques = {};
+	std::unordered_map<const Sommet*, float> distances = {};		/// second = distance de first par rapport à this
+	std::unordered_map<const Sommet*, const Sommet*> predecesseurs = {}; /// second = predecesseur de first
+	const Sommet* somMarq = nullptr;	/// Pointeur pour le sommet qui sera marqué à chaque tour 
+	const Sommet* pred1, * pred2;		/// Pour le dijkstraArrivee
+	std::pair<const Sommet*, float> SomLePlusLoin;	
+	float distanceMin, distance, distanceMax = 0.0;				/// Permet de comparer les distances pour marquer un sommet
 	sommetsMarques.insert(this);			/// On marque le sommet de départ
-	//predecesseurs.insert({ this, nullptr });	/// Le sommet de départ n'a pas de prédécesseur   <-- a verifier mais inutile je crois, fait planter le programme
-	for (auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
+	for (const auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
 	{										/// et on renseigne que this est son prédécesseur
-		/*std::cout << "Arete voisine de this : " << s.second->getId() << "   Poids : " << s.second->getPoids(indicePoids)
-				<< " |  relie " <<s.second->getSommets().first->getId() << "   et " << s.second->getSommets().second->getId() << std::endl;*/
+		//std::cout<<s.second->getPoids(indicePoids)<<std::endl;
 		if (grapheDeTravail[s.second->getId()]) /// Si l'arête est comprise dans le graphe de travail
 		{
 			distances.insert({ s.first, s.second->getPoids(indicePoids) }); /// On l'ajoute aux distances
-			predecesseurs.insert({s.first, this});	/// et on ajoute le sommet aux predecesseurs
+			predecesseurs.insert({ s.first, this });	/// et on ajoute le sommet aux predecesseurs
 		}
 	}
-	/*for (auto s : distances)
-	{
-		std::cout << "VOISINS : (" << s.first->getId() << ")  "<<std::endl;
-	}*/
+
 	/// Tous les sommets sont non marqués, sauf le this
 	///Sélectionner et marquer le sommet ayant la plus petite distance au sommet initial
-	while (sommetsMarques.size()<nombreSommets)  /// Tant qu'il reste des sommets non marqués
+	while (sommetsMarques.size() < nombreSommets)  /// Tant qu'il reste des sommets non marqués
 	{
 		/// Marquer le sommet avec la plus petite distance
 		distanceMin = distances.cbegin()->second;
 		somMarq = distances.cbegin()->first;
-		for (auto s : distances)			
+		for (const auto s : distances)
 		{
 			distance = s.second;
 			if (distance < distanceMin)
 			{
-				distanceMin = distance;				
-				somMarq=s.first;												
+				distanceMin = distance;
+				somMarq = s.first;
 			}
 		}
-		/*for (auto s : distances)
-		{
-			std::cout << "d(" << s.first->getId() << ") = " << s.second << std::endl;
-		}*/
 		sommetsMarques.insert(somMarq);
-		//std::cout << "Sommet marqué : " << somMarq->getId() <<std::endl;
-		distancesTotales += distances.find(somMarq)->second; /// Une fois qu'on marque sommet on ajoute sa distance à la somme de toutes les distances
-		//std::cout << "valeur ajoutee a distancesTotales : " << distances.find(somMarq)->second << std::endl;
+		std::cout << "Sommet marque : " << somMarq->getId() << "   Distance avec " << this->getId() << " : " << distances.find(somMarq)->second << std::endl;
+		if(distances.find(somMarq)->second>SomLePlusLoin.second)
+			SomLePlusLoin.first = somMarq;
+		distancesFinales.push_back(distances.find(somMarq)->second);
 		dijkstraTous.push_back(predecesseurs.find(somMarq)->second->m_voisins.find(somMarq)->second); /// Ajout de l'arête 
-											   /// On met à jour les distances avec le nouveau sommet marqué
+		/// On met à jour les distances avec le nouveau sommet marqué
 		for (const auto v : somMarq->m_voisins) /// Pour chaque voisin du sommet marqué v est une paire (Sommet *, Arete*)
 		{
 			if (grapheDeTravail[v.second->getId()])
@@ -181,31 +169,37 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 				/// si d(somMarq) + poids (somMarq - v) < d(v)
 				if (sommetsMarques.count(v.first) == 0)
 				{
-					if (distances.count(v.first) == 0)  /// Si le voisin n'a pas de distance dans distances, on l'ajoute
-					{
-						predecesseurs.insert({ v.first, somMarq });
-						distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
-						distances.insert({ v.first , distance });
-
-					}
-					else if (distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids) < distances.find(v.first)->second)
+					distance = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
+					if (distances.count(v.first) == 0 || distance < distances.find(v.first)->second)  /// Si le voisin n'a pas de distance dans distances, on l'ajoute
 					{
 						predecesseurs[v.first] = somMarq;	/// somMarq devient le prédécesseur de v
-						distances[v.first] = distances.find(somMarq)->second + somMarq->m_voisins.find(v.first)->second->getPoids(indicePoids);
-						/// et on met à jour la distance de v qui vaut alors d(somMarq) + poids (somMarq - v)
+						distances[v.first] = distance;		/// et on met à jour la distance de v qui vaut alors d(somMarq) + poids (somMarq - v)
 					}
 				}
 			}
 		}
 		distances.erase(somMarq);			/// Une fois que j'ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore
 	}
-	
-	//std::cout << "somme des distances : " << distancesTotales<<std::endl;
-	//std::cout << std::endl; // a tej
 
 	if (arrivee == nullptr)
 	{
-		return std::make_pair(dijkstraTous, distancesTotales);
+		if (choix2emeRetour == 1)
+		{
+			return { dijkstraTous, std::accumulate(distancesFinales.cbegin(), distancesFinales.cend(), 0.0) };
+		}
+		else if (choix2emeRetour == 2)
+		{
+			pred1 = SomLePlusLoin.first;
+			pred2 = predecesseurs.find(SomLePlusLoin.first)->second;
+			dijkstraArrivee.push_back(pred2->m_voisins.find(pred1)->second);
+			while (pred2 != this)
+			{
+				pred1 = pred2;
+				pred2 = predecesseurs.find(pred2)->second;
+				dijkstraArrivee.push_back(pred2->m_voisins.find(pred1)->second);
+			}
+			return { dijkstraArrivee, *std::max_element(distancesFinales.cbegin(), distancesFinales.cend()) };
+		}
 	}
 	else
 	{
@@ -218,7 +212,7 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 			pred2 = predecesseurs.find(pred2)->second;
 			dijkstraArrivee.push_back(pred2->m_voisins.find(pred1)->second);
 		}
-		return std::make_pair(dijkstraArrivee, distancesTotales);
+		return { dijkstraArrivee, 0.0 }; /// Pour ce cas on ne s'intéresse pas à la longueur du chemin
 	}
 }
 
@@ -334,6 +328,22 @@ int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<nombreMaxAretes> 
 	}
 
 	return std::accumulate(discovered.begin(), discovered.end(), 0);
+}
+
+
+bool Sommet::avoisineCol(int color, std::bitset<nombreMaxAretes> ssg) const
+{
+	for (auto s : m_voisins)
+	{
+		if (ssg[s.second->getId()] && s.first->m_color == color)
+			return true;
+	}
+	return false;
+}
+
+const int Sommet::getOrdre() const
+{
+	return m_voisins.size();
 }
 
 

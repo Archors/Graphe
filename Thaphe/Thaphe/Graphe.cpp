@@ -1,10 +1,27 @@
+
+///
+///\file Graphe.cpp
+///
+///\brief Appels principaux des fonctions effectuant des actions sur un graphe
+///\date 21 avril 2019
+///
+///		Contient le code de chargement d'un graphe depuis un fichier
+///		Contient l'appel des algorithmes comme Prime et Dijkstra
+///		Contient l'algorithme de Pareto et ses trois calculs de couts (normal, distance optimise, plus long chemin optimise)
+///		Contient tout ce qui a attrait au graphe en surface comme les affichages sur des bitmaps
+
+
 #include "Graphe.h"
 #include "Menu.h"
 
-//Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
+///\fn Graphe::Graphe (MenuDonnees choix)
+///\brief charge un graphe depuiz un fichier
+///\param choix effectues dans le menu concernant le graphe et l'algo choisi
+///
+///Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
 Graphe::Graphe(MenuDonnees choix)
 {
-	std::cout << choix.graphe;
+	std::cout << "\n\n\n ===== " << choix.graphe << " =====\n";
 	std::ifstream ifs{ choix.graphe+".txt" };
 
 	if (!ifs)
@@ -75,7 +92,7 @@ Graphe::Graphe(MenuDonnees choix)
 			vectPoids.push_back(poids);
 			//std::cout << poids << " ";
 		}
-		std::cout << "\n";
+		//std::cout << "\n";
 
 		m_aretes.push_back( new Arete{ id_ar, m_sommets[id], m_sommets[id_voisin], vectPoids, choix.oriente } );
 
@@ -93,11 +110,18 @@ Graphe::Graphe(MenuDonnees choix)
 	m_typeTriPareto = choix.poids;
 	m_avecCycles = choix.cycle;
 	m_oriented = choix.oriente;
+	m_diametre = choix.diametre;
+	m_colors.push_back(al_map_rgb(255, 255, 255));
 
 	ifs.close();
 	ifs2.close();
 }
 
+///\fn std::vector<<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe ()
+///\brief trouve tous les sous graphe connexe avec ou sans cycle du graphe chargé
+///\param aucun
+///\return renvoie tous les sous graphes trouvés
+///
 std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 {
 	std::vector<std::bitset<nombreMaxAretes>> grapheResults;
@@ -177,8 +201,9 @@ std::bitset<nombreMaxAretes> Graphe::Prim(int poids, int sommetDepart)
 }
 
 
-std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int sommetArrivée)
+std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int sommetArrivée, std::bitset<nombreMaxAretes> ssg, bool trajetMax)
 {
+	//std::cout << "Dijkstra : " << sommetDepart << "->" << sommetArrivée << "\n";
 	if (sommetDepart < 0 || sommetDepart > getNombreSommets() - 1)
 		sommetDepart = 0;
 	if (sommetArrivée < 0 || sommetArrivée > getNombreSommets() - 1)
@@ -188,14 +213,14 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int s
 
 	//std::cout << "Lancement Dijkstra depuis le sommet " << sommetDepart << "jusqu'au sommet (-1 pour tous) " << sommetArrivée << " selon le poids " << poids << "...\n";
 
-	std::vector<const Arete*> areteDijkstra = m_sommets[sommetDepart]->Dijkstra(getNombreSommets(), 0, ((sommetArrivée!=-1)?m_sommets[sommetArrivée]:nullptr)).first;
+	std::vector<const Arete*> areteDijkstra = m_sommets[sommetDepart]->Dijkstra(getNombreSommets(), sommetDepart, ((sommetArrivée!=-1)?m_sommets[sommetArrivée]:nullptr), ssg, ((trajetMax)?2:1)).first;
 
-	std::bitset<nombreMaxAretes> ssg;
+	std::bitset<nombreMaxAretes> ssg2;
 
-	for (auto a : areteDijkstra)
-		ssg[a->getId()] = 1;
+	for (auto a : areteDijkstra) 
+		ssg2[a->getId()] = 1;
 
-	return ssg;
+	return ssg2;
 }
 
 
@@ -211,6 +236,8 @@ std::list<graphePareto> Graphe::TriPareto()
 		std::vector<float> sommePoids;
 		if (m_typeTriPareto.count() == 0)
 			sommePoids = sommePoidsCoutMin(ssg);
+		else if (m_diametre)
+			sommePoids = sommePoidsDiametre(ssg);
 		else
 			sommePoids = sommePoidsCoutDist(ssg);
 
@@ -328,6 +355,41 @@ std::vector<float> Graphe::sommePoidsCoutMin(std::bitset<nombreMaxAretes> ssg)
 }
 
 
+std::vector<float> Graphe::sommePoidsDiametre(std::bitset<nombreMaxAretes> ssg)
+{
+	const int nbPoids = m_aretes[0]->getNombrePoids();
+
+	std::vector<float> sommePoids;
+	sommePoids.resize(nbPoids);
+
+	for (int j = 0; j < nbPoids; j++)
+	{
+		if (!m_typeTriPareto[j])
+		{
+			for (int i = 0; i < getNombreAretes(); i++)
+			{
+				if (ssg[i])
+				{
+					sommePoids[j] += m_aretes[i]->getPoids(j);
+				}
+			}
+		}
+		else
+		{
+			sommePoids[j] = 0;
+			for (int i = 0; i < getNombreSommets(); i++)
+			{
+				float dist = m_sommets[i]->Dijkstra(getNombreSommets(), j, nullptr, ssg, 2).second;
+				if (dist > sommePoids[j])
+					sommePoids[j] = dist;
+			}
+		}
+
+	}
+
+	return sommePoids;
+}
+
 std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
 {
 	const int nbPoids = m_aretes[0]->getNombrePoids();
@@ -361,6 +423,47 @@ std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
 }
 
 
+void Graphe::Colorer(std::bitset<nombreMaxAretes> ssg)
+{
+	if (!m_oriented)
+	{
+		std::list<somOrdre> sommets;
+		for (auto s : m_sommets)
+		{
+			sommets.push_back(somOrdre{ s->getOrdre(), s });
+			s->m_color = 0;
+		}
+			
+
+		sommets.sort(compSomOrdre);
+
+		for (auto s : sommets)
+		{
+			int col = 0;
+			do
+			{
+				col++;
+			} while (s.sommet->avoisineCol(col, ssg));
+			s.sommet->m_color = col;
+		}
+	}
+}
+
+bool compSomOrdre(somOrdre s1, somOrdre s2)
+{
+	return (s1.ordre > s2.ordre);
+}
+
+
+void Graphe::createColors()
+{
+	srand(time(NULL));
+
+	for (int i = 0; i < getNombreSommets(); i++)
+		m_colors.push_back(al_map_rgb(rand() % 255, rand() % 255, rand() % 255));
+
+}
+
 
 ALLEGRO_BITMAP* Graphe::DessinerGraphe()
 {
@@ -388,7 +491,7 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes)
 	ALLEGRO_BITMAP* dessin = al_create_bitmap(width + min, width + min);
 
 	al_set_target_bitmap(dessin);
-	al_clear_to_color(al_map_rgb(180, 230, 150));
+	al_clear_to_color(al_map_rgb(255, 210, 180));
 
 	int i = 0;
 	for (auto arete : m_aretes)
@@ -399,7 +502,7 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes)
 	}
 		
 	for (auto sommet : m_sommets)
-		sommet->Dessiner(dessin);
+		sommet->Dessiner(dessin, m_colors);
 
 
 	return dessin;
@@ -429,6 +532,39 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphePar(graphePareto ssg)
 
 	return bmp;
 }
+
+ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ssg)
+{
+	const int nbPoids = m_aretes[0]->getNombrePoids();
+
+	float distMax = 0;
+	int indiceDuGraphe;
+	std::bitset<nombreMaxAretes> grapheAafficher;
+	//std::bitset<nombreMaxAretes> graphePlusLongTrajet;
+
+	for (int j = 0; j < nbPoids; j++)
+	{
+		if (m_typeTriPareto[j])
+		{
+			distMax = 0;
+			for (int i = 0; i < getNombreSommets(); i++)
+			{
+				float dist = m_sommets[i]->Dijkstra(getNombreSommets(), j, nullptr, ssg, 2).second;
+				if (dist > distMax)
+				{
+					distMax = dist;
+					grapheAafficher = Dijkstra(j, i, -1, ssg, true);
+				}
+					
+			}
+		}
+
+	}
+
+	return DessinerSousGraphe(grapheAafficher);
+}
+
+
 
 
 const int Graphe::getNombreSommets()
