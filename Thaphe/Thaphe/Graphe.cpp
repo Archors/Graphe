@@ -2,18 +2,23 @@
 ///
 ///\file Graphe.cpp
 ///
-///\brief Contient le code de chargement d'un graphe depuis un fichier
-///		  Contient l'appel des algorithmes comme Prime et Dijkstra
-///		  Contient l'algorithme de Pareto et ses trois calculs de couts (normal, distance optimise, plus long chemin optimise)
-///		  Contient tout ce qui a attrait au graphe en surface comme les affichages sur des bitmaps
-///
+///\brief Appels principaux des fonctions effectuant des actions sur un graphe
 ///\date 21 avril 2019
+///
+///		Contient le code de chargement d'un graphe depuis un fichier
+///		Contient l'appel des algorithmes comme Prime et Dijkstra
+///		Contient l'algorithme de Pareto et ses trois calculs de couts (normal, distance optimise, plus long chemin optimise)
+///		Contient tout ce qui a attrait au graphe en surface comme les affichages sur des bitmaps
 
 
 #include "Graphe.h"
 #include "Menu.h"
 
-//Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
+///\fn Graphe::Graphe (MenuDonnees choix)
+///\brief charge un graphe depuiz un fichier
+///\param choix effectues dans le menu concernant le graphe et l'algo choisi
+///
+///Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
 Graphe::Graphe(MenuDonnees choix)
 {
 	std::cout << "\n\n\n ===== " << choix.graphe << " =====\n";
@@ -112,6 +117,11 @@ Graphe::Graphe(MenuDonnees choix)
 	ifs2.close();
 }
 
+///\fn std::vector<<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe ()
+///\brief trouve tous les sous graphe connexe avec ou sans cycle du graphe chargé
+///\param aucun
+///\return renvoie tous les sous graphes trouvés
+///
 std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 {
 	std::vector<std::bitset<nombreMaxAretes>> grapheResults;
@@ -369,7 +379,7 @@ std::vector<float> Graphe::sommePoidsDiametre(std::bitset<nombreMaxAretes> ssg)
 			sommePoids[j] = 0;
 			for (int i = 0; i < getNombreSommets(); i++)
 			{
-				float dist = m_sommets[i]->Dijkstra(getNombreSommets(), j, nullptr, ssg).second;
+				float dist = m_sommets[i]->Dijkstra(getNombreSommets(), j, nullptr, ssg, 2).second;
 				if (dist > sommePoids[j])
 					sommePoids[j] = dist;
 			}
@@ -539,7 +549,7 @@ ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ss
 			distMax = 0;
 			for (int i = 0; i < getNombreSommets(); i++)
 			{
-				float dist = m_sommets[i]->Dijkstra(getNombreSommets(), j, nullptr, ssg).second;
+				float dist = m_sommets[i]->Dijkstra(getNombreSommets(), j, nullptr, ssg, 2).second;
 				if (dist > distMax)
 				{
 					distMax = dist;

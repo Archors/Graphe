@@ -69,7 +69,7 @@ int main(int argc, char** argv)
 		Graphe gr(choix);
 
 		std::cout << "Algo : " << choix.algoChoix << "\n";
-		//std::cout << "Sommet d'arrivee : " << choix.arrivee << "\n";
+		std::cout << "Sommet d'arrivee : " << choix.arrivee << "\n";
 
 		//Un switch ignore l'initialisation de grapheResults
 		if (choix.algoChoix == 1)
