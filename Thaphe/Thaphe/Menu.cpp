@@ -575,6 +575,8 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 	//al_destroy_bitmap(imagepresentation);
 	al_draw_scaled_bitmap(finBOB, 0, 0, al_get_bitmap_width(finBOB), al_get_bitmap_height(finBOB), 0, 0, disp_data.width, disp_data.height, 0);
 	al_flip_display();
+	if (parcourirtout)
+		menudonnees.quelPoid = -1;
 }
 
 //Code pour créer des boites de text dans Allegro 5 récupérer sur internet
