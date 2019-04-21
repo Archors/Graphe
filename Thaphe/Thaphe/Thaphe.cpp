@@ -5,7 +5,7 @@
 int main(int argc, char** argv) 
 {
 	bool showGraphs = true;
-	bool menu = false;
+	bool menu = true;
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -91,7 +91,8 @@ int main(int argc, char** argv)
 	{
 		std::cout << "Temps de recherche des graphes : " << al_get_time() - start << " sec\n";
 
-		gr.createColors();
+		if (choix.colorG)
+			gr.createColors();
 
 		width = (double)((double)sqrt((double)((disp_data.height * disp_data.width) / nbGraphes) / (double)((double)disp_data.width / (double)disp_data.height)));
 
@@ -108,7 +109,8 @@ int main(int argc, char** argv)
 
 		for (auto ssg : grapheResults)
 		{
-			gr.Colorer(ssg.aretes);
+			if (choix.colorG)
+				gr.Colorer(ssg.aretes);
 			graphesToShow.push_back(ssg);
 			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphePar(ssg);
 			al_set_target_bitmap(screen);
@@ -152,10 +154,12 @@ int main(int argc, char** argv)
 
 					int indice = ((int)ev.mouse.x / width + (int)(((int)disp_data.width / width) * ((int)ev.mouse.y / width)));
 					int newWidth = (2 * disp_data.height) / 3;
-					gr.Colorer(graphesToShow[indice].aretes);
+					if (choix.colorG)
+						gr.Colorer(graphesToShow[indice].aretes);
 					ALLEGRO_BITMAP * wantedGraphe = gr.DessinerSousGraphePar(graphesToShow[indice]);
 
 					al_set_target_backbuffer(display);
+					al_draw_filled_rectangle((disp_data.width - newWidth) / 2 - 2, (disp_data.height - newWidth) / 2 - 2, (disp_data.width - newWidth) / 2 + newWidth + 2, (disp_data.height - newWidth) / 2 + 2 + newWidth, al_map_rgb(0, 0, 0));
 					al_draw_scaled_bitmap(wantedGraphe, 0, 0, al_get_bitmap_width(wantedGraphe), al_get_bitmap_height(wantedGraphe), (disp_data.width - newWidth) / 2, (disp_data.height - newWidth) / 2, newWidth, newWidth, 0);
 					al_flip_display();
 
