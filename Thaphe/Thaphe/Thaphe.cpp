@@ -5,7 +5,7 @@
 int main(int argc, char** argv) 
 {
 	bool showGraphs = true;
-	bool menu = false;
+	bool menu = true;
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;

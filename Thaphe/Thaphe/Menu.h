@@ -18,6 +18,7 @@ struct MenuDonnees
 	bool cycle; //Pareto
 	std::bitset<nombreMaxPoids> poids;
 	bool colorG; //Graphe coloré
+	bool diametre; //Pareto en fonction du diametre
 };
 
 void leMenu(MenuDonnees &menudonnees, ALLEGRO_DISPLAY * display);
