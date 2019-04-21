@@ -68,7 +68,8 @@ int main(int argc, char** argv)
 		std::list<graphePareto> grapheResults;
 		Graphe gr(choix);
 
-		std::cout << "Sommet d'arrivee : " << choix.arrivee << "\n";
+		std::cout << "Algo : " << choix.algoChoix << "\n";
+		//std::cout << "Sommet d'arrivee : " << choix.arrivee << "\n";
 
 		//Un switch ignore l'initialisation de grapheResults
 		if (choix.algoChoix == 1)

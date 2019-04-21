@@ -30,7 +30,7 @@ class Graphe
 		Graphe(MenuDonnees); //Nom du fichier sans le .txt
 
 		std::bitset<nombreMaxAretes> Prim(int poids, int sommetDepart);
-		std::bitset<nombreMaxAretes> Dijkstra(int poids, int sommetDepart, int sommetArrivée = -1, std::bitset<nombreMaxAretes> ssg = std::bitset<nombreMaxAretes>(pow(2,nombreMaxAretes)-1));
+		std::bitset<nombreMaxAretes> Dijkstra(int poids, int sommetDepart, int sommetArrivée = -1, std::bitset<nombreMaxAretes> ssg = std::bitset<nombreMaxAretes>(pow(2,nombreMaxAretes)-1), bool trajetMax=false);
 		std::list<graphePareto> TriPareto();
 		void Colorer(std::bitset<nombreMaxAretes> ssg);
 

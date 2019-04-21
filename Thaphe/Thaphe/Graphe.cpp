@@ -1,10 +1,22 @@
+
+///
+///\file Graphe.cpp
+///
+///\brief Contient le code de chargement d'un graphe depuis un fichier
+///		  Contient l'appel des algorithmes comme Prime et Dijkstra
+///		  Contient l'algorithme de Pareto et ses trois calculs de couts (normal, distance optimise, plus long chemin optimise)
+///		  Contient tout ce qui a attrait au graphe en surface comme les affichages sur des bitmaps
+///
+///\date 21 avril 2019
+
+
 #include "Graphe.h"
 #include "Menu.h"
 
 //Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
 Graphe::Graphe(MenuDonnees choix)
 {
-	std::cout << choix.graphe;
+	std::cout << "\n\n\n ===== " << choix.graphe << " =====\n";
 	std::ifstream ifs{ choix.graphe+".txt" };
 
 	if (!ifs)
@@ -75,7 +87,7 @@ Graphe::Graphe(MenuDonnees choix)
 			vectPoids.push_back(poids);
 			//std::cout << poids << " ";
 		}
-		std::cout << "\n";
+		//std::cout << "\n";
 
 		m_aretes.push_back( new Arete{ id_ar, m_sommets[id], m_sommets[id_voisin], vectPoids, choix.oriente } );
 
@@ -179,7 +191,7 @@ std::bitset<nombreMaxAretes> Graphe::Prim(int poids, int sommetDepart)
 }
 
 
-std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int sommetArrivée, std::bitset<nombreMaxAretes> ssg )
+std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int sommetArrivée, std::bitset<nombreMaxAretes> ssg, bool trajetMax)
 {
 	std::cout << "Dijkstra : " << sommetDepart << "->" << sommetArrivée << "\n";
 	if (sommetDepart < 0 || sommetDepart > getNombreSommets() - 1)
@@ -191,7 +203,7 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int s
 
 	//std::cout << "Lancement Dijkstra depuis le sommet " << sommetDepart << "jusqu'au sommet (-1 pour tous) " << sommetArrivée << " selon le poids " << poids << "...\n";
 
-	std::vector<const Arete*> areteDijkstra = m_sommets[sommetDepart]->Dijkstra(getNombreSommets(), sommetDepart, ((sommetArrivée!=-1)?m_sommets[sommetArrivée]:nullptr), ssg, 1).first;
+	std::vector<const Arete*> areteDijkstra = m_sommets[sommetDepart]->Dijkstra(getNombreSommets(), sommetDepart, ((sommetArrivée!=-1)?m_sommets[sommetArrivée]:nullptr), ssg, ((trajetMax)?2:1)).first;
 
 	std::bitset<nombreMaxAretes> ssg2;
 
@@ -531,7 +543,7 @@ ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ss
 				if (dist > distMax)
 				{
 					distMax = dist;
-					grapheAafficher = graphePareto{ {(float)j,-1}, Dijkstra(j, i, -1, ssg) };
+					grapheAafficher = graphePareto{ {(float)j,-1}, Dijkstra(j, i, -1, ssg, true) };
 				}
 					
 			}
