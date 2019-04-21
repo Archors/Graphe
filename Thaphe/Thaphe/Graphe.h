@@ -21,11 +21,10 @@ class Graphe
 		bool m_avecCycles;
 		bool m_oriented;
 		bool m_diametre;
-public:
-		std::vector<ALLEGRO_COLOR> m_colors;
 		
 	public:
 		std::bitset<nombreMaxPoids> m_typeTriPareto;
+		std::vector<ALLEGRO_COLOR> m_colors;
 
 	public:
 		Graphe(MenuDonnees); //Nom du fichier sans le .txt
@@ -45,6 +44,7 @@ public:
 		ALLEGRO_BITMAP* DessinerGraphe();
 		ALLEGRO_BITMAP* DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes);
 		ALLEGRO_BITMAP* DessinerSousGraphePar(graphePareto);
+		ALLEGRO_BITMAP* DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ssg);
 	
 		const int getNombreSommets();
 		const int getNombreAretes();

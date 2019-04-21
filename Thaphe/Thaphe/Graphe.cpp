@@ -511,6 +511,38 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphePar(graphePareto ssg)
 	return bmp;
 }
 
+ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ssg)
+{
+	const int nbPoids = m_aretes[0]->getNombrePoids();
+
+	float distMax = 0;
+	int indiceDuGraphe;
+	//std::bitset<nombreMaxAretes> graphePlusLongTrajet;
+
+	for (int j = 0; j < nbPoids; j++)
+	{
+		if (m_typeTriPareto[j])
+		{
+			distMax = 0;
+			for (int i = 0; i < getNombreSommets(); i++)
+			{
+				float dist = m_sommets[i]->Dijkstra(getNombreSommets(), j, nullptr, ssg).second;
+				if (dist > distMax)
+				{
+					distMax = dist;
+					ssg = Dijkstra(j, i, -1);
+				}
+					
+			}
+		}
+
+	}
+
+	return DessinerSousGraphe(ssg);
+}
+
+
+
 
 const int Graphe::getNombreSommets()
 {

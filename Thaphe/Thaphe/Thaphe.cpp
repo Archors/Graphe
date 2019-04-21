@@ -5,7 +5,7 @@
 int main(int argc, char** argv) 
 {
 	bool showGraphs = true;
-	bool menu = true;
+	bool menu = false;
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
@@ -156,7 +156,12 @@ int main(int argc, char** argv)
 					int newWidth = (2 * disp_data.height) / 3;
 					if (choix.colorG)
 						gr.Colorer(graphesToShow[indice].aretes);
-					ALLEGRO_BITMAP * wantedGraphe = gr.DessinerSousGraphePar(graphesToShow[indice]);
+
+					ALLEGRO_BITMAP* wantedGraphe;
+					if (!choix.diametre)
+						wantedGraphe = gr.DessinerSousGraphePar(graphesToShow[indice]);
+					else
+						wantedGraphe = gr.DessinerPlusLongDiametre(graphesToShow[indice].aretes);
 
 					al_set_target_backbuffer(display);
 					al_draw_filled_rectangle((disp_data.width - newWidth) / 2 - 2, (disp_data.height - newWidth) / 2 - 2, (disp_data.width - newWidth) / 2 + newWidth + 2, (disp_data.height - newWidth) / 2 + 2 + newWidth, al_map_rgb(0, 0, 0));
