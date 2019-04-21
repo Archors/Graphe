@@ -1,5 +1,6 @@
 #include "Menu.h"
 
+<<<<<<< HEAD
 using namespace std;
 
 float FPS = 60;
@@ -661,3 +662,9 @@ void chargerChoixMenu(MenuDonnees& choix)
 	}
 	
 }
+=======
+void menu()
+{
+
+}
+>>>>>>> 8d938ed9ab149d4369a9d12f7b2013d2edc0843d

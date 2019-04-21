@@ -1,5 +1,6 @@
 #include "libraries.h"
 
+<<<<<<< HEAD
 #define KEY_SEEN     1
 #define KEY_RELEASED 2
 //Structure de toutes les varaibles utilisés dans le menu
@@ -23,3 +24,5 @@ void leMenu(MenuDonnees &menudonnees, ALLEGRO_DISPLAY * display);
 void vline(int x1, int y1, ALLEGRO_COLOR couleur);
 
 void chargerChoixMenu(MenuDonnees& choix);
+=======
+>>>>>>> 8d938ed9ab149d4369a9d12f7b2013d2edc0843d
