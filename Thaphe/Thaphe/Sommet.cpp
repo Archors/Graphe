@@ -114,7 +114,7 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 }
 
 /// choix2emeRetour permet de choisir ce qui sera dans le float de la paire retournée. 1 -> poids total    2 -> plus long des pcc
-std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int choix2emeRetour, int nombreSommets,int indicePoids, const Sommet* arrivee, std::bitset<nombreMaxAretes> grapheDeTravail) const
+std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee, std::bitset<nombreMaxAretes> grapheDeTravail, int choix2emeRetour) const
 {
 	std::vector<const Arete*> dijkstraTous, dijkstraArrivee; /// dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée
 	//float distancesTotales=0.0;

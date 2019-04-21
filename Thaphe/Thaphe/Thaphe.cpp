@@ -9,6 +9,7 @@ int main(int argc, char** argv)
 
 	//Initialisation d'Allegro
 	ALLEGRO_DISPLAY* display = NULL;
+	ALLEGRO_BITMAP* screen = NULL;
 	ALLEGRO_DISPLAY_MODE   disp_data;
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
 
@@ -30,6 +31,11 @@ int main(int argc, char** argv)
 	display = al_create_display(disp_data.width, disp_data.height);
 	if (!display) {
 		fprintf(stderr, "failed to create display!\n");
+		return -1;
+	}
+	screen = al_create_bitmap(disp_data.width, disp_data.height);
+	if (!screen) {
+		fprintf(stderr, "failed to create buffer!\n");
 		return -1;
 	}
 
@@ -78,28 +84,34 @@ int main(int argc, char** argv)
 		grapheResults.push_back(graphePareto{ {(float)gr.getNombreAretes()}, std::bitset<nombreMaxAretes>(pow(2, gr.getNombreAretes())-1) });
 
 
+	int width = 1;
+	int nbGraphes = (int)grapheResults.size();
+	std::vector<graphePareto> graphesToShow;
 	if (!grapheResults.empty())
 	{
 		std::cout << "Temps de recherche des graphes : " << al_get_time() - start << " sec\n";
 
 		gr.createColors();
 
-		int width = (double)((double)sqrt((double)((disp_data.height * disp_data.width) / ((int)grapheResults.size())) / (double)((double)disp_data.width / (double)disp_data.height)));
+		width = (double)((double)sqrt((double)((disp_data.height * disp_data.width) / nbGraphes) / (double)((double)disp_data.width / (double)disp_data.height)));
 
 		//std::cout << width << "  " << (double)((double)disp_data.width / (double)disp_data.height) << std::endl;
 		int i = 0, x, y, divx = (disp_data.width / width);
-		if (divx > (int)grapheResults.size())
-			divx = (int)grapheResults.size();
+		if (divx > nbGraphes)
+			divx = nbGraphes;
 
+		al_set_target_bitmap(screen);
 		al_clear_to_color(al_map_rgb(200, 250, 215));
+		/*
 		for (int j = 0; j < 6; j++)
-			al_draw_filled_rectangle(disp_data.width - 6 * 10 + j * 10, disp_data.height - 10, disp_data.width - 5 * 10 + j * 10, disp_data.height, gr.m_colors[j]);
+			al_draw_filled_rectangle(disp_data.width - 6 * 10 + j * 10, disp_data.height - 10, disp_data.width - 5 * 10 + j * 10, disp_data.height, gr.m_colors[j]);*/
 
 		for (auto ssg : grapheResults)
 		{
 			gr.Colorer(ssg.aretes);
+			graphesToShow.push_back(ssg);
 			ALLEGRO_BITMAP* graphe = gr.DessinerSousGraphePar(ssg);
-			al_set_target_backbuffer(display);
+			al_set_target_bitmap(screen);
 
 			x = i % divx * width  /*(disp_data.width - divx * width) / 2 */ + disp_data.height / 200;
 			y = (i / divx) * width  /*(disp_data.height - divy * width) / 2 */ + disp_data.height / 200;
@@ -112,6 +124,8 @@ int main(int argc, char** argv)
 	else
 		al_draw_text(font, al_map_rgb(255, 255, 255), 20, 20, 0, "Aucun graphe a afficher");
 
+	al_set_target_backbuffer(display);
+	al_draw_bitmap(screen, 0, 0, 0);
 	al_flip_display();
 	std::cout << "Temps d'execution total : " << al_get_time() - start << " sec\n";
 
@@ -127,13 +141,44 @@ int main(int argc, char** argv)
 	{
 		ALLEGRO_EVENT ev;
 		ALLEGRO_TIMEOUT timeout;
-		al_init_timeout(&timeout, 0.06);
 
-		if (al_wait_for_event_until(event_queue, &ev, &timeout) && ev.type == ALLEGRO_EVENT_KEY_DOWN)
+		if (al_wait_for_event_timed(event_queue, &ev, 0.5))
 		{
-			break;
+			if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+			{
+				if (al_get_pixel(screen, ev.mouse.x, ev.mouse.y).r != al_map_rgb(200, 250, 215).r && al_get_pixel(screen, ev.mouse.x, ev.mouse.y).g != al_map_rgb(200, 250, 215).g && al_get_pixel(screen, ev.mouse.x, ev.mouse.y).b != al_map_rgb(200, 250, 215).b)
+				{
+					al_draw_bitmap(screen, 0, 0, 0);
+
+					int indice = ((int)ev.mouse.x / width + (int)(((int)disp_data.width / width) * ((int)ev.mouse.y / width)));
+					int newWidth = (2 * disp_data.height) / 3;
+					gr.Colorer(graphesToShow[indice].aretes);
+					ALLEGRO_BITMAP * wantedGraphe = gr.DessinerSousGraphePar(graphesToShow[indice]);
+
+					al_set_target_backbuffer(display);
+					al_draw_scaled_bitmap(wantedGraphe, 0, 0, al_get_bitmap_width(wantedGraphe), al_get_bitmap_height(wantedGraphe), (disp_data.width - newWidth) / 2, (disp_data.height - newWidth) / 2, newWidth, newWidth, 0);
+					al_flip_display();
+
+					do
+					{
+						1;
+					} while (!(al_wait_for_event_timed(event_queue, &ev, 0.5) && ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN));
+
+					al_draw_bitmap(screen, 0, 0, 0);
+					al_flip_display();
+				}
+			}
+			else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
+				break;
 		}
+
+		
 	}
+
+	al_clear_to_color(al_map_rgb(100, 100, 100));
+	ALLEGRO_FONT* endFont = al_load_font("simple_font.ttf", 30, 0);
+	al_draw_text(endFont, al_map_rgb(255, 255, 255), 10, 10, 0, "Fermeture de la fenetre en cours...");
+	al_flip_display();
 
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
