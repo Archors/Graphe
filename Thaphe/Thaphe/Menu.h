@@ -12,7 +12,7 @@ struct MenuDonnees
 	std::string poid;
 	int quelPoid; 
 	bool oriente; //Graphe orienté ou non
-	int algoChoix; //1=dijkstra 2=Prim 3=Pareto
+	int algoChoix; //1=dijkstra 2=Prim 3=Pareto 4=
 	int depart; //Sommet de depart
 	int arrivee; //Sommet d'arrivé
 	bool cycle; //Pareto

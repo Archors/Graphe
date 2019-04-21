@@ -497,8 +497,8 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 			}
 			if (menudonnees.cycle)
 				vline(((1 * disp_data.width / 5 + 100) + (1 * disp_data.width / 5 + 130)) / 2, (hauteur1 + hauteur1 + 30) / 2 + 5, colorcase);
-
-			//Choix si il y a un cycle ou non
+			if (menudonnees.algoChoix == 3) {
+			//Choix diametre
 			al_draw_text(font8, al_map_rgb(100, 0, 0), disp_data.width / 6, hauteur2, ALLEGRO_ALIGN_CENTRE, "DIAMETRE :");
 			al_draw_rectangle(1 * disp_data.width / 5 + 100, hauteur2, 1 * disp_data.width / 5 + 130, hauteur2 + 30, colorcase, 2);
 			if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
@@ -515,7 +515,7 @@ void leMenu(MenuDonnees &menudonnees,ALLEGRO_DISPLAY* display)
 				vline(((1 * disp_data.width / 5 + 100) + (1 * disp_data.width / 5 + 130)) / 2, (hauteur2 + hauteur2 + 30) / 2 + 5, colorcase);
 
 			//Choix optimisation bi objectif
-			if (menudonnees.algoChoix == 3) {
+			
 				for (int i = 0; i < nombreMaxPoids; i++)
 				{
 					int affichage = i + 1;
