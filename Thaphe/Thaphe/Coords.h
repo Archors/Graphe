@@ -1,8 +1,8 @@
 
 ///
-///\file Coords.cpp
+///\file Coords.h
 ///
-///\brief Déclaration de la classe coords
+///\brief Declaration de la classe coords
 ///\date 21 avril 2019
 ///
 

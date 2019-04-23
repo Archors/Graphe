@@ -2,7 +2,7 @@
 ///
 ///\file Graphe.h
 ///
-///\brief Déclaration de la classe graphe
+///\brief Declaration de la classe graphe
 ///\date 21 avril 2019
 ///
 ///Contient aussi les structures graphePareto et somOrdre
