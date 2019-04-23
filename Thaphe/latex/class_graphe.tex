@@ -8,10 +8,10 @@
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_graphe_aa82d55d6cab4cdc3b0bcf79fc2c5fb9a}{Graphe}} (\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}})
-\item 
+\begin{DoxyCompactList}\small\item\em charge un graphe depuiz un fichier \end{DoxyCompactList}\item 
 std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ \mbox{\hyperlink{class_graphe_a088c1812cd435971a99d358f089f0e32}{Prim}} (int poids, int sommet\+Depart)
 \item 
-std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ \mbox{\hyperlink{class_graphe_a9b4a0cfe0e2744651b529df1704e826b}{Dijkstra}} (int poids, int sommet\+Depart, int sommet\+Arrivée=-\/1, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg=std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$(pow(2, \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}) -\/1))
+std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ \mbox{\hyperlink{class_graphe_a37892aa7904a7b80d673d553d4d360e9}{Dijkstra}} (int poids, int sommet\+Depart, int sommet\+Arrivée=-\/1, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg=std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$(pow(2, \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}) -\/1), bool trajet\+Max=false)
 \item 
 std\+::list$<$ \mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}} $>$ \mbox{\hyperlink{class_graphe_a08159231b03c65d904095db814bb8f01}{Tri\+Pareto}} ()
 \item 
@@ -61,7 +61,16 @@ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_ad73c201205ac3bfe4a118d327a7255ce
 \subsubsection{\texorpdfstring{Graphe()}{Graphe()}}
 {\footnotesize\ttfamily Graphe\+::\+Graphe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}}}]{choix }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{class_graphe_a673c897db564767e9ace7169a5357310}\label{class_graphe_a673c897db564767e9ace7169a5357310}} 
+
+
+charge un graphe depuiz un fichier 
+
+
+\begin{DoxyParams}{Parameters}
+{\em choix} & effectues dans le menu concernant le graphe et l\textquotesingle{}algo choisi\\
+\hline
+\end{DoxyParams}
+Fonction originaire du code du T\+P2 fourni par M. Fercoq puis modifiée \mbox{\Hypertarget{class_graphe_a673c897db564767e9ace7169a5357310}\label{class_graphe_a673c897db564767e9ace7169a5357310}} 
 \index{Graphe@{Graphe}!````~Graphe@{$\sim$Graphe}}
 \index{````~Graphe@{$\sim$Graphe}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{$\sim$Graphe()}{~Graphe()}}
@@ -112,11 +121,11 @@ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_ad73c201205ac3bfe4a118d327a7255ce
 \subsubsection{\texorpdfstring{DeterminerSousGraphe()}{DeterminerSousGraphe()}}
 {\footnotesize\ttfamily std\+::vector$<$ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ $>$ Graphe\+::\+Determiner\+Sous\+Graphe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{class_graphe_a9b4a0cfe0e2744651b529df1704e826b}\label{class_graphe_a9b4a0cfe0e2744651b529df1704e826b}} 
+\mbox{\Hypertarget{class_graphe_a37892aa7904a7b80d673d553d4d360e9}\label{class_graphe_a37892aa7904a7b80d673d553d4d360e9}} 
 \index{Graphe@{Graphe}!Dijkstra@{Dijkstra}}
 \index{Dijkstra@{Dijkstra}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{Dijkstra()}{Dijkstra()}}
-{\footnotesize\ttfamily std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ Graphe\+::\+Dijkstra (\begin{DoxyParamCaption}\item[{int}]{poids,  }\item[{int}]{sommet\+Depart,  }\item[{int}]{sommet\+Arrivée = {\ttfamily -\/1},  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg = {\ttfamily std\+:\+:bitset$<$\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}$>$(pow(2,\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}})-\/1)} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ Graphe\+::\+Dijkstra (\begin{DoxyParamCaption}\item[{int}]{poids,  }\item[{int}]{sommet\+Depart,  }\item[{int}]{sommet\+Arrivée = {\ttfamily -\/1},  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg = {\ttfamily std\+:\+:bitset$<$\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}$>$(pow(2,\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}})-\/1)},  }\item[{bool}]{trajet\+Max = {\ttfamily false} }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{class_graphe_a3ad24315200d6b626e05792381fd0834}\label{class_graphe_a3ad24315200d6b626e05792381fd0834}} 
 \index{Graphe@{Graphe}!free@{free}}

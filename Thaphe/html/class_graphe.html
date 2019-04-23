@@ -9,6 +9,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,6 +28,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="drwoning pup.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet Piscine 2019
    </div>
@@ -45,6 +54,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_graphe.html','');});
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,7 +85,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -75,11 +100,12 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa82d55d6cab4cdc3b0bcf79fc2c5fb9a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#aa82d55d6cab4cdc3b0bcf79fc2c5fb9a">Graphe</a> (<a class="el" href="struct_menu_donnees.html">MenuDonnees</a>)</td></tr>
+<tr class="memdesc:aa82d55d6cab4cdc3b0bcf79fc2c5fb9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">charge un graphe depuiz un fichier  <a href="#aa82d55d6cab4cdc3b0bcf79fc2c5fb9a">More...</a><br /></td></tr>
 <tr class="separator:aa82d55d6cab4cdc3b0bcf79fc2c5fb9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a088c1812cd435971a99d358f089f0e32"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a088c1812cd435971a99d358f089f0e32">Prim</a> (int poids, int sommetDepart)</td></tr>
 <tr class="separator:a088c1812cd435971a99d358f089f0e32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b4a0cfe0e2744651b529df1704e826b"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a9b4a0cfe0e2744651b529df1704e826b">Dijkstra</a> (int poids, int sommetDepart, int sommetArrivée=-1, std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; ssg=std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;(pow(2, <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a>) -1))</td></tr>
-<tr class="separator:a9b4a0cfe0e2744651b529df1704e826b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37892aa7904a7b80d673d553d4d360e9"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a37892aa7904a7b80d673d553d4d360e9">Dijkstra</a> (int poids, int sommetDepart, int sommetArrivée=-1, std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; ssg=std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;(pow(2, <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a>) -1), bool trajetMax=false)</td></tr>
+<tr class="separator:a37892aa7904a7b80d673d553d4d360e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08159231b03c65d904095db814bb8f01"><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="structgraphe_pareto.html">graphePareto</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a08159231b03c65d904095db814bb8f01">TriPareto</a> ()</td></tr>
 <tr class="separator:a08159231b03c65d904095db814bb8f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66162e19c6dbebadfc4f0b64f30b4a93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a66162e19c6dbebadfc4f0b64f30b4a93">Colorer</a> (std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; ssg)</td></tr>
@@ -136,6 +162,15 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>charge un graphe depuiz un fichier </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">choix</td><td>effectues dans le menu concernant le graphe et l'algo choisi</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée </p>
 
 </div>
 </div>
@@ -280,8 +315,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9b4a0cfe0e2744651b529df1704e826b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b4a0cfe0e2744651b529df1704e826b">&#9670;&nbsp;</a></span>Dijkstra()</h2>
+<a id="a37892aa7904a7b80d673d553d4d360e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37892aa7904a7b80d673d553d4d360e9">&#9670;&nbsp;</a></span>Dijkstra()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,7 +343,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;&#160;</td>
-          <td class="paramname"><em>ssg</em> = <code>std::bitset&lt;<a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a>&gt;(pow(2,<a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a>)-1)</code>&#160;</td>
+          <td class="paramname"><em>ssg</em> = <code>std::bitset&lt;<a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a>&gt;(pow(2,<a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a>)-1)</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>trajetMax</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -535,11 +576,15 @@ Public Attributes</h2></td></tr>
 <li><a class="el" href="_graphe_8cpp.html">Graphe.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.15
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_graphe.html">Graphe</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.15 </li>
+  </ul>
+</div>
 </body>
 </html>

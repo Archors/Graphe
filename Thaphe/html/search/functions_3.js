@@ -6,6 +6,6 @@ var searchData=
   ['dessinersousgraphe',['DessinerSousGraphe',['../class_graphe.html#a1cf86ef9a6c71df38abac5fa7820b773',1,'Graphe']]],
   ['dessinersousgraphepar',['DessinerSousGraphePar',['../class_graphe.html#a2016a13d54d1766ae47c9d0dc66c0a1d',1,'Graphe']]],
   ['determinersousgraphe',['DeterminerSousGraphe',['../class_graphe.html#aa31a20ccc1034a3bd3b098d58faed27b',1,'Graphe']]],
-  ['dijkstra',['Dijkstra',['../class_graphe.html#a9b4a0cfe0e2744651b529df1704e826b',1,'Graphe::Dijkstra()'],['../class_sommet.html#af820c0df076867eb7e32e6bf83dc19e6',1,'Sommet::Dijkstra()']]],
+  ['dijkstra',['Dijkstra',['../class_graphe.html#a37892aa7904a7b80d673d553d4d360e9',1,'Graphe::Dijkstra()'],['../class_sommet.html#adf3e726c1bed3db6c603111c7f75fdbb',1,'Sommet::Dijkstra()']]],
   ['dijtances',['Dijtances',['../class_sommet.html#aed49d95952162e549c45d8c6175d0198',1,'Sommet']]]
 ];

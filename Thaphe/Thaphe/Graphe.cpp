@@ -15,10 +15,11 @@
 #include "Menu.h"
 
 ///\fn Graphe::Graphe (MenuDonnees choix)
-///\brief charge un graphe depuiz un fichier
+///\brief charge un graphe depuis un fichier
 ///\param choix effectues dans le menu concernant le graphe et l'algo choisi
 ///
-///Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée
+///Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiee
+
 Graphe::Graphe(MenuDonnees choix)
 {
 	std::cout << "\n\n\n ===== " << choix.graphe << " =====\n";
@@ -170,13 +171,21 @@ std::vector<std::bitset<nombreMaxAretes>> Graphe::DeterminerSousGraphe()
 	return grapheResults;
 }
 
-
+///\fn bool Graphe::isConnexe (std::bitset<nombreMaxAretes> ssg, Sommet* depart)
+///\brief Verifie si le graphe est connexe ou fortement connexe
+///\param le graphe a verifie, le sommet de depart pour la forte connexite
+///\return return true si le graphe est connexe ou fortement connexe, false sinon
+///
 bool Graphe::isConnexe(std::bitset<nombreMaxAretes> ssg, Sommet* depart)
 {
 	return !(depart->tailleComposanteConnexe(getNombreSommets(), ssg) < getNombreSommets());
 }
 
-
+///\fn std::bitset<nombreMaxAretes> Graphe::Prim (int poids, int sommetDepart)
+///\brief Lance Prim sur le graphe
+///\param Le poids a analyse et le sommet de depart
+///\return le graphe de poids minimal
+///
 std::bitset<nombreMaxAretes> Graphe::Prim(int poids, int sommetDepart)
 {
 	if (sommetDepart < 0 || sommetDepart > getNombreSommets() - 1)
@@ -200,7 +209,11 @@ std::bitset<nombreMaxAretes> Graphe::Prim(int poids, int sommetDepart)
 	return ssg;
 }
 
-
+///\fn std::bitset<nombreMaxAretes> Graphe::Dijkstra (int poids, int sommetDepart, int sommetArrivée, std::bitset<nombreMaxAretes> ssg, bool trajetMax)
+///\brief Lance Dijkstra sur le graphe
+///\param Le poids a analyse, le sommet de depart, le sommet d'arrivee et le sous graphe
+///\return le trajet le plus court entre le sommet de depart et d'arrivee
+///
 std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int sommetArrivée, std::bitset<nombreMaxAretes> ssg, bool trajetMax)
 {
 	//std::cout << "Dijkstra : " << sommetDepart << "->" << sommetArrivée << "\n";
@@ -223,7 +236,10 @@ std::bitset<nombreMaxAretes> Graphe::Dijkstra(int poids, int sommetDepart, int s
 	return ssg2;
 }
 
-
+///\brief Lance un tri gardant les optimums de pareto parmis tous les graphes connexes
+///\return les optimums de pareto avec les poids totaux correspondants
+///
+///Calcule les poids selon ce qui a été indiqué dans le menu: cout minimal, les plus courtes distances totales, plus petit diametre
 std::list<graphePareto> Graphe::TriPareto()
 {
 	std::vector<std::bitset<nombreMaxAretes>> tousSsG = DeterminerSousGraphe();
@@ -322,6 +338,10 @@ std::list<graphePareto> Graphe::TriPareto()
 	return m_souGraphePareto;
 }
 
+///\brief Compare les premiers poids de 2 graphes pour le tri de pareto
+///\param Les 2 graphes a compares
+///\return true si le premeir est plus petit que le 2eme, false sinon
+///
 bool compGraphesPareto(graphePareto g1, graphePareto g2)
 {
 	if (g1.sommePoids.size() > 0 && g2.sommePoids.size() > 0)
@@ -334,6 +354,10 @@ bool compGraphesPareto(graphePareto g1, graphePareto g2)
 }
 
 
+///\brief Effectue la somme des poids des aretes
+///\param Le graphe actuel
+///\return les poids sommes
+///
 std::vector<float> Graphe::sommePoidsCoutMin(std::bitset<nombreMaxAretes> ssg)
 {
 	const int nbPoids = m_aretes[0]->getNombrePoids();
@@ -354,7 +378,10 @@ std::vector<float> Graphe::sommePoidsCoutMin(std::bitset<nombreMaxAretes> ssg)
 	return sommePoids;
 }
 
-
+///\brief Effectue la somme des poids des aretes plus selon les diametres pour ceux renseignes
+///\param Le graphe actuel
+///\return les poids sommes
+///
 std::vector<float> Graphe::sommePoidsDiametre(std::bitset<nombreMaxAretes> ssg)
 {
 	const int nbPoids = m_aretes[0]->getNombrePoids();
@@ -390,6 +417,10 @@ std::vector<float> Graphe::sommePoidsDiametre(std::bitset<nombreMaxAretes> ssg)
 	return sommePoids;
 }
 
+///\brief Effectue la somme des poids des aretes, plus selon les distances calcules par dijkstra pour les poids renseignes
+///\param Le graphe actuel
+///\return les poids sommes
+///
 std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
 {
 	const int nbPoids = m_aretes[0]->getNombrePoids();
@@ -423,6 +454,9 @@ std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
 }
 
 
+///\brief Colore le graphe selon l'algorithme de Welsh Powell
+///\param Le graphe actuel
+///Indique la couleur d'un sommet directement sur celui ci (variable de la classe)
 void Graphe::Colorer(std::bitset<nombreMaxAretes> ssg)
 {
 	if (!m_oriented)
@@ -449,12 +483,19 @@ void Graphe::Colorer(std::bitset<nombreMaxAretes> ssg)
 	}
 }
 
+///\brief Compare l'ordre de 2 sommets
+///\param Les 2 sommets a compares
+///\return true si l'orde du premier est plus grand que le 2eme, false sinon
+///
 bool compSomOrdre(somOrdre s1, somOrdre s2)
 {
 	return (s1.ordre > s2.ordre);
 }
 
-
+///\brief Remplis une liste de ALLEGRO_COLOR dans le graphe
+///
+///Creer autant de couleur que de sommets
+///
 void Graphe::createColors()
 {
 	srand(time(NULL));
@@ -464,7 +505,9 @@ void Graphe::createColors()
 
 }
 
-
+///\brief Dessine le graphe complet
+///\return Une bitmap avec le graphe dessine
+///
 ALLEGRO_BITMAP* Graphe::DessinerGraphe()
 {
 	std::bitset<nombreMaxAretes> aretes = std::bitset<nombreMaxAretes>(pow(2,getNombreAretes())-1);
@@ -472,6 +515,10 @@ ALLEGRO_BITMAP* Graphe::DessinerGraphe()
 	return DessinerSousGraphe(aretes);
 }
 
+///\brief Dessine un sous graphe
+///\param Le graphe a dessine
+///\return Une bitmap avec le graphe dessine
+///
 ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes)
 {
 	int width = 0;
@@ -508,6 +555,10 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphe(std::bitset<nombreMaxAretes> aretes)
 	return dessin;
 }
 
+///\brief Dessine un sous graphe optimum de pareto
+///\param Le graphe a dessine
+///\return Une bitmap avec le graphe dessine et les poids de celui ci inscrit dessus
+///
 ALLEGRO_BITMAP* Graphe::DessinerSousGraphePar(graphePareto ssg)
 {
 	ALLEGRO_BITMAP* bmp = DessinerSousGraphe(ssg.aretes);
@@ -533,6 +584,10 @@ ALLEGRO_BITMAP* Graphe::DessinerSousGraphePar(graphePareto ssg)
 	return bmp;
 }
 
+///\brief Dessine le diametre d'un sous graphe
+///\param Le graphe a dessine
+///\return Une bitmap avec le plus long chemin dessine
+///
 ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ssg)
 {
 	const int nbPoids = m_aretes[0]->getNombrePoids();
@@ -566,23 +621,31 @@ ALLEGRO_BITMAP* Graphe::DessinerPlusLongDiametre(std::bitset<nombreMaxAretes> ss
 
 
 
-
+///\brief Renvoie le nombre de sommet du graphe
+///
 const int Graphe::getNombreSommets()
 {
 	return (int)m_sommets.size();
 }
 
+///\brief Renvoie le nombre d'aretes du graphe
+///
 const int Graphe::getNombreAretes()
 {
 	return (int)m_aretes.size();
 }
 
+///\brief Renvoie le nombre de sous graphe optimum de pareto
+///
 const int Graphe::getNombreSousGraphe()
 {
 	return (int)m_souGraphePareto.size();
 }
 
-
+///\brief Libere la memoire du graphe
+///
+///Libere les sommets, aretes et sous graphes de pareto
+///
 void Graphe::free()
 {
 	std::vector<Sommet*> freeS;

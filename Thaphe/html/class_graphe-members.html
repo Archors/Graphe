@@ -9,6 +9,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,6 +28,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="drwoning pup.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet Piscine 2019
    </div>
@@ -45,6 +54,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_graphe.html','');});
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,7 +85,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Graphe Member List</div>  </div>
@@ -75,7 +100,7 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="class_graphe.html#a1cf86ef9a6c71df38abac5fa7820b773">DessinerSousGraphe</a>(std::bitset&lt; nombreMaxAretes &gt; aretes)</td><td class="entry"><a class="el" href="class_graphe.html">Graphe</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_graphe.html#a2016a13d54d1766ae47c9d0dc66c0a1d">DessinerSousGraphePar</a>(graphePareto)</td><td class="entry"><a class="el" href="class_graphe.html">Graphe</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_graphe.html#aa31a20ccc1034a3bd3b098d58faed27b">DeterminerSousGraphe</a>()</td><td class="entry"><a class="el" href="class_graphe.html">Graphe</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_graphe.html#a9b4a0cfe0e2744651b529df1704e826b">Dijkstra</a>(int poids, int sommetDepart, int sommetArrivée=-1, std::bitset&lt; nombreMaxAretes &gt; ssg=std::bitset&lt; nombreMaxAretes &gt;(pow(2, nombreMaxAretes) -1))</td><td class="entry"><a class="el" href="class_graphe.html">Graphe</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_graphe.html#a37892aa7904a7b80d673d553d4d360e9">Dijkstra</a>(int poids, int sommetDepart, int sommetArrivée=-1, std::bitset&lt; nombreMaxAretes &gt; ssg=std::bitset&lt; nombreMaxAretes &gt;(pow(2, nombreMaxAretes) -1), bool trajetMax=false)</td><td class="entry"><a class="el" href="class_graphe.html">Graphe</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_graphe.html#a3ad24315200d6b626e05792381fd0834">free</a>()</td><td class="entry"><a class="el" href="class_graphe.html">Graphe</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_graphe.html#a331331bba76f2dca37ad3422003fa923">getNombreAretes</a>()</td><td class="entry"><a class="el" href="class_graphe.html">Graphe</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_graphe.html#a5d8d58c88bff106c0a820b15d3d42f3f">getNombreSommets</a>()</td><td class="entry"><a class="el" href="class_graphe.html">Graphe</a></td><td class="entry"></td></tr>
@@ -90,11 +115,14 @@ $(function() {
   <tr><td class="entry"><a class="el" href="class_graphe.html#a08159231b03c65d904095db814bb8f01">TriPareto</a>()</td><td class="entry"><a class="el" href="class_graphe.html">Graphe</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_graphe.html#a673c897db564767e9ace7169a5357310">~Graphe</a>()</td><td class="entry"><a class="el" href="class_graphe.html">Graphe</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.15
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.15 </li>
+  </ul>
+</div>
 </body>
 </html>

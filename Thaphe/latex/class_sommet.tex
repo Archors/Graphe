@@ -19,7 +19,7 @@ bool \mbox{\hyperlink{class_sommet_a6ba31187835569c2ae5b14ffd3a8a792}{avoisine\+
 \item 
 std\+::vector$<$ \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$ \mbox{\hyperlink{class_sommet_acb6082560f8722ecfeb70c77f745a85f}{Prim}} (int indice\+Poids)
 \item 
-std\+::pair$<$ std\+::vector$<$ const \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$, float $>$ \mbox{\hyperlink{class_sommet_af820c0df076867eb7e32e6bf83dc19e6}{Dijkstra}} (int nombre\+Sommets, int indice\+Poids, const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$arrivee=nullptr, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ graphe\+De\+Travail=std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$((pow(2, \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}) -\/ 1)), int choix2eme\+Retour=2) const
+std\+::pair$<$ std\+::vector$<$ const \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$, float $>$ \mbox{\hyperlink{class_sommet_adf3e726c1bed3db6c603111c7f75fdbb}{Dijkstra}} (int nombre\+Sommets, int indice\+Poids, const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$arrivee, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$, int) const
 \begin{DoxyCompactList}\small\item\em choix2eme\+Retour permet de choisir ce qui sera dans le float de la paire retournée. 1 -\/$>$ poids total 2 -\/$>$ plus long des pcc \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{class_sommet_aed49d95952162e549c45d8c6175d0198}{Dijtances}} (std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg, int indice\+Poidsn, int nb\+Sommets)
 \item 
@@ -80,11 +80,11 @@ int \mbox{\hyperlink{class_sommet_aa3f32e2f44a3f46f9d1cc1a58e4ce9d5}{m\+\_\+colo
 \subsubsection{\texorpdfstring{Dessiner()}{Dessiner()}}
 {\footnotesize\ttfamily void Sommet\+::\+Dessiner (\begin{DoxyParamCaption}\item[{A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$}]{bmp,  }\item[{std\+::vector$<$ A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR $>$}]{colors }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{class_sommet_af820c0df076867eb7e32e6bf83dc19e6}\label{class_sommet_af820c0df076867eb7e32e6bf83dc19e6}} 
+\mbox{\Hypertarget{class_sommet_adf3e726c1bed3db6c603111c7f75fdbb}\label{class_sommet_adf3e726c1bed3db6c603111c7f75fdbb}} 
 \index{Sommet@{Sommet}!Dijkstra@{Dijkstra}}
 \index{Dijkstra@{Dijkstra}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{Dijkstra()}{Dijkstra()}}
-{\footnotesize\ttfamily std\+::pair$<$ std\+::vector$<$ const \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$, float $>$ Sommet\+::\+Dijkstra (\begin{DoxyParamCaption}\item[{int}]{nombre\+Sommets,  }\item[{int}]{indice\+Poids,  }\item[{const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$}]{arrivee = {\ttfamily nullptr},  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{graphe\+De\+Travail = {\ttfamily std\+:\+:bitset$<$\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}$>$((pow(2,~\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}})~-\/~1))},  }\item[{int}]{choix2eme\+Retour = {\ttfamily 2} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily std\+::pair$<$ std\+::vector$<$ const \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$, float $>$ Sommet\+::\+Dijkstra (\begin{DoxyParamCaption}\item[{int}]{nombre\+Sommets,  }\item[{int}]{indice\+Poids,  }\item[{const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$}]{arrivee,  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{graphe\+De\+Travail,  }\item[{int}]{choix2eme\+Retour }\end{DoxyParamCaption}) const}
 
 
 
