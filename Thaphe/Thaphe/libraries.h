@@ -1,3 +1,11 @@
+
+///
+///\file libraries
+///
+///\brief Charge toutes les bibliothèeques nécessaires au programme
+///\date 21 avril 2019
+///
+
 #include <iostream>
 #include <stdio.h>
 #include <math.h>

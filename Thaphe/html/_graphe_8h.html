@@ -101,17 +101,22 @@ $(document).ready(function(){initNavTree('_graphe_8h.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgraphe_pareto.html">graphePareto</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait correspondre un optimum de pareto et la somme inidividuel de ses poids.  <a href="structgraphe_pareto.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html">Graphe</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contient tous les sommets et aretes charges depuis un fichier.  <a href="class_graphe.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsom_ordre.html">somOrdre</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait correspondre un sommet et son ordre (son degré)  <a href="structsom_ordre.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a5bb2f6d446aa3af3373fbca5b102b00b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphe_8h.html#a5bb2f6d446aa3af3373fbca5b102b00b">compGraphesPareto</a> (<a class="el" href="structgraphe_pareto.html">graphePareto</a>, <a class="el" href="structgraphe_pareto.html">graphePareto</a>)</td></tr>
+<tr class="memdesc:a5bb2f6d446aa3af3373fbca5b102b00b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare les premiers poids de 2 graphes pour le tri de pareto.  <a href="#a5bb2f6d446aa3af3373fbca5b102b00b">More...</a><br /></td></tr>
 <tr class="separator:a5bb2f6d446aa3af3373fbca5b102b00b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a944916db50d11231f400b791af49b9d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphe_8h.html#a944916db50d11231f400b791af49b9d8">compSomOrdre</a> (<a class="el" href="structsom_ordre.html">somOrdre</a>, <a class="el" href="structsom_ordre.html">somOrdre</a>)</td></tr>
+<tr class="memdesc:a944916db50d11231f400b791af49b9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare l'ordre de 2 sommets.  <a href="#a944916db50d11231f400b791af49b9d8">More...</a><br /></td></tr>
 <tr class="separator:a944916db50d11231f400b791af49b9d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -125,13 +130,13 @@ Functions</h2></td></tr>
           <td class="memname">bool compGraphesPareto </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structgraphe_pareto.html">graphePareto</a>&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>g1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structgraphe_pareto.html">graphePareto</a>&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>g2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -140,6 +145,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Compare les premiers poids de 2 graphes pour le tri de pareto. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Les</td><td>2 graphes a compares </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true si le premeir est plus petit que le 2eme, false sinon </dd></dl>
 
 </div>
 </div>
@@ -153,13 +167,13 @@ Functions</h2></td></tr>
           <td class="memname">bool compSomOrdre </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structsom_ordre.html">somOrdre</a>&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>s1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structsom_ordre.html">somOrdre</a>&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>s2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -168,6 +182,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Compare l'ordre de 2 sommets. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Les</td><td>2 sommets a compares </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true si l'orde du premier est plus grand que le 2eme, false sinon </dd></dl>
 
 </div>
 </div>

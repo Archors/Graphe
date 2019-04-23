@@ -6,18 +6,18 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}}
-\item 
+\begin{DoxyCompactList}\small\item\em Fait correspondre un optimum de pareto et la somme inidividuel de ses poids. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graphe}{Graphe}}
-\item 
+\begin{DoxyCompactList}\small\item\em Contient tous les sommets et aretes charges depuis un fichier. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structsom_ordre}{som\+Ordre}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Fait correspondre un sommet et son ordre (son degré) \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 bool \mbox{\hyperlink{_graphe_8h_a5bb2f6d446aa3af3373fbca5b102b00b}{comp\+Graphes\+Pareto}} (\mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}}, \mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}})
-\item 
+\begin{DoxyCompactList}\small\item\em Compare les premiers poids de 2 graphes pour le tri de pareto. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{_graphe_8h_a944916db50d11231f400b791af49b9d8}{comp\+Som\+Ordre}} (\mbox{\hyperlink{structsom_ordre}{som\+Ordre}}, \mbox{\hyperlink{structsom_ordre}{som\+Ordre}})
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Compare l\textquotesingle{}ordre de 2 sommets. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
@@ -25,11 +25,35 @@ bool \mbox{\hyperlink{_graphe_8h_a944916db50d11231f400b791af49b9d8}{comp\+Som\+O
 \index{Graphe.h@{Graphe.h}!compGraphesPareto@{compGraphesPareto}}
 \index{compGraphesPareto@{compGraphesPareto}!Graphe.h@{Graphe.h}}
 \subsubsection{\texorpdfstring{compGraphesPareto()}{compGraphesPareto()}}
-{\footnotesize\ttfamily bool comp\+Graphes\+Pareto (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}}}]{,  }\item[{\mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool comp\+Graphes\+Pareto (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}}}]{g1,  }\item[{\mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}}}]{g2 }\end{DoxyParamCaption})}
 
+
+
+Compare les premiers poids de 2 graphes pour le tri de pareto. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Les} & 2 graphes a compares \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si le premeir est plus petit que le 2eme, false sinon 
+\end{DoxyReturn}
 \mbox{\Hypertarget{_graphe_8h_a944916db50d11231f400b791af49b9d8}\label{_graphe_8h_a944916db50d11231f400b791af49b9d8}} 
 \index{Graphe.h@{Graphe.h}!compSomOrdre@{compSomOrdre}}
 \index{compSomOrdre@{compSomOrdre}!Graphe.h@{Graphe.h}}
 \subsubsection{\texorpdfstring{compSomOrdre()}{compSomOrdre()}}
-{\footnotesize\ttfamily bool comp\+Som\+Ordre (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsom_ordre}{som\+Ordre}}}]{,  }\item[{\mbox{\hyperlink{structsom_ordre}{som\+Ordre}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool comp\+Som\+Ordre (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsom_ordre}{som\+Ordre}}}]{s1,  }\item[{\mbox{\hyperlink{structsom_ordre}{som\+Ordre}}}]{s2 }\end{DoxyParamCaption})}
 
+
+
+Compare l\textquotesingle{}ordre de 2 sommets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Les} & 2 sommets a compares \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si l\textquotesingle{}orde du premier est plus grand que le 2eme, false sinon 
+\end{DoxyReturn}

@@ -1,7 +1,21 @@
+
+///
+///\file Coords.cpp
+///
+///\brief Déclaration de la classe coords
+///\date 21 avril 2019
+///
+
 #ifndef COORDS_H_INCLUDED	
 #define COORDS_H_INCLUDED
 
-#pragma once
+/**
+ * \class Coords
+ * \brief contient des coordonnes scalaires
+ *
+ * Renvoie ces coordonnes au besoin mais elles ne sont plus modifiables une fois initialisees
+ * Valeurs stockees dans des doubles
+ */
 class Coords
 {
 public:

@@ -95,48 +95,68 @@ $(document).ready(function(){initNavTree('class_graphe.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Contient tous les sommets et aretes charges depuis un fichier.  
+ <a href="class_graphe.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_graphe_8h_source.html">Graphe.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa82d55d6cab4cdc3b0bcf79fc2c5fb9a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#aa82d55d6cab4cdc3b0bcf79fc2c5fb9a">Graphe</a> (<a class="el" href="struct_menu_donnees.html">MenuDonnees</a>)</td></tr>
-<tr class="memdesc:aa82d55d6cab4cdc3b0bcf79fc2c5fb9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">charge un graphe depuiz un fichier  <a href="#aa82d55d6cab4cdc3b0bcf79fc2c5fb9a">More...</a><br /></td></tr>
+<tr class="memdesc:aa82d55d6cab4cdc3b0bcf79fc2c5fb9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">charge un graphe depuis un fichier  <a href="#aa82d55d6cab4cdc3b0bcf79fc2c5fb9a">More...</a><br /></td></tr>
 <tr class="separator:aa82d55d6cab4cdc3b0bcf79fc2c5fb9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a088c1812cd435971a99d358f089f0e32"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a088c1812cd435971a99d358f089f0e32">Prim</a> (int poids, int sommetDepart)</td></tr>
+<tr class="memdesc:a088c1812cd435971a99d358f089f0e32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance Prim sur le graphe.  <a href="#a088c1812cd435971a99d358f089f0e32">More...</a><br /></td></tr>
 <tr class="separator:a088c1812cd435971a99d358f089f0e32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37892aa7904a7b80d673d553d4d360e9"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a37892aa7904a7b80d673d553d4d360e9">Dijkstra</a> (int poids, int sommetDepart, int sommetArrivée=-1, std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; ssg=std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;(pow(2, <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a>) -1), bool trajetMax=false)</td></tr>
+<tr class="memdesc:a37892aa7904a7b80d673d553d4d360e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance Dijkstra sur le graphe.  <a href="#a37892aa7904a7b80d673d553d4d360e9">More...</a><br /></td></tr>
 <tr class="separator:a37892aa7904a7b80d673d553d4d360e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08159231b03c65d904095db814bb8f01"><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="structgraphe_pareto.html">graphePareto</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a08159231b03c65d904095db814bb8f01">TriPareto</a> ()</td></tr>
+<tr class="memdesc:a08159231b03c65d904095db814bb8f01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance un tri gardant les optimums de pareto parmis tous les graphes connexes.  <a href="#a08159231b03c65d904095db814bb8f01">More...</a><br /></td></tr>
 <tr class="separator:a08159231b03c65d904095db814bb8f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66162e19c6dbebadfc4f0b64f30b4a93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a66162e19c6dbebadfc4f0b64f30b4a93">Colorer</a> (std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; ssg)</td></tr>
+<tr class="memdesc:a66162e19c6dbebadfc4f0b64f30b4a93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colore le graphe selon l'algorithme de Welsh Powell.  <a href="#a66162e19c6dbebadfc4f0b64f30b4a93">More...</a><br /></td></tr>
 <tr class="separator:a66162e19c6dbebadfc4f0b64f30b4a93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa31a20ccc1034a3bd3b098d58faed27b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#aa31a20ccc1034a3bd3b098d58faed27b">DeterminerSousGraphe</a> ()</td></tr>
 <tr class="separator:aa31a20ccc1034a3bd3b098d58faed27b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a807de2336dceaa86c83714b9ea56cb34"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a807de2336dceaa86c83714b9ea56cb34">isConnexe</a> (std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;, <a class="el" href="class_sommet.html">Sommet</a> *)</td></tr>
+<tr class="memdesc:a807de2336dceaa86c83714b9ea56cb34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifie si le graphe est connexe ou fortement connexe.  <a href="#a807de2336dceaa86c83714b9ea56cb34">More...</a><br /></td></tr>
 <tr class="separator:a807de2336dceaa86c83714b9ea56cb34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae862a944c8b123d34420c3903a3042cd"><td class="memItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#ae862a944c8b123d34420c3903a3042cd">sommePoidsCoutMin</a> (std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;)</td></tr>
+<tr class="memdesc:ae862a944c8b123d34420c3903a3042cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effectue la somme des poids des aretes.  <a href="#ae862a944c8b123d34420c3903a3042cd">More...</a><br /></td></tr>
 <tr class="separator:ae862a944c8b123d34420c3903a3042cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85adeff85a4908ee149beb6c0acdec97"><td class="memItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a85adeff85a4908ee149beb6c0acdec97">sommePoidsCoutDist</a> (std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;)</td></tr>
+<tr class="memdesc:a85adeff85a4908ee149beb6c0acdec97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effectue la somme des poids des aretes, plus selon les distances calcules par dijkstra pour les poids renseignes.  <a href="#a85adeff85a4908ee149beb6c0acdec97">More...</a><br /></td></tr>
 <tr class="separator:a85adeff85a4908ee149beb6c0acdec97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33781f03acd02981143a45966e396341"><td class="memItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a33781f03acd02981143a45966e396341">sommePoidsDiametre</a> (std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;)</td></tr>
+<tr class="memdesc:a33781f03acd02981143a45966e396341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effectue la somme des poids des aretes plus selon les diametres pour ceux renseignes.  <a href="#a33781f03acd02981143a45966e396341">More...</a><br /></td></tr>
 <tr class="separator:a33781f03acd02981143a45966e396341"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d76f0d96ed66bf5d7c343dcfd87a070"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a7d76f0d96ed66bf5d7c343dcfd87a070">createColors</a> ()</td></tr>
+<tr class="memdesc:a7d76f0d96ed66bf5d7c343dcfd87a070"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplis une liste de ALLEGRO_COLOR dans le graphe.  <a href="#a7d76f0d96ed66bf5d7c343dcfd87a070">More...</a><br /></td></tr>
 <tr class="separator:a7d76f0d96ed66bf5d7c343dcfd87a070"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae724b3d3b66621d5d2d1e745fd3f5619"><td class="memItemLeft" align="right" valign="top">ALLEGRO_BITMAP *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#ae724b3d3b66621d5d2d1e745fd3f5619">DessinerGraphe</a> ()</td></tr>
+<tr class="memdesc:ae724b3d3b66621d5d2d1e745fd3f5619"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine le graphe complet.  <a href="#ae724b3d3b66621d5d2d1e745fd3f5619">More...</a><br /></td></tr>
 <tr class="separator:ae724b3d3b66621d5d2d1e745fd3f5619"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cf86ef9a6c71df38abac5fa7820b773"><td class="memItemLeft" align="right" valign="top">ALLEGRO_BITMAP *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a1cf86ef9a6c71df38abac5fa7820b773">DessinerSousGraphe</a> (std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; aretes)</td></tr>
+<tr class="memdesc:a1cf86ef9a6c71df38abac5fa7820b773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine un sous graphe.  <a href="#a1cf86ef9a6c71df38abac5fa7820b773">More...</a><br /></td></tr>
 <tr class="separator:a1cf86ef9a6c71df38abac5fa7820b773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2016a13d54d1766ae47c9d0dc66c0a1d"><td class="memItemLeft" align="right" valign="top">ALLEGRO_BITMAP *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a2016a13d54d1766ae47c9d0dc66c0a1d">DessinerSousGraphePar</a> (<a class="el" href="structgraphe_pareto.html">graphePareto</a>)</td></tr>
+<tr class="memdesc:a2016a13d54d1766ae47c9d0dc66c0a1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine un sous graphe optimum de pareto.  <a href="#a2016a13d54d1766ae47c9d0dc66c0a1d">More...</a><br /></td></tr>
 <tr class="separator:a2016a13d54d1766ae47c9d0dc66c0a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46a63d44e20b99ea28a83319809c15b4"><td class="memItemLeft" align="right" valign="top">ALLEGRO_BITMAP *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a46a63d44e20b99ea28a83319809c15b4">DessinerPlusLongDiametre</a> (std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; ssg)</td></tr>
+<tr class="memdesc:a46a63d44e20b99ea28a83319809c15b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine le diametre d'un sous graphe.  <a href="#a46a63d44e20b99ea28a83319809c15b4">More...</a><br /></td></tr>
 <tr class="separator:a46a63d44e20b99ea28a83319809c15b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d8d58c88bff106c0a820b15d3d42f3f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a5d8d58c88bff106c0a820b15d3d42f3f">getNombreSommets</a> ()</td></tr>
+<tr class="memdesc:a5d8d58c88bff106c0a820b15d3d42f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie le nombre de sommet du graphe.  <a href="#a5d8d58c88bff106c0a820b15d3d42f3f">More...</a><br /></td></tr>
 <tr class="separator:a5d8d58c88bff106c0a820b15d3d42f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a331331bba76f2dca37ad3422003fa923"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a331331bba76f2dca37ad3422003fa923">getNombreAretes</a> ()</td></tr>
+<tr class="memdesc:a331331bba76f2dca37ad3422003fa923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie le nombre d'aretes du graphe.  <a href="#a331331bba76f2dca37ad3422003fa923">More...</a><br /></td></tr>
 <tr class="separator:a331331bba76f2dca37ad3422003fa923"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7710ecbd0144992c71e91c3713ce5e91"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a7710ecbd0144992c71e91c3713ce5e91">getNombreSousGraphe</a> ()</td></tr>
+<tr class="memdesc:a7710ecbd0144992c71e91c3713ce5e91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie le nombre de sous graphe optimum de pareto.  <a href="#a7710ecbd0144992c71e91c3713ce5e91">More...</a><br /></td></tr>
 <tr class="separator:a7710ecbd0144992c71e91c3713ce5e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ad24315200d6b626e05792381fd0834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a3ad24315200d6b626e05792381fd0834">free</a> ()</td></tr>
+<tr class="memdesc:a3ad24315200d6b626e05792381fd0834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libere la memoire du graphe.  <a href="#a3ad24315200d6b626e05792381fd0834">More...</a><br /></td></tr>
 <tr class="separator:a3ad24315200d6b626e05792381fd0834"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a673c897db564767e9ace7169a5357310"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a673c897db564767e9ace7169a5357310">~Graphe</a> ()</td></tr>
 <tr class="separator:a673c897db564767e9ace7169a5357310"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,7 +166,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a580b11aa2753e0004e7a49a466ab9da0"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; <a class="el" href="libraries_8h.html#ad73c201205ac3bfe4a118d327a7255ce">nombreMaxPoids</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html#a580b11aa2753e0004e7a49a466ab9da0">m_typeTriPareto</a></td></tr>
 <tr class="separator:a580b11aa2753e0004e7a49a466ab9da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Contient tous les sommets et aretes charges depuis un fichier. </p>
+<p>Toutes les operations effectues sur des graphes et sous graphe se lancent depuis cette classe pour avoir acces aux sommets et aretes </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa82d55d6cab4cdc3b0bcf79fc2c5fb9a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa82d55d6cab4cdc3b0bcf79fc2c5fb9a">&#9670;&nbsp;</a></span>Graphe()</h2>
 
@@ -163,14 +186,14 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>charge un graphe depuiz un fichier </p>
+<p>charge un graphe depuis un fichier </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">choix</td><td>effectues dans le menu concernant le graphe et l'algo choisi</td></tr>
   </table>
   </dd>
 </dl>
-<p>Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiée </p>
+<p>Fonction originaire du code du TP2 fourni par M. Fercoq puis modifiee </p>
 
 </div>
 </div>
@@ -208,6 +231,14 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Colore le graphe selon l'algorithme de Welsh Powell. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Le</td><td>graphe actuel Indique la couleur d'un sommet directement sur celui ci (variable de la classe) </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a7d76f0d96ed66bf5d7c343dcfd87a070"></a>
@@ -225,6 +256,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Remplis une liste de ALLEGRO_COLOR dans le graphe. </p>
+<p>Creer autant de couleur que de sommets </p>
+
 </div>
 </div>
 <a id="ae724b3d3b66621d5d2d1e745fd3f5619"></a>
@@ -241,6 +275,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Dessine le graphe complet. </p>
+<dl class="section return"><dt>Returns</dt><dd>Une bitmap avec le graphe dessine </dd></dl>
 
 </div>
 </div>
@@ -260,6 +297,15 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Dessine le diametre d'un sous graphe. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Le</td><td>graphe a dessine </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une bitmap avec le plus long chemin dessine </dd></dl>
+
 </div>
 </div>
 <a id="a1cf86ef9a6c71df38abac5fa7820b773"></a>
@@ -278,6 +324,15 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Dessine un sous graphe. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Le</td><td>graphe a dessine </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une bitmap avec le graphe dessine </dd></dl>
+
 </div>
 </div>
 <a id="a2016a13d54d1766ae47c9d0dc66c0a1d"></a>
@@ -295,6 +350,15 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Dessine un sous graphe optimum de pareto. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Le</td><td>graphe a dessine </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une bitmap avec le graphe dessine et les poids de celui ci inscrit dessus </dd></dl>
 
 </div>
 </div>
@@ -359,6 +423,15 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Lance Dijkstra sur le graphe. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Le</td><td>poids a analyse, le sommet de depart, le sommet d'arrivee et le sous graphe </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>le trajet le plus court entre le sommet de depart et d'arrivee </dd></dl>
+
 </div>
 </div>
 <a id="a3ad24315200d6b626e05792381fd0834"></a>
@@ -375,6 +448,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Libere la memoire du graphe. </p>
+<p>Libere les sommets, aretes et sous graphes de pareto </p>
 
 </div>
 </div>
@@ -393,6 +469,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Renvoie le nombre d'aretes du graphe. </p>
+
 </div>
 </div>
 <a id="a5d8d58c88bff106c0a820b15d3d42f3f"></a>
@@ -410,6 +488,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Renvoie le nombre de sommet du graphe. </p>
+
 </div>
 </div>
 <a id="a7710ecbd0144992c71e91c3713ce5e91"></a>
@@ -426,6 +506,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Renvoie le nombre de sous graphe optimum de pareto. </p>
 
 </div>
 </div>
@@ -455,6 +537,15 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Verifie si le graphe est connexe ou fortement connexe. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">le</td><td>graphe a verifie, le sommet de depart pour la forte connexite </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>return true si le graphe est connexe ou fortement connexe, false sinon </dd></dl>
+
 </div>
 </div>
 <a id="a088c1812cd435971a99d358f089f0e32"></a>
@@ -483,6 +574,15 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Lance Prim sur le graphe. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Le</td><td>poids a analyse et le sommet de depart </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>le graphe de poids minimal </dd></dl>
+
 </div>
 </div>
 <a id="a85adeff85a4908ee149beb6c0acdec97"></a>
@@ -500,6 +600,15 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Effectue la somme des poids des aretes, plus selon les distances calcules par dijkstra pour les poids renseignes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Le</td><td>graphe actuel </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>les poids sommes </dd></dl>
 
 </div>
 </div>
@@ -519,6 +628,15 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Effectue la somme des poids des aretes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Le</td><td>graphe actuel </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>les poids sommes </dd></dl>
+
 </div>
 </div>
 <a id="a33781f03acd02981143a45966e396341"></a>
@@ -537,6 +655,15 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Effectue la somme des poids des aretes plus selon les diametres pour ceux renseignes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Le</td><td>graphe actuel </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>les poids sommes </dd></dl>
+
 </div>
 </div>
 <a id="a08159231b03c65d904095db814bb8f01"></a>
@@ -553,6 +680,10 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Lance un tri gardant les optimums de pareto parmis tous les graphes connexes. </p>
+<dl class="section return"><dt>Returns</dt><dd>les optimums de pareto avec les poids totaux correspondants</dd></dl>
+<p>Calcule les poids selon ce qui a été indiqué dans le menu: cout minimal, les plus courtes distances totales, plus petit diametre </p>
 
 </div>
 </div>

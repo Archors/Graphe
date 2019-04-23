@@ -11,9 +11,9 @@ Appels principaux des fonctions effectuant des actions sur un graphe.
 \begin{DoxyCompactItemize}
 \item 
 bool \mbox{\hyperlink{_graphe_8cpp_a2570283384fe88208e5bae3f22817655}{comp\+Graphes\+Pareto}} (\mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}} g1, \mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}} g2)
-\item 
+\begin{DoxyCompactList}\small\item\em Compare les premiers poids de 2 graphes pour le tri de pareto. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{_graphe_8cpp_a55da70926c082a58b02a338e4118ca2f}{comp\+Som\+Ordre}} (\mbox{\hyperlink{structsom_ordre}{som\+Ordre}} s1, \mbox{\hyperlink{structsom_ordre}{som\+Ordre}} s2)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Compare l\textquotesingle{}ordre de 2 sommets. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -35,9 +35,33 @@ Appels principaux des fonctions effectuant des actions sur un graphe.
 \subsubsection{\texorpdfstring{compGraphesPareto()}{compGraphesPareto()}}
 {\footnotesize\ttfamily bool comp\+Graphes\+Pareto (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}}}]{g1,  }\item[{\mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}}}]{g2 }\end{DoxyParamCaption})}
 
+
+
+Compare les premiers poids de 2 graphes pour le tri de pareto. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Les} & 2 graphes a compares \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si le premeir est plus petit que le 2eme, false sinon 
+\end{DoxyReturn}
 \mbox{\Hypertarget{_graphe_8cpp_a55da70926c082a58b02a338e4118ca2f}\label{_graphe_8cpp_a55da70926c082a58b02a338e4118ca2f}} 
 \index{Graphe.cpp@{Graphe.cpp}!compSomOrdre@{compSomOrdre}}
 \index{compSomOrdre@{compSomOrdre}!Graphe.cpp@{Graphe.cpp}}
 \subsubsection{\texorpdfstring{compSomOrdre()}{compSomOrdre()}}
 {\footnotesize\ttfamily bool comp\+Som\+Ordre (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsom_ordre}{som\+Ordre}}}]{s1,  }\item[{\mbox{\hyperlink{structsom_ordre}{som\+Ordre}}}]{s2 }\end{DoxyParamCaption})}
 
+
+
+Compare l\textquotesingle{}ordre de 2 sommets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Les} & 2 sommets a compares \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si l\textquotesingle{}orde du premier est plus grand que le 2eme, false sinon 
+\end{DoxyReturn}

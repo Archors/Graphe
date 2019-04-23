@@ -1,7 +1,25 @@
+
+///
+///\file Taphe.cpp
+///
+///\brief Contient la fonction principal (main) du programme
+///\date 21 avril 2019
+///
+
 #include <iostream>
 #include "Graphe.h"
 #include "Menu.h"
 
+/**
+ * \fn int main (int argc, char** argv)
+ * \brief Boucle principale du programme
+ *
+ * Initialise Allegro
+ * Appelle le menu si indiqué hardcode true
+ * Lance l'algo choisi
+ * Affiche les graphes si hardcode true
+ * Reviens au menu si echap n'a pas ete appuye sur l'ecran d'affichage des graphes
+ */
 int main(int argc, char** argv)
 {
 	bool showGraphs = true;
