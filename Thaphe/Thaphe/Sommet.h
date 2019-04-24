@@ -1,3 +1,8 @@
+///\file Sommet.h
+///
+///\brief Declaration de la classe Sommet
+///\date 21 avril 2019
+
 #ifndef SOMMET_H_INCLUDED	
 #define SOMMET_H_INCLUDED
 #include "libraries.h"
@@ -7,6 +12,12 @@
 
 class Arete;
 
+/**
+ * \class Sommet
+ * \brief Classe d'un sommet permettant avec les arêtes de construire un graphe
+ *
+ *Cette classe permet de lancer des algorithmes tels que Prim ou Dijkstra, depuis un sommet en particulier
+ */
 class Sommet
 {
 private:
