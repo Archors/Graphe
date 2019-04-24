@@ -1,11 +1,19 @@
+/**
+ * \file Menu.h
+ * \brief Fonctions qui permettent de créer le menu et structure des choix
+ * \date 21 avril 2019
+ */
+
 #include "libraries.h"
 
 #define KEY_SEEN     1
 #define KEY_RELEASED 2
 //Structure de toutes les variables utilisés dans le menu
 
-//int nombreMaxPoids = 3;
-
+/**
+ * \struct MenuDonnees
+ * \brief Structure des choix de l'utilisateur dans le menu
+ */
 struct MenuDonnees
 {
 	std::string graphe;

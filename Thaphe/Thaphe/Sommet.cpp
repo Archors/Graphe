@@ -49,7 +49,14 @@ std::string inttostring(int a)
 	ss << a;
 	return ss.str();
 }
-
+/**
+ * \fn std::vector<Arete*> Sommet::Prim(int indicePoids)
+ * \brief Algorithme de Prim
+ * \param indicePoids : Indice du poid à selectionné
+ * \return retourne un vecteur contenant toute les arretes du graphe
+ * Permet d'appliquer l'algorithme de Prim qui sert à trouver l'arbre couvrant de poid minimum
+ * Chaque arrete arrete contenu dans cet arbre est ajoutée à un vector
+ */
 std::vector<Arete*> Sommet::Prim(int indicePoids)
 {
 	//Creation des type de données utiles à l'algorithme de Prim
