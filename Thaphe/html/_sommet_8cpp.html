@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Projet Piscine 2019: Sommet.cpp File Reference</title>
+<title>Projet Piscine 2019: Thaphe/Sommet.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,16 +92,26 @@ $(document).ready(function(){initNavTree('_sommet_8cpp.html','');});
 <div class="title">Sommet.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Appels principaux des fonctions effectuant des actions sur un sommet.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="_sommet_8h_source.html">Sommet.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7b29f67e9f58f27fafd7c777107e7c9f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_sommet_8cpp.html#a7b29f67e9f58f27fafd7c777107e7c9f">inttostring</a> (int a)</td></tr>
+<tr class="memdesc:a7b29f67e9f58f27fafd7c777107e7c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction permettant de transformer un entier en chaîne de caractères.  <a href="#a7b29f67e9f58f27fafd7c777107e7c9f">More...</a><br /></td></tr>
 <tr class="separator:a7b29f67e9f58f27fafd7c777107e7c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5827a7cef1f19aebac3e5f57161c0869"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_sommet_8cpp.html#a5827a7cef1f19aebac3e5f57161c0869">compDistDij</a> (std::pair&lt; const <a class="el" href="class_sommet.html">Sommet</a> *, float &gt; s1, std::pair&lt; const <a class="el" href="class_sommet.html">Sommet</a> *, float &gt; s2)</td></tr>
+<tr class="memdesc:a5827a7cef1f19aebac3e5f57161c0869"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction utilisée dans Dijtances pour trier un conteneur.  <a href="#a5827a7cef1f19aebac3e5f57161c0869">More...</a><br /></td></tr>
 <tr class="separator:a5827a7cef1f19aebac3e5f57161c0869"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Appels principaux des fonctions effectuant des actions sur un sommet. </p>
+<dl class="section date"><dt>Date</dt><dd>21 avril 2019 <pre class="fragment">    Contient le code de construction d'un sommet
+    Contient l'appel des algorithmes qui se lancent depuis un Sommet tels que Prim ou Dijkstra
+    Contient les fonctions permettant l'affichage d'un sommet sur une bitmap </pre> </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a5827a7cef1f19aebac3e5f57161c0869"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5827a7cef1f19aebac3e5f57161c0869">&#9670;&nbsp;</a></span>compDistDij()</h2>
 
@@ -128,6 +138,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction utilisée dans Dijtances pour trier un conteneur. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s1</td><td>Premier élément à comparer, paire constituée d'un pointeur sur sommet et d'un float </td></tr>
+    <tr><td class="paramname">s2</td><td>Deuxième élément à comparer, paire constituée d'un pointeur sur sommet et d'un float </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Rend un booléen selon quel float est plus grand que l'autre </dd></dl>
+
 </div>
 </div>
 <a id="a7b29f67e9f58f27fafd7c777107e7c9f"></a>
@@ -146,6 +166,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction permettant de transformer un entier en chaîne de caractères. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Entier que l'on veut transformer en chaîne de caractères </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ss Chaîne de caractères crée à partir de l'entier a </dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -153,7 +182,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="_sommet_8cpp.html">Sommet.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_f5ea2acb5aac677e84c44076727edf45.html">Thaphe</a></li><li class="navelem"><a class="el" href="_sommet_8cpp.html">Sommet.cpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.15 </li>

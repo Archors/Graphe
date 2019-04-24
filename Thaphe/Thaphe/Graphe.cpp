@@ -339,7 +339,7 @@ std::list<graphePareto> Graphe::TriPareto()
 }
 
 ///\brief Compare les premiers poids de 2 graphes pour le tri de pareto
-///\param Les 2 graphes a compares
+///\param g1,g2 Les 2 graphes a compares
 ///\return true si le premeir est plus petit que le 2eme, false sinon
 ///
 bool compGraphesPareto(graphePareto g1, graphePareto g2)
@@ -355,7 +355,7 @@ bool compGraphesPareto(graphePareto g1, graphePareto g2)
 
 
 ///\brief Effectue la somme des poids des aretes
-///\param Le graphe actuel
+///\param ssg Le graphe actuel
 ///\return les poids sommes
 ///
 std::vector<float> Graphe::sommePoidsCoutMin(std::bitset<nombreMaxAretes> ssg)
@@ -379,7 +379,7 @@ std::vector<float> Graphe::sommePoidsCoutMin(std::bitset<nombreMaxAretes> ssg)
 }
 
 ///\brief Effectue la somme des poids des aretes plus selon les diametres pour ceux renseignes
-///\param Le graphe actuel
+///\param ssg Le graphe actuel
 ///\return les poids sommes
 ///
 std::vector<float> Graphe::sommePoidsDiametre(std::bitset<nombreMaxAretes> ssg)
@@ -418,7 +418,7 @@ std::vector<float> Graphe::sommePoidsDiametre(std::bitset<nombreMaxAretes> ssg)
 }
 
 ///\brief Effectue la somme des poids des aretes, plus selon les distances calcules par dijkstra pour les poids renseignes
-///\param Le graphe actuel
+///\param ssg Le graphe actuel
 ///\return les poids sommes
 ///
 std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
@@ -455,7 +455,8 @@ std::vector<float> Graphe::sommePoidsCoutDist(std::bitset<nombreMaxAretes> ssg)
 
 
 ///\brief Colore le graphe selon l'algorithme de Welsh Powell
-///\param Le graphe actuel
+///\param ssg le graphe actuel
+///
 ///Indique la couleur d'un sommet directement sur celui ci (variable de la classe)
 void Graphe::Colorer(std::bitset<nombreMaxAretes> ssg)
 {

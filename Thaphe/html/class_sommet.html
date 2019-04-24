@@ -95,36 +95,51 @@ $(document).ready(function(){initNavTree('class_sommet.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Classe d'un sommet permettant avec les arêtes de construire un graphe.  
+ <a href="class_sommet.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_sommet_8h_source.html">Sommet.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a82587ed9c751f6adb8812d63bedd03f5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#a82587ed9c751f6adb8812d63bedd03f5">Sommet</a> (int id, double x, double y)</td></tr>
+<tr class="memdesc:a82587ed9c751f6adb8812d63bedd03f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction constructeur d'un objet de la classe <a class="el" href="class_sommet.html" title="Classe d&#39;un sommet permettant avec les arêtes de construire un graphe.">Sommet</a>.  <a href="#a82587ed9c751f6adb8812d63bedd03f5">More...</a><br /></td></tr>
 <tr class="separator:a82587ed9c751f6adb8812d63bedd03f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5a33fae4988ecf89be18415ff20907a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#af5a33fae4988ecf89be18415ff20907a">AjouterVoisin</a> (const <a class="el" href="class_sommet.html">Sommet</a> *som, <a class="el" href="class_arete.html">Arete</a> *ar)</td></tr>
+<tr class="memdesc:af5a33fae4988ecf89be18415ff20907a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction pour ajouter un voisin à un sommet.  <a href="#af5a33fae4988ecf89be18415ff20907a">More...</a><br /></td></tr>
 <tr class="separator:af5a33fae4988ecf89be18415ff20907a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38d86fb9fc07ede7cd1d4d315d55358b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#a38d86fb9fc07ede7cd1d4d315d55358b">BFSnbAretes</a> (int nbSommets, std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;)</td></tr>
+<tr class="memdesc:a38d86fb9fc07ede7cd1d4d315d55358b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction utilisée pour compter le nombre d'arêtes d'une composante connexe, en utilisant l'algorithme du BFS.  <a href="#a38d86fb9fc07ede7cd1d4d315d55358b">More...</a><br /></td></tr>
 <tr class="separator:a38d86fb9fc07ede7cd1d4d315d55358b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a065fa3896a679494ef98d6f618b57988"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#a065fa3896a679494ef98d6f618b57988">tailleComposanteConnexe</a> (int nbSommets, std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; ssg)</td></tr>
+<tr class="memdesc:a065fa3896a679494ef98d6f618b57988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction utilisée pour compter la taille que fait une composante connexe en partant d'un sommet.  <a href="#a065fa3896a679494ef98d6f618b57988">More...</a><br /></td></tr>
 <tr class="separator:a065fa3896a679494ef98d6f618b57988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ba31187835569c2ae5b14ffd3a8a792"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#a6ba31187835569c2ae5b14ffd3a8a792">avoisineCol</a> (int color, std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; ssg) const</td></tr>
+<tr class="memdesc:a6ba31187835569c2ae5b14ffd3a8a792"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction utilisée pour savoir si un sommet a la même couleur qu'un de ses voisins.  <a href="#a6ba31187835569c2ae5b14ffd3a8a792">More...</a><br /></td></tr>
 <tr class="separator:a6ba31187835569c2ae5b14ffd3a8a792"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb6082560f8722ecfeb70c77f745a85f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_arete.html">Arete</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#acb6082560f8722ecfeb70c77f745a85f">Prim</a> (int indicePoids)</td></tr>
+<tr class="memdesc:acb6082560f8722ecfeb70c77f745a85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Algorithme de Prim.  <a href="#acb6082560f8722ecfeb70c77f745a85f">More...</a><br /></td></tr>
 <tr class="separator:acb6082560f8722ecfeb70c77f745a85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf3e726c1bed3db6c603111c7f75fdbb"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::vector&lt; const <a class="el" href="class_arete.html">Arete</a> * &gt;, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#adf3e726c1bed3db6c603111c7f75fdbb">Dijkstra</a> (int nombreSommets, int indicePoids, const <a class="el" href="class_sommet.html">Sommet</a> *arrivee, std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt;, int) const</td></tr>
-<tr class="memdesc:adf3e726c1bed3db6c603111c7f75fdbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">choix2emeRetour permet de choisir ce qui sera dans le float de la paire retournée. 1 -&gt; poids total 2 -&gt; plus long des pcc  <a href="#adf3e726c1bed3db6c603111c7f75fdbb">More...</a><br /></td></tr>
+<tr class="memdesc:adf3e726c1bed3db6c603111c7f75fdbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction permettant de faire tourner l'algorithme de Dijkstra à partir d'un sommet donné  <a href="#adf3e726c1bed3db6c603111c7f75fdbb">More...</a><br /></td></tr>
 <tr class="separator:adf3e726c1bed3db6c603111c7f75fdbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed49d95952162e549c45d8c6175d0198"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#aed49d95952162e549c45d8c6175d0198">Dijtances</a> (std::bitset&lt; <a class="el" href="libraries_8h.html#a5d5c6b0caa76f25c1987a5b7b1c335b8">nombreMaxAretes</a> &gt; ssg, int indicePoidsn, int nbSommets)</td></tr>
+<tr class="memdesc:aed49d95952162e549c45d8c6175d0198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui calcule la somme des poids des arêtes comprises lorsque l'on effectue Dijkstra depuis un sommet.  <a href="#aed49d95952162e549c45d8c6175d0198">More...</a><br /></td></tr>
 <tr class="separator:aed49d95952162e549c45d8c6175d0198"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a219fd6f8ee76fb65627be729fd0cd957"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#a219fd6f8ee76fb65627be729fd0cd957">Dessiner</a> (ALLEGRO_BITMAP *bmp, std::vector&lt; ALLEGRO_COLOR &gt;)</td></tr>
+<tr class="memdesc:a219fd6f8ee76fb65627be729fd0cd957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction pour placer un sommet sur une bitmap, sert à la représentation graphique d'un graphe.  <a href="#a219fd6f8ee76fb65627be729fd0cd957">More...</a><br /></td></tr>
 <tr class="separator:a219fd6f8ee76fb65627be729fd0cd957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fea09a46012a720ec1af2d7a74cbcd6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_coords.html">Coords</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#a2fea09a46012a720ec1af2d7a74cbcd6">getCoords</a> () const</td></tr>
+<tr class="memdesc:a2fea09a46012a720ec1af2d7a74cbcd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction utilisée pour récupérer les coordonnées d'un sommet.  <a href="#a2fea09a46012a720ec1af2d7a74cbcd6">More...</a><br /></td></tr>
 <tr class="separator:a2fea09a46012a720ec1af2d7a74cbcd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a7effa279d36f5998de94fc4af1629c"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#a5a7effa279d36f5998de94fc4af1629c">getId</a> () const</td></tr>
+<tr class="memdesc:a5a7effa279d36f5998de94fc4af1629c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction utilisée pour récupérer l'id d'un sommet.  <a href="#a5a7effa279d36f5998de94fc4af1629c">More...</a><br /></td></tr>
 <tr class="separator:a5a7effa279d36f5998de94fc4af1629c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7743157f17c719899a90899112b9ef89"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#a7743157f17c719899a90899112b9ef89">getOrdre</a> () const</td></tr>
+<tr class="memdesc:a7743157f17c719899a90899112b9ef89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction utilisée pour récupérer l'ordre d'un sommet.  <a href="#a7743157f17c719899a90899112b9ef89">More...</a><br /></td></tr>
 <tr class="separator:a7743157f17c719899a90899112b9ef89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23a7ad681b25488d94737c8b5ae50eb4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#a23a7ad681b25488d94737c8b5ae50eb4">~Sommet</a> ()</td></tr>
+<tr class="memdesc:a23a7ad681b25488d94737c8b5ae50eb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction utilisée pour détruire un sommet.  <a href="#a23a7ad681b25488d94737c8b5ae50eb4">More...</a><br /></td></tr>
 <tr class="separator:a23a7ad681b25488d94737c8b5ae50eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -132,7 +147,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aa3f32e2f44a3f46f9d1cc1a58e4ce9d5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sommet.html#aa3f32e2f44a3f46f9d1cc1a58e4ce9d5">m_color</a></td></tr>
 <tr class="separator:aa3f32e2f44a3f46f9d1cc1a58e4ce9d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Classe d'un sommet permettant avec les arêtes de construire un graphe. </p>
+<p>Cette classe permet de lancer des algorithmes tels que Prim ou Dijkstra, depuis un sommet en particulier </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a82587ed9c751f6adb8812d63bedd03f5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a82587ed9c751f6adb8812d63bedd03f5">&#9670;&nbsp;</a></span>Sommet()</h2>
 
@@ -165,6 +183,15 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction constructeur d'un objet de la classe <a class="el" href="class_sommet.html" title="Classe d&#39;un sommet permettant avec les arêtes de construire un graphe.">Sommet</a>. </p>
+<p>Constructeur de sommet, un sommet a un id, des coords (pour la représentation graphique) et une couleur.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>du sommet ainsi que ses coordonnées pour la représentation graphique </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a23a7ad681b25488d94737c8b5ae50eb4"></a>
@@ -189,6 +216,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Fonction utilisée pour détruire un sommet. </p>
 
 </div>
 </div>
@@ -219,6 +248,14 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction pour ajouter un voisin à un sommet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">som</td><td>le sommet à ajouter en voisin et ar l'arête liant le sommet actuel et son voisin </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a6ba31187835569c2ae5b14ffd3a8a792"></a>
@@ -246,6 +283,16 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fonction utilisée pour savoir si un sommet a la même couleur qu'un de ses voisins. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>La couleur à tester </td></tr>
+    <tr><td class="paramname">ssg</td><td>Sous-graphe de travail, toutes les arêtes ne sont pas prises en compte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Retourne un booléen selon si le sommet a la même couleur qu'un de ses voisins </dd></dl>
 
 </div>
 </div>
@@ -275,6 +322,16 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction utilisée pour compter le nombre d'arêtes d'une composante connexe, en utilisant l'algorithme du BFS. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbSommets</td><td>Le nombre de Sommets du graphe </td></tr>
+    <tr><td class="paramname">ssg</td><td>Le sous-graphe de travail </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Retourne un entier qui correspond au nombre d'arêtes de la composante connexe </dd></dl>
+
 </div>
 </div>
 <a id="a219fd6f8ee76fb65627be729fd0cd957"></a>
@@ -302,6 +359,14 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fonction pour placer un sommet sur une bitmap, sert à la représentation graphique d'un graphe. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bmp</td><td>le bitmap sur laquelle on dessine le sommet, colors la couleur associée au sommet </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -349,12 +414,24 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>choix2emeRetour permet de choisir ce qui sera dans le float de la paire retournée. 1 -&gt; poids total 2 -&gt; plus long des pcc </p>
+<p>Fonction permettant de faire tourner l'algorithme de Dijkstra à partir d'un sommet donné </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nombreSommets</td><td>Le nombre de Sommets à explorer (nombre de sommets du graphe) </td></tr>
+    <tr><td class="paramname">indicePoids</td><td>L'indice de poids sur lequel on fait Dijkstra, car les arêtes ont plusieurs poids </td></tr>
+    <tr><td class="paramname">arrivee</td><td>Si un sommet d'arrivée est indiqué, la fonction renverra le plus court chemin entre le sommet initial et le sommet arrivee </td></tr>
+    <tr><td class="paramname">grapheDeTravail</td><td>Suite de bits qui renseigne quelles arêtes du graphe complet doivent être prises en compte pour effectuer Dijkstra </td></tr>
+    <tr><td class="paramname">choix2emeRetour</td><td>Permet de choisir si l'on veut récupérer le poids total des arêtes ou le plus long chemin obtenu avec la fonction </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Retourne une paire contenant les arêtes en suivant Dijkstra depuis le sommet initial et un float qui peut être le poids total des arêtes ou le plus long chemin choix2emeRetour permet de choisir ce qui sera dans le float de la paire retournée. 1 -&gt; poids total 2 -&gt; plus long des pcc </dd></dl>
 <p>dijkstraTous : arêtes de tous les pcc vers tous les sommets ; dijkstraArrivee : arêtes de this à arrivée</p>
 <p>second = distance de first par rapport à this</p>
 <p>second = predecesseur de first</p>
 <p>Pointeur pour le sommet qui sera marqué à chaque tour</p>
 <p>Pour le dijkstraArrivee</p>
+<p>Indique le sommet le plus éloigné du this, ainsi que sa distance</p>
 <p>Permet de comparer les distances pour marquer un sommet</p>
 <p>On marque le sommet de départ</p>
 <p>On ajoute la distance de chaque voisin du sommet de départ</p>
@@ -367,12 +444,15 @@ Public Attributes</h2></td></tr>
 <p>Marquer le sommet avec la plus petite distance</p>
 <p>Ajout de l'arête</p>
 <p>On met à jour les distances avec le nouveau sommet marqué</p>
-<p>Pour chaque voisin du sommet marqué v est une paire (<a class="el" href="class_sommet.html">Sommet</a> *, Arete*)</p>
+<p>Pour chaque voisin du sommet marqué v est une paire (<a class="el" href="class_sommet.html" title="Classe d&#39;un sommet permettant avec les arêtes de construire un graphe.">Sommet</a> *, Arete*)</p>
 <p>Mise à jour de la distance de chaque voisin si d(somMarq) + poids (somMarq - v) &lt; d(v)</p>
 <p>Si le voisin n'a pas de distance dans distances, on l'ajoute</p>
 <p>somMarq devient le prédécesseur de v</p>
 <p>et on met à jour la distance de v qui vaut alors d(somMarq) + poids (somMarq - v)</p>
-<p>Une fois que j'ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore</p>
+<p>Une fois que j'ai marqué un sommet je dois l'enlever de distances, sinon il sera marqué encore</p>
+<p>Quand aucun sommet d'arrivée n'est indiqué</p>
+<p>On retourne toutes les arêtes marquées et le poids total de celles-ci</p>
+<p>Ou uniquement les arêtes du sommet le plus loin au sommet initial ainsi que sa distance</p>
 <p>Pour ce cas on ne s'intéresse pas à la longueur du chemin </p>
 
 </div>
@@ -393,7 +473,7 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>indicePoidsn</em>, </td>
+          <td class="paramname"><em>indicePoids</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -408,6 +488,17 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fonction qui calcule la somme des poids des arêtes comprises lorsque l'on effectue Dijkstra depuis un sommet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ssg</td><td>Suite de bits indiquant le sous graphe de travail issu du graphe complet </td></tr>
+    <tr><td class="paramname">indicePoids</td><td>Indique sur quel poids on effectue les calculs </td></tr>
+    <tr><td class="paramname">nbSommets</td><td>Indique le nombre de sommets du graphe </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Renvoie la somme des poids des arêtes </dd></dl>
 
 </div>
 </div>
@@ -426,6 +517,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction utilisée pour récupérer les coordonnées d'un sommet. </p>
+<dl class="section return"><dt>Returns</dt><dd>Retourne les coordonnées du sommet en question </dd></dl>
+
 </div>
 </div>
 <a id="a5a7effa279d36f5998de94fc4af1629c"></a>
@@ -442,6 +536,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fonction utilisée pour récupérer l'id d'un sommet. </p>
+<dl class="section return"><dt>Returns</dt><dd>Retourne l'id du sommet en question </dd></dl>
 
 </div>
 </div>
@@ -460,6 +557,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction utilisée pour récupérer l'ordre d'un sommet. </p>
+<dl class="section return"><dt>Returns</dt><dd>Retourne l'ordre du sommet en question </dd></dl>
+
 </div>
 </div>
 <a id="acb6082560f8722ecfeb70c77f745a85f"></a>
@@ -477,6 +577,15 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Algorithme de Prim. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">indicePoids</td><td>: Indice du poid à selectionné </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>retourne un vecteur contenant toute les arretes du graphe Permet d'appliquer l'algorithme de Prim qui sert à trouver l'arbre couvrant de poid minimum Chaque arrete arrete contenu dans cet arbre est ajoutée à un vector </dd></dl>
 
 </div>
 </div>
@@ -506,6 +615,16 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction utilisée pour compter la taille que fait une composante connexe en partant d'un sommet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbSommets</td><td>Le nombre de Sommets du graphe </td></tr>
+    <tr><td class="paramname">ssg</td><td>Le sous-graphe de travail </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Retourne un entier qui correspond à la taille de la composante connexe du sommet initial </dd></dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -524,8 +643,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_sommet_8h_source.html">Sommet.h</a></li>
-<li><a class="el" href="_sommet_8cpp.html">Sommet.cpp</a></li>
+<li>Thaphe/<a class="el" href="_sommet_8h_source.html">Sommet.h</a></li>
+<li>Thaphe/<a class="el" href="_sommet_8cpp.html">Sommet.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

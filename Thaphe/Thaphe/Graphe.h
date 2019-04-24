@@ -76,7 +76,7 @@ class Graphe
 
 /**
  * \struct somOrdre
- * \brief Fait correspondre un sommet et son ordre (son degré)
+ * \brief Fait correspondre un sommet et son ordre (son degre)
  *
  */
 struct somOrdre

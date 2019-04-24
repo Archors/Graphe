@@ -2,43 +2,53 @@
 \label{class_sommet}\index{Sommet@{Sommet}}
 
 
+Classe d\textquotesingle{}un sommet permettant avec les arêtes de construire un graphe.  
+
+
+
+
 {\ttfamily \#include $<$Sommet.\+h$>$}
 
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_sommet_a82587ed9c751f6adb8812d63bedd03f5}{Sommet}} (int id, double x, double y)
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction constructeur d\textquotesingle{}un objet de la classe \mbox{\hyperlink{class_sommet}{Sommet}}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_sommet_af5a33fae4988ecf89be18415ff20907a}{Ajouter\+Voisin}} (const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$som, \mbox{\hyperlink{class_arete}{Arete}} $\ast$ar)
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction pour ajouter un voisin à un sommet. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_sommet_a38d86fb9fc07ede7cd1d4d315d55358b}{B\+F\+Snb\+Aretes}} (int nb\+Sommets, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$)
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction utilisée pour compter le nombre d\textquotesingle{}arêtes d\textquotesingle{}une composante connexe, en utilisant l\textquotesingle{}algorithme du B\+FS. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_sommet_a065fa3896a679494ef98d6f618b57988}{taille\+Composante\+Connexe}} (int nb\+Sommets, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg)
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction utilisée pour compter la taille que fait une composante connexe en partant d\textquotesingle{}un sommet. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_sommet_a6ba31187835569c2ae5b14ffd3a8a792}{avoisine\+Col}} (int color, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg) const
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction utilisée pour savoir si un sommet a la même couleur qu\textquotesingle{}un de ses voisins. \end{DoxyCompactList}\item 
 std\+::vector$<$ \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$ \mbox{\hyperlink{class_sommet_acb6082560f8722ecfeb70c77f745a85f}{Prim}} (int indice\+Poids)
-\item 
+\begin{DoxyCompactList}\small\item\em Algorithme de Prim. \end{DoxyCompactList}\item 
 std\+::pair$<$ std\+::vector$<$ const \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$, float $>$ \mbox{\hyperlink{class_sommet_adf3e726c1bed3db6c603111c7f75fdbb}{Dijkstra}} (int nombre\+Sommets, int indice\+Poids, const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$arrivee, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$, int) const
-\begin{DoxyCompactList}\small\item\em choix2eme\+Retour permet de choisir ce qui sera dans le float de la paire retournée. 1 -\/$>$ poids total 2 -\/$>$ plus long des pcc \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Fonction permettant de faire tourner l\textquotesingle{}algorithme de Dijkstra à partir d\textquotesingle{}un sommet donné \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{class_sommet_aed49d95952162e549c45d8c6175d0198}{Dijtances}} (std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg, int indice\+Poidsn, int nb\+Sommets)
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction qui calcule la somme des poids des arêtes comprises lorsque l\textquotesingle{}on effectue Dijkstra depuis un sommet. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_sommet_a219fd6f8ee76fb65627be729fd0cd957}{Dessiner}} (A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$bmp, std\+::vector$<$ A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR $>$)
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction pour placer un sommet sur une bitmap, sert à la représentation graphique d\textquotesingle{}un graphe. \end{DoxyCompactList}\item 
 const \mbox{\hyperlink{class_coords}{Coords}} \mbox{\hyperlink{class_sommet_a2fea09a46012a720ec1af2d7a74cbcd6}{get\+Coords}} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction utilisée pour récupérer les coordonnées d\textquotesingle{}un sommet. \end{DoxyCompactList}\item 
 const int \mbox{\hyperlink{class_sommet_a5a7effa279d36f5998de94fc4af1629c}{get\+Id}} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction utilisée pour récupérer l\textquotesingle{}id d\textquotesingle{}un sommet. \end{DoxyCompactList}\item 
 const int \mbox{\hyperlink{class_sommet_a7743157f17c719899a90899112b9ef89}{get\+Ordre}} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction utilisée pour récupérer l\textquotesingle{}ordre d\textquotesingle{}un sommet. \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{class_sommet_a23a7ad681b25488d94737c8b5ae50eb4}{$\sim$\+Sommet}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Fonction utilisée pour détruire un sommet. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{class_sommet_aa3f32e2f44a3f46f9d1cc1a58e4ce9d5}{m\+\_\+color}}
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Classe d\textquotesingle{}un sommet permettant avec les arêtes de construire un graphe. 
+
+Cette classe permet de lancer des algorithmes tels que Prim ou Dijkstra, depuis un sommet en particulier 
 
 \subsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_sommet_a82587ed9c751f6adb8812d63bedd03f5}\label{class_sommet_a82587ed9c751f6adb8812d63bedd03f5}} 
@@ -47,11 +57,26 @@ int \mbox{\hyperlink{class_sommet_aa3f32e2f44a3f46f9d1cc1a58e4ce9d5}{m\+\_\+colo
 \subsubsection{\texorpdfstring{Sommet()}{Sommet()}}
 {\footnotesize\ttfamily Sommet\+::\+Sommet (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{double}]{x,  }\item[{double}]{y }\end{DoxyParamCaption})}
 
+
+
+Fonction constructeur d\textquotesingle{}un objet de la classe \mbox{\hyperlink{class_sommet}{Sommet}}. 
+
+Constructeur de sommet, un sommet a un id, des coords (pour la représentation graphique) et une couleur.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & du sommet ainsi que ses coordonnées pour la représentation graphique \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{class_sommet_a23a7ad681b25488d94737c8b5ae50eb4}\label{class_sommet_a23a7ad681b25488d94737c8b5ae50eb4}} 
 \index{Sommet@{Sommet}!````~Sommet@{$\sim$Sommet}}
 \index{````~Sommet@{$\sim$Sommet}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{$\sim$Sommet()}{~Sommet()}}
 {\footnotesize\ttfamily Sommet\+::$\sim$\+Sommet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Fonction utilisée pour détruire un sommet. 
 
 
 
@@ -62,24 +87,70 @@ int \mbox{\hyperlink{class_sommet_aa3f32e2f44a3f46f9d1cc1a58e4ce9d5}{m\+\_\+colo
 \subsubsection{\texorpdfstring{AjouterVoisin()}{AjouterVoisin()}}
 {\footnotesize\ttfamily void Sommet\+::\+Ajouter\+Voisin (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$}]{som,  }\item[{\mbox{\hyperlink{class_arete}{Arete}} $\ast$}]{ar }\end{DoxyParamCaption})}
 
+
+
+Fonction pour ajouter un voisin à un sommet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em som} & le sommet à ajouter en voisin et ar l\textquotesingle{}arête liant le sommet actuel et son voisin \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{class_sommet_a6ba31187835569c2ae5b14ffd3a8a792}\label{class_sommet_a6ba31187835569c2ae5b14ffd3a8a792}} 
 \index{Sommet@{Sommet}!avoisineCol@{avoisineCol}}
 \index{avoisineCol@{avoisineCol}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{avoisineCol()}{avoisineCol()}}
 {\footnotesize\ttfamily bool Sommet\+::avoisine\+Col (\begin{DoxyParamCaption}\item[{int}]{color,  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption}) const}
 
+
+
+Fonction utilisée pour savoir si un sommet a la même couleur qu\textquotesingle{}un de ses voisins. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & La couleur à tester \\
+\hline
+{\em ssg} & Sous-\/graphe de travail, toutes les arêtes ne sont pas prises en compte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retourne un booléen selon si le sommet a la même couleur qu\textquotesingle{}un de ses voisins 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_sommet_a38d86fb9fc07ede7cd1d4d315d55358b}\label{class_sommet_a38d86fb9fc07ede7cd1d4d315d55358b}} 
 \index{Sommet@{Sommet}!BFSnbAretes@{BFSnbAretes}}
 \index{BFSnbAretes@{BFSnbAretes}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{BFSnbAretes()}{BFSnbAretes()}}
 {\footnotesize\ttfamily int Sommet\+::\+B\+F\+Snb\+Aretes (\begin{DoxyParamCaption}\item[{int}]{nb\+Sommets,  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption})}
 
+
+
+Fonction utilisée pour compter le nombre d\textquotesingle{}arêtes d\textquotesingle{}une composante connexe, en utilisant l\textquotesingle{}algorithme du B\+FS. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nb\+Sommets} & Le nombre de Sommets du graphe \\
+\hline
+{\em ssg} & Le sous-\/graphe de travail \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retourne un entier qui correspond au nombre d\textquotesingle{}arêtes de la composante connexe 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_sommet_a219fd6f8ee76fb65627be729fd0cd957}\label{class_sommet_a219fd6f8ee76fb65627be729fd0cd957}} 
 \index{Sommet@{Sommet}!Dessiner@{Dessiner}}
 \index{Dessiner@{Dessiner}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{Dessiner()}{Dessiner()}}
 {\footnotesize\ttfamily void Sommet\+::\+Dessiner (\begin{DoxyParamCaption}\item[{A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$}]{bmp,  }\item[{std\+::vector$<$ A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR $>$}]{colors }\end{DoxyParamCaption})}
 
+
+
+Fonction pour placer un sommet sur une bitmap, sert à la représentation graphique d\textquotesingle{}un graphe. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bmp} & le bitmap sur laquelle on dessine le sommet, colors la couleur associée au sommet \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{class_sommet_adf3e726c1bed3db6c603111c7f75fdbb}\label{class_sommet_adf3e726c1bed3db6c603111c7f75fdbb}} 
 \index{Sommet@{Sommet}!Dijkstra@{Dijkstra}}
 \index{Dijkstra@{Dijkstra}!Sommet@{Sommet}}
@@ -88,8 +159,24 @@ int \mbox{\hyperlink{class_sommet_aa3f32e2f44a3f46f9d1cc1a58e4ce9d5}{m\+\_\+colo
 
 
 
-choix2eme\+Retour permet de choisir ce qui sera dans le float de la paire retournée. 1 -\/$>$ poids total 2 -\/$>$ plus long des pcc 
+Fonction permettant de faire tourner l\textquotesingle{}algorithme de Dijkstra à partir d\textquotesingle{}un sommet donné 
 
+
+\begin{DoxyParams}{Parameters}
+{\em nombre\+Sommets} & Le nombre de Sommets à explorer (nombre de sommets du graphe) \\
+\hline
+{\em indice\+Poids} & L\textquotesingle{}indice de poids sur lequel on fait Dijkstra, car les arêtes ont plusieurs poids \\
+\hline
+{\em arrivee} & Si un sommet d\textquotesingle{}arrivée est indiqué, la fonction renverra le plus court chemin entre le sommet initial et le sommet arrivee \\
+\hline
+{\em graphe\+De\+Travail} & Suite de bits qui renseigne quelles arêtes du graphe complet doivent être prises en compte pour effectuer Dijkstra \\
+\hline
+{\em choix2eme\+Retour} & Permet de choisir si l\textquotesingle{}on veut récupérer le poids total des arêtes ou le plus long chemin obtenu avec la fonction \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retourne une paire contenant les arêtes en suivant Dijkstra depuis le sommet initial et un float qui peut être le poids total des arêtes ou le plus long chemin choix2eme\+Retour permet de choisir ce qui sera dans le float de la paire retournée. 1 -\/$>$ poids total 2 -\/$>$ plus long des pcc 
+\end{DoxyReturn}
 dijkstra\+Tous \+: arêtes de tous les pcc vers tous les sommets ; dijkstra\+Arrivee \+: arêtes de this à arrivée
 
 second = distance de first par rapport à this
@@ -99,6 +186,8 @@ second = predecesseur de first
 Pointeur pour le sommet qui sera marqué à chaque tour
 
 Pour le dijkstra\+Arrivee
+
+Indique le sommet le plus éloigné du this, ainsi que sa distance
 
 Permet de comparer les distances pour marquer un sommet
 
@@ -134,44 +223,113 @@ som\+Marq devient le prédécesseur de v
 
 et on met à jour la distance de v qui vaut alors d(som\+Marq) + poids (som\+Marq -\/ v)
 
-Une fois que j\textquotesingle{}ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore
+Une fois que j\textquotesingle{}ai marqué un sommet je dois l\textquotesingle{}enlever de distances, sinon il sera marqué encore
+
+Quand aucun sommet d\textquotesingle{}arrivée n\textquotesingle{}est indiqué
+
+On retourne toutes les arêtes marquées et le poids total de celles-\/ci
+
+Ou uniquement les arêtes du sommet le plus loin au sommet initial ainsi que sa distance
 
 Pour ce cas on ne s\textquotesingle{}intéresse pas à la longueur du chemin \mbox{\Hypertarget{class_sommet_aed49d95952162e549c45d8c6175d0198}\label{class_sommet_aed49d95952162e549c45d8c6175d0198}} 
 \index{Sommet@{Sommet}!Dijtances@{Dijtances}}
 \index{Dijtances@{Dijtances}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{Dijtances()}{Dijtances()}}
-{\footnotesize\ttfamily float Sommet\+::\+Dijtances (\begin{DoxyParamCaption}\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg,  }\item[{int}]{indice\+Poidsn,  }\item[{int}]{nb\+Sommets }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily float Sommet\+::\+Dijtances (\begin{DoxyParamCaption}\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg,  }\item[{int}]{indice\+Poids,  }\item[{int}]{nb\+Sommets }\end{DoxyParamCaption})}
 
+
+
+Fonction qui calcule la somme des poids des arêtes comprises lorsque l\textquotesingle{}on effectue Dijkstra depuis un sommet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ssg} & Suite de bits indiquant le sous graphe de travail issu du graphe complet \\
+\hline
+{\em indice\+Poids} & Indique sur quel poids on effectue les calculs \\
+\hline
+{\em nb\+Sommets} & Indique le nombre de sommets du graphe \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie la somme des poids des arêtes 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_sommet_a2fea09a46012a720ec1af2d7a74cbcd6}\label{class_sommet_a2fea09a46012a720ec1af2d7a74cbcd6}} 
 \index{Sommet@{Sommet}!getCoords@{getCoords}}
 \index{getCoords@{getCoords}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{getCoords()}{getCoords()}}
 {\footnotesize\ttfamily const \mbox{\hyperlink{class_coords}{Coords}} Sommet\+::get\+Coords (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Fonction utilisée pour récupérer les coordonnées d\textquotesingle{}un sommet. 
+
+\begin{DoxyReturn}{Returns}
+Retourne les coordonnées du sommet en question 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_sommet_a5a7effa279d36f5998de94fc4af1629c}\label{class_sommet_a5a7effa279d36f5998de94fc4af1629c}} 
 \index{Sommet@{Sommet}!getId@{getId}}
 \index{getId@{getId}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{getId()}{getId()}}
 {\footnotesize\ttfamily const int Sommet\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Fonction utilisée pour récupérer l\textquotesingle{}id d\textquotesingle{}un sommet. 
+
+\begin{DoxyReturn}{Returns}
+Retourne l\textquotesingle{}id du sommet en question 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_sommet_a7743157f17c719899a90899112b9ef89}\label{class_sommet_a7743157f17c719899a90899112b9ef89}} 
 \index{Sommet@{Sommet}!getOrdre@{getOrdre}}
 \index{getOrdre@{getOrdre}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{getOrdre()}{getOrdre()}}
 {\footnotesize\ttfamily const int Sommet\+::get\+Ordre (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Fonction utilisée pour récupérer l\textquotesingle{}ordre d\textquotesingle{}un sommet. 
+
+\begin{DoxyReturn}{Returns}
+Retourne l\textquotesingle{}ordre du sommet en question 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_sommet_acb6082560f8722ecfeb70c77f745a85f}\label{class_sommet_acb6082560f8722ecfeb70c77f745a85f}} 
 \index{Sommet@{Sommet}!Prim@{Prim}}
 \index{Prim@{Prim}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{Prim()}{Prim()}}
 {\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_arete}{Arete}} $\ast$ $>$ Sommet\+::\+Prim (\begin{DoxyParamCaption}\item[{int}]{indice\+Poids }\end{DoxyParamCaption})}
 
+
+
+Algorithme de Prim. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em indice\+Poids} & \+: Indice du poid à selectionné \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+retourne un vecteur contenant toute les arretes du graphe Permet d\textquotesingle{}appliquer l\textquotesingle{}algorithme de Prim qui sert à trouver l\textquotesingle{}arbre couvrant de poid minimum Chaque arrete arrete contenu dans cet arbre est ajoutée à un vector 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_sommet_a065fa3896a679494ef98d6f618b57988}\label{class_sommet_a065fa3896a679494ef98d6f618b57988}} 
 \index{Sommet@{Sommet}!tailleComposanteConnexe@{tailleComposanteConnexe}}
 \index{tailleComposanteConnexe@{tailleComposanteConnexe}!Sommet@{Sommet}}
 \subsubsection{\texorpdfstring{tailleComposanteConnexe()}{tailleComposanteConnexe()}}
 {\footnotesize\ttfamily int Sommet\+::taille\+Composante\+Connexe (\begin{DoxyParamCaption}\item[{int}]{nb\+Sommets,  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption})}
 
+
+
+Fonction utilisée pour compter la taille que fait une composante connexe en partant d\textquotesingle{}un sommet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nb\+Sommets} & Le nombre de Sommets du graphe \\
+\hline
+{\em ssg} & Le sous-\/graphe de travail \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retourne un entier qui correspond à la taille de la composante connexe du sommet initial 
+\end{DoxyReturn}
 
 
 \subsection{Member Data Documentation}
@@ -185,5 +343,5 @@ Pour ce cas on ne s\textquotesingle{}intéresse pas à la longueur du chemin \mbox
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{_sommet_8h}{Sommet.\+h}}\item 
-\mbox{\hyperlink{_sommet_8cpp}{Sommet.\+cpp}}\end{DoxyCompactItemize}
+Thaphe/\mbox{\hyperlink{_sommet_8h}{Sommet.\+h}}\item 
+Thaphe/\mbox{\hyperlink{_sommet_8cpp}{Sommet.\+cpp}}\end{DoxyCompactItemize}
