@@ -57,6 +57,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\files\broadway.txt">
