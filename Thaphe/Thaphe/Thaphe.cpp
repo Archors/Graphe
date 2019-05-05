@@ -1,6 +1,6 @@
 
 ///
-///\file Taphe.cpp
+///\file Thaphe.cpp
 ///
 ///\brief Contient la fonction principal (main) du programme
 ///\date 21 avril 2019

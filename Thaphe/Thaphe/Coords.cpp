@@ -2,7 +2,7 @@
 ///
 ///\file Coords.cpp
 ///
-///\brief Definition des methodes de la classe coords
+///\brief Definition des methodes de la classe Coords
 ///\date 21 avril 2019
 ///
 

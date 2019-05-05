@@ -2,7 +2,7 @@
 ///
 ///\file Coords.h
 ///
-///\brief Declaration de la classe coords
+///\brief Declaration de la classe Coords
 ///\date 21 avril 2019
 ///
 

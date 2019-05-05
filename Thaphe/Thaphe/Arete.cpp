@@ -1,5 +1,5 @@
 /**
- * \file Arrete.cpp
+ * \file Arete.cpp
  * \brief Fonctions qui permettent d'effectuer des action sur les aretes
  * \date 21 avril 2019
  *

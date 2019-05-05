@@ -1,5 +1,5 @@
 /**
- * \file Arrete.h
+ * \file Arete.h
  * \brief Declaration de la classe Arete
  * \date 21 avril 2019
  */

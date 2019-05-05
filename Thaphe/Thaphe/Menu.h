@@ -1,6 +1,6 @@
 /**
  * \file Menu.h
- * \brief Fonctions qui permettent de créer le menu et structure des choix
+ * \brief Fonctions qui permettent de creer le menu et structure des choix
  * \date 21 avril 2019
  */
 

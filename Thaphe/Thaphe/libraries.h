@@ -1,8 +1,8 @@
 
 ///
-///\file libraries
+///\file libraries.h
 ///
-///\brief Charge toutes les bibliothèeques nécessaires au programme
+///\brief Charge toutes les bibliotheques necessaires au programme
 ///\date 21 avril 2019
 ///
 

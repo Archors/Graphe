@@ -1,6 +1,6 @@
 /**
  * \file Menu.cpp
- * \brief Fonctions qui permettent de créer le menu
+ * \brief Fonctions qui permettent de creer le menu
  * \date 21 avril 2019
  *
  * Ce programme utilise Allegro pour afficher un menu à l'écran de l'utilisateur
