@@ -68,7 +68,6 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 	{
 		for (auto arete : sommetPrim.back()->m_voisins)//On check les voisins du dernier sommet ajouté
 		{
-			//
 			bool present = false; // Si l'arrete est deja presente dans le graphe
 			bool sommet1 = false; //1er sommet de l'arete en cours de verification
 			bool sommet2 = false; //2eme sommet de l'arete en cours de verification

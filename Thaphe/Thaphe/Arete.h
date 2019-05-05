@@ -10,7 +10,11 @@
 #include "Sommet.h"
 
 class Sommet;
-
+/**
+ * \class Arete
+ * \brief Classe d'une arête contenu dans un graphe
+ *Permet avec la classe Sommet de créer un graphe
+ */
 class Arete
 {
 private:
