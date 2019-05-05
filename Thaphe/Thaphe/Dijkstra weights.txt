@@ -1,0 +1,73 @@
+float Djisktra_for_weight(Path& _path,Graph& _graph,unsigned int _Starting_point)
+{
+	//std::cout << "Lancement dijkstra weight \n";
+    ///INITIALISATOPO
+
+    Graph test(_path, _graph);
+
+    float returned_value=0;//va contenir total cout1 et total cout2
+
+	std::vector<bool> markedPoint;
+	markedPoint.resize(test.get_m_points().size());
+
+	std::vector<bool> isLinkHere;
+	isLinkHere.resize(_graph.get_m_link().size());
+	for (auto l : test.get_m_link())
+		isLinkHere[l->get_id()] = true;
+
+    std::list<Point*> list_unvisited_point;
+    for (size_t i = 0; i < test.get_m_points().size(); i++)
+    {
+        if(test.get_m_points()[i] !=test.get_m_points()[_Starting_point])
+            list_unvisited_point.push_back(test.get_m_points()[i]);
+    }
+
+	Point* pt_points;
+    float weight=0;
+    Point* smallest_weight_point;
+
+    pt_points = test.get_m_points()[_Starting_point];
+	for (auto p : test.get_m_points())
+		p->set_weight(300000000000000000000000000.0); //~infini
+	pt_points->set_weight(0.0);
+
+    /// PROCESS
+    while (!list_unvisited_point.empty())//liste non vide
+    {
+      //  std::cout << "tant que pas fini " <<std::endl;
+        //pt_points->set_marked(test.get_m_points().size());///NOUS MARQUONS LE POINT ACTUEL
+		markedPoint[pt_points->get_id()];///NOUS MARQUONS LE POINT ACTUEL
+        weight = pt_points->get_weight();/// POID = POID DU POINT ??????????       ???????????                              on récupère le poids du sommet sur lequel on est actuellement !!
+        returned_value += weight; ///solution de départ += distance/poid                             //on ajoute son poids au total cout2 que l'on va renvoyer
+        //actualise les valeurs si plus petites
+        for (const auto& at : pt_points->get_neighboors())///pour tous les liens relié au points
+        {
+            int idb = ((at->get_id_b()==pt_points->get_id())?at->get_id_a():at->get_id_b());
+			//std::cout << "Id voisin : " << idb << "\n";
+
+			if ((at->get_cos2() + weight <= test.get_m_points()[idb]->get_weight()) && !markedPoint[idb] && isLinkHere[at->get_id()])//si le poids depuis ce chemin est inférieur à celui trouver précédemment
+                test.get_m_points()[idb]->set_weight(at->get_cos2() + weight);//on update le poids du points
+        }
+
+
+        //pointe sur la plus petite valeur
+		smallest_weight_point = list_unvisited_point.front();
+
+        for (const auto& it : list_unvisited_point)//trouve le poids le plus petit
+        {
+
+            if (it->get_weight() < smallest_weight_point->get_weight())
+            {
+                // std::cout<<  "somme selectione" <<smallest_weight_point->get_id() <<std::endl;
+                smallest_weight_point = it;
+            }
+        }
+
+        pt_points = smallest_weight_point;
+		std::list<Point*>::iterator it = std::find(list_unvisited_point.begin(), list_unvisited_point.end(), pt_points);
+        if(it !=list_unvisited_point.end())
+			list_unvisited_point.erase(it);//efface de la liste le point selectionné pour la prochaine boucle
+    }
+
+    return returned_value;
+}

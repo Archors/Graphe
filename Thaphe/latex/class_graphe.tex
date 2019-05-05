@@ -2,49 +2,54 @@
 \label{class_graphe}\index{Graphe@{Graphe}}
 
 
+Contient tous les sommets et aretes charges depuis un fichier.  
+
+
+
+
 {\ttfamily \#include $<$Graphe.\+h$>$}
 
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_graphe_aa82d55d6cab4cdc3b0bcf79fc2c5fb9a}{Graphe}} (\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}})
-\item 
+\begin{DoxyCompactList}\small\item\em charge un graphe depuis un fichier \end{DoxyCompactList}\item 
 std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ \mbox{\hyperlink{class_graphe_a088c1812cd435971a99d358f089f0e32}{Prim}} (int poids, int sommet\+Depart)
-\item 
-std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ \mbox{\hyperlink{class_graphe_a9b4a0cfe0e2744651b529df1704e826b}{Dijkstra}} (int poids, int sommet\+Depart, int sommet\+Arrivée=-\/1, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg=std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$(pow(2, \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}) -\/1))
-\item 
+\begin{DoxyCompactList}\small\item\em Lance Prim sur le graphe. \end{DoxyCompactList}\item 
+std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ \mbox{\hyperlink{class_graphe_a37892aa7904a7b80d673d553d4d360e9}{Dijkstra}} (int poids, int sommet\+Depart, int sommet\+Arrivée=-\/1, std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg=std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$(pow(2, \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}) -\/1), bool trajet\+Max=false)
+\begin{DoxyCompactList}\small\item\em Lance Dijkstra sur le graphe. \end{DoxyCompactList}\item 
 std\+::list$<$ \mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}} $>$ \mbox{\hyperlink{class_graphe_a08159231b03c65d904095db814bb8f01}{Tri\+Pareto}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Lance un tri gardant les optimums de pareto parmis tous les graphes connexes. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_graphe_a66162e19c6dbebadfc4f0b64f30b4a93}{Colorer}} (std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg)
-\item 
+\begin{DoxyCompactList}\small\item\em Colore le graphe selon l\textquotesingle{}algorithme de Welsh Powell. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ $>$ \mbox{\hyperlink{class_graphe_aa31a20ccc1034a3bd3b098d58faed27b}{Determiner\+Sous\+Graphe}} ()
 \item 
 bool \mbox{\hyperlink{class_graphe_a807de2336dceaa86c83714b9ea56cb34}{is\+Connexe}} (std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$, \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$)
-\item 
+\begin{DoxyCompactList}\small\item\em Verifie si le graphe est connexe ou fortement connexe. \end{DoxyCompactList}\item 
 std\+::vector$<$ float $>$ \mbox{\hyperlink{class_graphe_ae862a944c8b123d34420c3903a3042cd}{somme\+Poids\+Cout\+Min}} (std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$)
-\item 
+\begin{DoxyCompactList}\small\item\em Effectue la somme des poids des aretes. \end{DoxyCompactList}\item 
 std\+::vector$<$ float $>$ \mbox{\hyperlink{class_graphe_a85adeff85a4908ee149beb6c0acdec97}{somme\+Poids\+Cout\+Dist}} (std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$)
-\item 
+\begin{DoxyCompactList}\small\item\em Effectue la somme des poids des aretes, plus selon les distances calcules par dijkstra pour les poids renseignes. \end{DoxyCompactList}\item 
 std\+::vector$<$ float $>$ \mbox{\hyperlink{class_graphe_a33781f03acd02981143a45966e396341}{somme\+Poids\+Diametre}} (std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$)
-\item 
+\begin{DoxyCompactList}\small\item\em Effectue la somme des poids des aretes plus selon les diametres pour ceux renseignes. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_graphe_a7d76f0d96ed66bf5d7c343dcfd87a070}{create\+Colors}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Remplis une liste de A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR dans le graphe. \end{DoxyCompactList}\item 
 A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$ \mbox{\hyperlink{class_graphe_ae724b3d3b66621d5d2d1e745fd3f5619}{Dessiner\+Graphe}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Dessine le graphe complet. \end{DoxyCompactList}\item 
 A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$ \mbox{\hyperlink{class_graphe_a1cf86ef9a6c71df38abac5fa7820b773}{Dessiner\+Sous\+Graphe}} (std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ aretes)
-\item 
+\begin{DoxyCompactList}\small\item\em Dessine un sous graphe. \end{DoxyCompactList}\item 
 A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$ \mbox{\hyperlink{class_graphe_a2016a13d54d1766ae47c9d0dc66c0a1d}{Dessiner\+Sous\+Graphe\+Par}} (\mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}})
-\item 
+\begin{DoxyCompactList}\small\item\em Dessine un sous graphe optimum de pareto. \end{DoxyCompactList}\item 
 A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$ \mbox{\hyperlink{class_graphe_a46a63d44e20b99ea28a83319809c15b4}{Dessiner\+Plus\+Long\+Diametre}} (std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ ssg)
-\item 
+\begin{DoxyCompactList}\small\item\em Dessine le diametre d\textquotesingle{}un sous graphe. \end{DoxyCompactList}\item 
 const int \mbox{\hyperlink{class_graphe_a5d8d58c88bff106c0a820b15d3d42f3f}{get\+Nombre\+Sommets}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Renvoie le nombre de sommet du graphe. \end{DoxyCompactList}\item 
 const int \mbox{\hyperlink{class_graphe_a331331bba76f2dca37ad3422003fa923}{get\+Nombre\+Aretes}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Renvoie le nombre d\textquotesingle{}aretes du graphe. \end{DoxyCompactList}\item 
 const int \mbox{\hyperlink{class_graphe_a7710ecbd0144992c71e91c3713ce5e91}{get\+Nombre\+Sous\+Graphe}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Renvoie le nombre de sous graphe optimum de pareto. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_graphe_a3ad24315200d6b626e05792381fd0834}{free}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Libere la memoire du graphe. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_graphe_a673c897db564767e9ace7169a5357310}{$\sim$\+Graphe}} ()
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
@@ -54,6 +59,11 @@ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_ad73c201205ac3bfe4a118d327a7255ce
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+Contient tous les sommets et aretes charges depuis un fichier. 
+
+Toutes les operations effectues sur des graphes et sous graphe se lancent depuis cette classe pour avoir acces aux sommets et aretes 
+
 \subsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_graphe_aa82d55d6cab4cdc3b0bcf79fc2c5fb9a}\label{class_graphe_aa82d55d6cab4cdc3b0bcf79fc2c5fb9a}} 
 \index{Graphe@{Graphe}!Graphe@{Graphe}}
@@ -61,7 +71,16 @@ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_ad73c201205ac3bfe4a118d327a7255ce
 \subsubsection{\texorpdfstring{Graphe()}{Graphe()}}
 {\footnotesize\ttfamily Graphe\+::\+Graphe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}}}]{choix }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{class_graphe_a673c897db564767e9ace7169a5357310}\label{class_graphe_a673c897db564767e9ace7169a5357310}} 
+
+
+charge un graphe depuis un fichier 
+
+
+\begin{DoxyParams}{Parameters}
+{\em choix} & effectues dans le menu concernant le graphe et l\textquotesingle{}algo choisi\\
+\hline
+\end{DoxyParams}
+Fonction originaire du code du T\+P2 fourni par M. Fercoq puis modifiee \mbox{\Hypertarget{class_graphe_a673c897db564767e9ace7169a5357310}\label{class_graphe_a673c897db564767e9ace7169a5357310}} 
 \index{Graphe@{Graphe}!````~Graphe@{$\sim$Graphe}}
 \index{````~Graphe@{$\sim$Graphe}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{$\sim$Graphe()}{~Graphe()}}
@@ -76,59 +95,135 @@ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_ad73c201205ac3bfe4a118d327a7255ce
 \subsubsection{\texorpdfstring{Colorer()}{Colorer()}}
 {\footnotesize\ttfamily void Graphe\+::\+Colorer (\begin{DoxyParamCaption}\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{class_graphe_a7d76f0d96ed66bf5d7c343dcfd87a070}\label{class_graphe_a7d76f0d96ed66bf5d7c343dcfd87a070}} 
+
+
+Colore le graphe selon l\textquotesingle{}algorithme de Welsh Powell. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ssg} & le graphe actuel\\
+\hline
+\end{DoxyParams}
+Indique la couleur d\textquotesingle{}un sommet directement sur celui ci (variable de la classe) \mbox{\Hypertarget{class_graphe_a7d76f0d96ed66bf5d7c343dcfd87a070}\label{class_graphe_a7d76f0d96ed66bf5d7c343dcfd87a070}} 
 \index{Graphe@{Graphe}!createColors@{createColors}}
 \index{createColors@{createColors}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{createColors()}{createColors()}}
 {\footnotesize\ttfamily void Graphe\+::create\+Colors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{class_graphe_ae724b3d3b66621d5d2d1e745fd3f5619}\label{class_graphe_ae724b3d3b66621d5d2d1e745fd3f5619}} 
+
+
+Remplis une liste de A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR dans le graphe. 
+
+Creer autant de couleur que de sommets \mbox{\Hypertarget{class_graphe_ae724b3d3b66621d5d2d1e745fd3f5619}\label{class_graphe_ae724b3d3b66621d5d2d1e745fd3f5619}} 
 \index{Graphe@{Graphe}!DessinerGraphe@{DessinerGraphe}}
 \index{DessinerGraphe@{DessinerGraphe}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{DessinerGraphe()}{DessinerGraphe()}}
 {\footnotesize\ttfamily A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$ Graphe\+::\+Dessiner\+Graphe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Dessine le graphe complet. 
+
+\begin{DoxyReturn}{Returns}
+Une bitmap avec le graphe dessine 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_graphe_a46a63d44e20b99ea28a83319809c15b4}\label{class_graphe_a46a63d44e20b99ea28a83319809c15b4}} 
 \index{Graphe@{Graphe}!DessinerPlusLongDiametre@{DessinerPlusLongDiametre}}
 \index{DessinerPlusLongDiametre@{DessinerPlusLongDiametre}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{DessinerPlusLongDiametre()}{DessinerPlusLongDiametre()}}
 {\footnotesize\ttfamily A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$ Graphe\+::\+Dessiner\+Plus\+Long\+Diametre (\begin{DoxyParamCaption}\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption})}
 
+
+
+Dessine le diametre d\textquotesingle{}un sous graphe. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Le} & graphe a dessine \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une bitmap avec le plus long chemin dessine 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_graphe_a1cf86ef9a6c71df38abac5fa7820b773}\label{class_graphe_a1cf86ef9a6c71df38abac5fa7820b773}} 
 \index{Graphe@{Graphe}!DessinerSousGraphe@{DessinerSousGraphe}}
 \index{DessinerSousGraphe@{DessinerSousGraphe}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{DessinerSousGraphe()}{DessinerSousGraphe()}}
 {\footnotesize\ttfamily A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$ Graphe\+::\+Dessiner\+Sous\+Graphe (\begin{DoxyParamCaption}\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{aretes }\end{DoxyParamCaption})}
 
+
+
+Dessine un sous graphe. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Le} & graphe a dessine \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une bitmap avec le graphe dessine 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_graphe_a2016a13d54d1766ae47c9d0dc66c0a1d}\label{class_graphe_a2016a13d54d1766ae47c9d0dc66c0a1d}} 
 \index{Graphe@{Graphe}!DessinerSousGraphePar@{DessinerSousGraphePar}}
 \index{DessinerSousGraphePar@{DessinerSousGraphePar}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{DessinerSousGraphePar()}{DessinerSousGraphePar()}}
 {\footnotesize\ttfamily A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$ Graphe\+::\+Dessiner\+Sous\+Graphe\+Par (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}}}]{ssg }\end{DoxyParamCaption})}
 
+
+
+Dessine un sous graphe optimum de pareto. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Le} & graphe a dessine \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une bitmap avec le graphe dessine et les poids de celui ci inscrit dessus 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_graphe_aa31a20ccc1034a3bd3b098d58faed27b}\label{class_graphe_aa31a20ccc1034a3bd3b098d58faed27b}} 
 \index{Graphe@{Graphe}!DeterminerSousGraphe@{DeterminerSousGraphe}}
 \index{DeterminerSousGraphe@{DeterminerSousGraphe}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{DeterminerSousGraphe()}{DeterminerSousGraphe()}}
 {\footnotesize\ttfamily std\+::vector$<$ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ $>$ Graphe\+::\+Determiner\+Sous\+Graphe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{class_graphe_a9b4a0cfe0e2744651b529df1704e826b}\label{class_graphe_a9b4a0cfe0e2744651b529df1704e826b}} 
+\mbox{\Hypertarget{class_graphe_a37892aa7904a7b80d673d553d4d360e9}\label{class_graphe_a37892aa7904a7b80d673d553d4d360e9}} 
 \index{Graphe@{Graphe}!Dijkstra@{Dijkstra}}
 \index{Dijkstra@{Dijkstra}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{Dijkstra()}{Dijkstra()}}
-{\footnotesize\ttfamily std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ Graphe\+::\+Dijkstra (\begin{DoxyParamCaption}\item[{int}]{poids,  }\item[{int}]{sommet\+Depart,  }\item[{int}]{sommet\+Arrivée = {\ttfamily -\/1},  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg = {\ttfamily std\+:\+:bitset$<$\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}$>$(pow(2,\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}})-\/1)} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ Graphe\+::\+Dijkstra (\begin{DoxyParamCaption}\item[{int}]{poids,  }\item[{int}]{sommet\+Depart,  }\item[{int}]{sommet\+Arrivée = {\ttfamily -\/1},  }\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg = {\ttfamily std\+:\+:bitset$<$\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}}$>$(pow(2,\mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}})-\/1)},  }\item[{bool}]{trajet\+Max = {\ttfamily false} }\end{DoxyParamCaption})}
 
+
+
+Lance Dijkstra sur le graphe. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Le} & poids a analyse, le sommet de depart, le sommet d\textquotesingle{}arrivee et le sous graphe \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+le trajet le plus court entre le sommet de depart et d\textquotesingle{}arrivee 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_graphe_a3ad24315200d6b626e05792381fd0834}\label{class_graphe_a3ad24315200d6b626e05792381fd0834}} 
 \index{Graphe@{Graphe}!free@{free}}
 \index{free@{free}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{free()}{free()}}
 {\footnotesize\ttfamily void Graphe\+::free (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{class_graphe_a331331bba76f2dca37ad3422003fa923}\label{class_graphe_a331331bba76f2dca37ad3422003fa923}} 
+
+
+Libere la memoire du graphe. 
+
+Libere les sommets, aretes et sous graphes de pareto \mbox{\Hypertarget{class_graphe_a331331bba76f2dca37ad3422003fa923}\label{class_graphe_a331331bba76f2dca37ad3422003fa923}} 
 \index{Graphe@{Graphe}!getNombreAretes@{getNombreAretes}}
 \index{getNombreAretes@{getNombreAretes}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{getNombreAretes()}{getNombreAretes()}}
 {\footnotesize\ttfamily const int Graphe\+::get\+Nombre\+Aretes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Renvoie le nombre d\textquotesingle{}aretes du graphe. 
 
 \mbox{\Hypertarget{class_graphe_a5d8d58c88bff106c0a820b15d3d42f3f}\label{class_graphe_a5d8d58c88bff106c0a820b15d3d42f3f}} 
 \index{Graphe@{Graphe}!getNombreSommets@{getNombreSommets}}
@@ -136,11 +231,19 @@ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_ad73c201205ac3bfe4a118d327a7255ce
 \subsubsection{\texorpdfstring{getNombreSommets()}{getNombreSommets()}}
 {\footnotesize\ttfamily const int Graphe\+::get\+Nombre\+Sommets (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Renvoie le nombre de sommet du graphe. 
+
 \mbox{\Hypertarget{class_graphe_a7710ecbd0144992c71e91c3713ce5e91}\label{class_graphe_a7710ecbd0144992c71e91c3713ce5e91}} 
 \index{Graphe@{Graphe}!getNombreSousGraphe@{getNombreSousGraphe}}
 \index{getNombreSousGraphe@{getNombreSousGraphe}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{getNombreSousGraphe()}{getNombreSousGraphe()}}
 {\footnotesize\ttfamily const int Graphe\+::get\+Nombre\+Sous\+Graphe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Renvoie le nombre de sous graphe optimum de pareto. 
 
 \mbox{\Hypertarget{class_graphe_a807de2336dceaa86c83714b9ea56cb34}\label{class_graphe_a807de2336dceaa86c83714b9ea56cb34}} 
 \index{Graphe@{Graphe}!isConnexe@{isConnexe}}
@@ -148,30 +251,90 @@ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_ad73c201205ac3bfe4a118d327a7255ce
 \subsubsection{\texorpdfstring{isConnexe()}{isConnexe()}}
 {\footnotesize\ttfamily bool Graphe\+::is\+Connexe (\begin{DoxyParamCaption}\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg,  }\item[{\mbox{\hyperlink{class_sommet}{Sommet}} $\ast$}]{depart }\end{DoxyParamCaption})}
 
+
+
+Verifie si le graphe est connexe ou fortement connexe. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em le} & graphe a verifie, le sommet de depart pour la forte connexite \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return true si le graphe est connexe ou fortement connexe, false sinon 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_graphe_a088c1812cd435971a99d358f089f0e32}\label{class_graphe_a088c1812cd435971a99d358f089f0e32}} 
 \index{Graphe@{Graphe}!Prim@{Prim}}
 \index{Prim@{Prim}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{Prim()}{Prim()}}
 {\footnotesize\ttfamily std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$ Graphe\+::\+Prim (\begin{DoxyParamCaption}\item[{int}]{poids,  }\item[{int}]{sommet\+Depart }\end{DoxyParamCaption})}
 
+
+
+Lance Prim sur le graphe. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Le} & poids a analyse et le sommet de depart \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+le graphe de poids minimal 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_graphe_a85adeff85a4908ee149beb6c0acdec97}\label{class_graphe_a85adeff85a4908ee149beb6c0acdec97}} 
 \index{Graphe@{Graphe}!sommePoidsCoutDist@{sommePoidsCoutDist}}
 \index{sommePoidsCoutDist@{sommePoidsCoutDist}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{sommePoidsCoutDist()}{sommePoidsCoutDist()}}
 {\footnotesize\ttfamily std\+::vector$<$ float $>$ Graphe\+::somme\+Poids\+Cout\+Dist (\begin{DoxyParamCaption}\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption})}
 
+
+
+Effectue la somme des poids des aretes, plus selon les distances calcules par dijkstra pour les poids renseignes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ssg} & Le graphe actuel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+les poids sommes 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_graphe_ae862a944c8b123d34420c3903a3042cd}\label{class_graphe_ae862a944c8b123d34420c3903a3042cd}} 
 \index{Graphe@{Graphe}!sommePoidsCoutMin@{sommePoidsCoutMin}}
 \index{sommePoidsCoutMin@{sommePoidsCoutMin}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{sommePoidsCoutMin()}{sommePoidsCoutMin()}}
 {\footnotesize\ttfamily std\+::vector$<$ float $>$ Graphe\+::somme\+Poids\+Cout\+Min (\begin{DoxyParamCaption}\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption})}
 
+
+
+Effectue la somme des poids des aretes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ssg} & Le graphe actuel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+les poids sommes 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_graphe_a33781f03acd02981143a45966e396341}\label{class_graphe_a33781f03acd02981143a45966e396341}} 
 \index{Graphe@{Graphe}!sommePoidsDiametre@{sommePoidsDiametre}}
 \index{sommePoidsDiametre@{sommePoidsDiametre}!Graphe@{Graphe}}
 \subsubsection{\texorpdfstring{sommePoidsDiametre()}{sommePoidsDiametre()}}
 {\footnotesize\ttfamily std\+::vector$<$ float $>$ Graphe\+::somme\+Poids\+Diametre (\begin{DoxyParamCaption}\item[{std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_a5d5c6b0caa76f25c1987a5b7b1c335b8}{nombre\+Max\+Aretes}} $>$}]{ssg }\end{DoxyParamCaption})}
 
+
+
+Effectue la somme des poids des aretes plus selon les diametres pour ceux renseignes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ssg} & Le graphe actuel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+les poids sommes 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_graphe_a08159231b03c65d904095db814bb8f01}\label{class_graphe_a08159231b03c65d904095db814bb8f01}} 
 \index{Graphe@{Graphe}!TriPareto@{TriPareto}}
 \index{TriPareto@{TriPareto}!Graphe@{Graphe}}
@@ -179,6 +342,13 @@ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_ad73c201205ac3bfe4a118d327a7255ce
 {\footnotesize\ttfamily std\+::list$<$ \mbox{\hyperlink{structgraphe_pareto}{graphe\+Pareto}} $>$ Graphe\+::\+Tri\+Pareto (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
+
+Lance un tri gardant les optimums de pareto parmis tous les graphes connexes. 
+
+\begin{DoxyReturn}{Returns}
+les optimums de pareto avec les poids totaux correspondants
+\end{DoxyReturn}
+Calcule les poids selon ce qui a été indiqué dans le menu\+: cout minimal, les plus courtes distances totales, plus petit diametre 
 
 \subsection{Member Data Documentation}
 \mbox{\Hypertarget{class_graphe_a580b11aa2753e0004e7a49a466ab9da0}\label{class_graphe_a580b11aa2753e0004e7a49a466ab9da0}} 
@@ -191,5 +361,5 @@ std\+::bitset$<$ \mbox{\hyperlink{libraries_8h_ad73c201205ac3bfe4a118d327a7255ce
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{_graphe_8h}{Graphe.\+h}}\item 
-\mbox{\hyperlink{_graphe_8cpp}{Graphe.\+cpp}}\end{DoxyCompactItemize}
+Thaphe/\mbox{\hyperlink{_graphe_8h}{Graphe.\+h}}\item 
+Thaphe/\mbox{\hyperlink{_graphe_8cpp}{Graphe.\+cpp}}\end{DoxyCompactItemize}

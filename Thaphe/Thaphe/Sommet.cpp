@@ -1,15 +1,34 @@
+///
+///\file Sommet.cpp
+///
+///\brief Appels principaux des fonctions effectuant des actions sur un sommet
+///\date 21 avril 2019
+///
+///		Contient le code de construction d'un sommet
+///		Contient l'appel des algorithmes qui se lancent depuis un Sommet tels que Prim ou Dijkstra
+///		Contient les fonctions permettant l'affichage d'un sommet sur une bitmap
+
 #include "Sommet.h"
 
-Sommet::Sommet(int id, double x, double y)
+
+///\fn Sommet::Sommet(int id, double x, double y)
+///\brief Fonction constructeur d'un objet de la classe Sommet
+///\param id du sommet ainsi que ses coordonnées pour la représentation graphique
+Sommet::Sommet(int id, double x, double y)			/// Constructeur de sommet, un sommet a un id, des coords (pour la représentation graphique) et une couleur
 	:m_id{ id }, m_coords{ x,y }, m_color{ 0 }
 {}
 
-
+///\fn void Sommet::AjouterVoisin(const Sommet* som, Arete* ar)
+///\brief Fonction pour ajouter un voisin à un sommet
+///\param som le sommet à ajouter en voisin et ar l'arête liant le sommet actuel et son voisin
 void Sommet::AjouterVoisin(const Sommet* som, Arete* ar)
 {
 	m_voisins.insert({ som,ar });
 }
 
+///\fn void Sommet::Dessiner(ALLEGRO_BITMAP* bmp, std::vector<ALLEGRO_COLOR> colors)
+///\brief Fonction pour placer un sommet sur une bitmap, sert à la représentation graphique d'un graphe
+///\param bmp le bitmap sur laquelle on dessine le sommet, colors la couleur associée au sommet
 void Sommet::Dessiner(ALLEGRO_BITMAP* bmp, std::vector<ALLEGRO_COLOR> colors)
 {
 	ALLEGRO_FONT* font;
@@ -20,13 +39,24 @@ void Sommet::Dessiner(ALLEGRO_BITMAP* bmp, std::vector<ALLEGRO_COLOR> colors)
 	al_destroy_font(font);
 }
 
+///\fn std::string inttostring(int a)
+///\brief Fonction permettant de transformer un entier en chaîne de caractères
+///\param a Entier que l'on veut transformer en chaîne de caractères
+///\return ss Chaîne de caractères crée à partir de l'entier a
 std::string inttostring(int a)
 {
 	std::stringstream ss;
 	ss << a;
 	return ss.str();
 }
-
+/**
+ * \fn std::vector<Arete*> Sommet::Prim(int indicePoids)
+ * \brief Algorithme de Prim
+ * \param indicePoids : Indice du poid à selectionné
+ * \return retourne un vecteur contenant toute les arretes du graphe
+ * Permet d'appliquer l'algorithme de Prim qui sert à trouver l'arbre couvrant de poid minimum
+ * Chaque arrete arrete contenu dans cet arbre est ajoutée à un vector
+ */
 std::vector<Arete*> Sommet::Prim(int indicePoids)
 {
 	//Creation des type de données utiles à l'algorithme de Prim
@@ -38,7 +68,6 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 	{
 		for (auto arete : sommetPrim.back()->m_voisins)//On check les voisins du dernier sommet ajouté
 		{
-			//
 			bool present = false; // Si l'arrete est deja presente dans le graphe
 			bool sommet1 = false; //1er sommet de l'arete en cours de verification
 			bool sommet2 = false; //2eme sommet de l'arete en cours de verification
@@ -113,6 +142,14 @@ std::vector<Arete*> Sommet::Prim(int indicePoids)
 	return aretePrim; //On retourne un vecteur d'arrete pour parcourir le graphe en faisant le chemin de poid minimal
 }
 
+///\fn std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee, std::bitset<nombreMaxAretes> grapheDeTravail, int choix2emeRetour) const
+///\brief Fonction permettant de faire tourner l'algorithme de Dijkstra à partir d'un sommet donné
+///\param nombreSommets Le nombre de Sommets à explorer (nombre de sommets du graphe)
+///\param indicePoids L'indice de poids sur lequel on fait Dijkstra, car les arêtes ont plusieurs poids
+///\param arrivee Si un sommet d'arrivée est indiqué, la fonction renverra le plus court chemin entre le sommet initial et le sommet arrivee
+///\param grapheDeTravail Suite de bits qui renseigne quelles arêtes du graphe complet doivent être prises en compte pour effectuer Dijkstra
+///\param choix2emeRetour Permet de choisir si l'on veut récupérer le poids total des arêtes ou le plus long chemin obtenu avec la fonction
+///\return Retourne une paire contenant les arêtes en suivant Dijkstra depuis le sommet initial et un float qui peut être le poids total des arêtes ou le plus long chemin
 /// choix2emeRetour permet de choisir ce qui sera dans le float de la paire retournée. 1 -> poids total    2 -> plus long des pcc
 std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,int indicePoids, const Sommet* arrivee, std::bitset<nombreMaxAretes> grapheDeTravail, int choix2emeRetour) const
 {
@@ -123,7 +160,7 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 	std::unordered_map<const Sommet*, const Sommet*> predecesseurs = {}; /// second = predecesseur de first
 	const Sommet* somMarq = nullptr;	/// Pointeur pour le sommet qui sera marqué à chaque tour 
 	const Sommet* pred1, * pred2;		/// Pour le dijkstraArrivee
-	std::pair<const Sommet*, float> SomLePlusLoin;	
+	std::pair<const Sommet*, float> SomLePlusLoin;			/// Indique le sommet le plus éloigné du this, ainsi que sa distance
 	float distanceMin, distance, distanceMax = 0.0;				/// Permet de comparer les distances pour marquer un sommet
 	sommetsMarques.insert(this);			/// On marque le sommet de départ
 	for (const auto s : m_voisins)				/// On ajoute la distance de chaque voisin du sommet de départ
@@ -154,6 +191,7 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 			}
 		}
 		sommetsMarques.insert(somMarq);
+		//std::cout <<"Distance entre "<< getId() <<" et "<< somMarq->getId() << " : "<< distances.find(somMarq)->second << std::endl;
 		if(distances.find(somMarq)->second>SomLePlusLoin.second)
 			SomLePlusLoin.first = somMarq;
 		distancesFinales.push_back(distances.find(somMarq)->second);
@@ -176,16 +214,16 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 				}
 			}
 		}
-		distances.erase(somMarq);			/// Une fois que j'ai marqué un sommet je dois le dégager de distances, sinon il sera marqué encore
+		distances.erase(somMarq);			/// Une fois que j'ai marqué un sommet je dois l'enlever de distances, sinon il sera marqué encore
 	}
 
-	if (arrivee == nullptr)
+	if (arrivee == nullptr) /// Quand aucun sommet d'arrivée n'est indiqué
 	{
-		if (choix2emeRetour == 1)
+		if (choix2emeRetour == 1) /// On retourne toutes les arêtes marquées et le poids total de celles-ci
 		{
 			return { dijkstraTous, std::accumulate(distancesFinales.cbegin(), distancesFinales.cend(), 0.0) };
 		}
-		else if (choix2emeRetour == 2)
+		else if (choix2emeRetour == 2) /// Ou uniquement les arêtes du sommet le plus loin au sommet initial ainsi que sa distance
 		{
 			pred1 = SomLePlusLoin.first;
 			pred2 = predecesseurs.find(SomLePlusLoin.first)->second;
@@ -214,6 +252,12 @@ std::pair<std::vector<const Arete*>, float> Sommet::Dijkstra(int nombreSommets,i
 	}
 }
 
+///\fn float Sommet::Dijtances(std::bitset<nombreMaxAretes> ssg, int indicePoids, int nbSommets)
+///\brief Fonction qui calcule la somme des poids des arêtes comprises lorsque l'on effectue Dijkstra depuis un sommet
+///\param ssg Suite de bits indiquant le sous graphe de travail issu du graphe complet
+///\param indicePoids Indique sur quel poids on effectue les calculs
+///\param nbSommets Indique le nombre de sommets du graphe
+///\return Renvoie la somme des poids des arêtes
 float Sommet::Dijtances(std::bitset<nombreMaxAretes> ssg, int indicePoids, int nbSommets)
 {
 	std::list<std::pair<const Sommet*, float>> file;
@@ -259,21 +303,37 @@ float Sommet::Dijtances(std::bitset<nombreMaxAretes> ssg, int indicePoids, int n
 
 }
 
+///\fn bool compDistDij(std::pair<const Sommet*, float> s1, std::pair<const Sommet*, float> s2)
+///\brief Fonction utilisée dans Dijtances pour trier un conteneur
+///\param s1 Premier élément à comparer, paire constituée d'un pointeur sur sommet et d'un float
+///\param s2 Deuxième élément à comparer, paire constituée d'un pointeur sur sommet et d'un float
+///\return Rend un booléen selon quel float est plus grand que l'autre
 bool compDistDij(std::pair<const Sommet*, float> s1, std::pair<const Sommet*, float> s2)
 {
 	return (s1.second < s2.second);
 }
 
+///\fn const Coords Sommet::getCoords() const
+///\brief Fonction utilisée pour récupérer les coordonnées d'un sommet
+///\return Retourne les coordonnées du sommet en question
 const Coords Sommet::getCoords() const
 {
 	return m_coords;
 }
 
+///\fn const int Sommet::getId() const
+///\brief Fonction utilisée pour récupérer l'id d'un sommet
+///\return Retourne l'id du sommet en question
 const int Sommet::getId() const
 {
 	return m_id;
 }
 
+///\fn int Sommet::BFSnbAretes(int nbSommets, std::bitset<nombreMaxAretes> ssg)
+///\brief Fonction utilisée pour compter le nombre d'arêtes d'une composante connexe, en utilisant l'algorithme du BFS
+///\param nbSommets Le nombre de Sommets du graphe
+///\param ssg Le sous-graphe de travail
+///\return Retourne un entier qui correspond au nombre d'arêtes de la composante connexe
 int Sommet::BFSnbAretes(int nbSommets, std::bitset<nombreMaxAretes> ssg)
 {
 	std::vector<int> discovered;
@@ -302,7 +362,11 @@ int Sommet::BFSnbAretes(int nbSommets, std::bitset<nombreMaxAretes> ssg)
 	return nbAr;
 }
 
-
+///\fn int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<nombreMaxAretes> ssg)
+///\brief Fonction utilisée pour compter la taille que fait une composante connexe en partant d'un sommet
+///\param nbSommets Le nombre de Sommets du graphe
+///\param ssg Le sous-graphe de travail
+///\return Retourne un entier qui correspond à la taille de la composante connexe du sommet initial
 int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<nombreMaxAretes> ssg)
 {
 	std::vector<int> discovered;
@@ -328,7 +392,11 @@ int Sommet::tailleComposanteConnexe(int nbSommets, std::bitset<nombreMaxAretes> 
 	return std::accumulate(discovered.begin(), discovered.end(), 0);
 }
 
-
+///\fn bool Sommet::avoisineCol(int color, std::bitset<nombreMaxAretes> ssg) const
+///\brief Fonction utilisée pour savoir si un sommet a la même couleur qu'un de ses voisins
+///\param color La couleur à tester
+///\param ssg Sous-graphe de travail, toutes les arêtes ne sont pas prises en compte
+///\return Retourne un booléen selon si le sommet a la même couleur qu'un de ses voisins
 bool Sommet::avoisineCol(int color, std::bitset<nombreMaxAretes> ssg) const
 {
 	for (auto s : m_voisins)
@@ -339,12 +407,16 @@ bool Sommet::avoisineCol(int color, std::bitset<nombreMaxAretes> ssg) const
 	return false;
 }
 
+///\fn const int Sommet::getOrdre() const
+///\brief Fonction utilisée pour récupérer l'ordre d'un sommet
+///\return Retourne l'ordre du sommet en question
 const int Sommet::getOrdre() const
 {
 	return m_voisins.size();
 }
 
-
+///\fn Sommet::~Sommet()
+///\brief Fonction utilisée pour détruire un sommet
 Sommet::~Sommet()
 {
 }

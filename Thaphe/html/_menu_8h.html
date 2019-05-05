@@ -5,10 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Projet Piscine 2019: Menu.h File Reference</title>
+<title>Projet Piscine 2019: Thaphe/Menu.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,6 +28,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="drwoning pup.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet Piscine 2019
    </div>
@@ -45,6 +54,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_menu_8h.html','');});
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,7 +85,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
@@ -69,6 +94,9 @@ $(function() {
 <div class="title">Menu.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Fonctions qui permettent de creer le menu et structure des choix.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="libraries_8h_source.html">libraries.h</a>&quot;</code><br />
 </div>
 <p><a href="_menu_8h_source.html">Go to the source code of this file.</a></p>
@@ -76,6 +104,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_menu_donnees.html">MenuDonnees</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure des choix de l'utilisateur dans le menu.  <a href="struct_menu_donnees.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -88,13 +117,18 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3849c03ecfbb6894c9ba7592dbdabcd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_menu_8h.html#a3849c03ecfbb6894c9ba7592dbdabcd5">leMenu</a> (<a class="el" href="struct_menu_donnees.html">MenuDonnees</a> &amp;menudonnees, ALLEGRO_DISPLAY *display)</td></tr>
+<tr class="memdesc:a3849c03ecfbb6894c9ba7592dbdabcd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de creation du menu du programme.  <a href="#a3849c03ecfbb6894c9ba7592dbdabcd5">More...</a><br /></td></tr>
 <tr class="separator:a3849c03ecfbb6894c9ba7592dbdabcd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fcba7ec316504c915d24fef084e944f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_menu_8h.html#a0fcba7ec316504c915d24fef084e944f">vline</a> (int x1, int y1, ALLEGRO_COLOR couleur)</td></tr>
 <tr class="separator:a0fcba7ec316504c915d24fef084e944f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd000926567bb3bc4a86905aa64a5599"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_menu_8h.html#acd000926567bb3bc4a86905aa64a5599">chargerChoixMenu</a> (<a class="el" href="struct_menu_donnees.html">MenuDonnees</a> &amp;choix)</td></tr>
+<tr class="memdesc:acd000926567bb3bc4a86905aa64a5599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de chargement des fichiers.  <a href="#acd000926567bb3bc4a86905aa64a5599">More...</a><br /></td></tr>
 <tr class="separator:acd000926567bb3bc4a86905aa64a5599"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Fonctions qui permettent de creer le menu et structure des choix. </p>
+<dl class="section date"><dt>Date</dt><dd>21 avril 2019 </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ada3a4be515b3527c1691ce080655877f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada3a4be515b3527c1691ce080655877f">&#9670;&nbsp;</a></span>KEY_RELEASED</h2>
 
@@ -140,6 +174,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction de chargement des fichiers. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">menudonnees</td><td>Structure de données des choix de l'utilisateur </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a3849c03ecfbb6894c9ba7592dbdabcd5"></a>
@@ -167,6 +209,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fonction de creation du menu du programme. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">menudonnees</td><td>Structure de données des choix de l'utilisateur </td></tr>
+    <tr><td class="paramname">display</td><td>Ecran de l'utilisateur </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -205,11 +256,15 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.15
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_f5ea2acb5aac677e84c44076727edf45.html">Thaphe</a></li><li class="navelem"><a class="el" href="_menu_8h.html">Menu.h</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.15 </li>
+  </ul>
+</div>
 </body>
 </html>

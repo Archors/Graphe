@@ -1,11 +1,16 @@
-\hypertarget{_menu_8h}{}\section{Menu.\+h File Reference}
-\label{_menu_8h}\index{Menu.h@{Menu.h}}
+\hypertarget{_menu_8h}{}\section{Thaphe/\+Menu.h File Reference}
+\label{_menu_8h}\index{Thaphe/Menu.h@{Thaphe/Menu.h}}
+
+
+Fonctions qui permettent de creer le menu et structure des choix.  
+
+
 {\ttfamily \#include \char`\"{}libraries.\+h\char`\"{}}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Structure des choix de l\textquotesingle{}utilisateur dans le menu. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -17,11 +22,19 @@ struct \mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{_menu_8h_a3849c03ecfbb6894c9ba7592dbdabcd5}{le\+Menu}} (\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}} \&menudonnees, A\+L\+L\+E\+G\+R\+O\+\_\+\+D\+I\+S\+P\+L\+AY $\ast$display)
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction de creation du menu du programme. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{_menu_8h_a0fcba7ec316504c915d24fef084e944f}{vline}} (int x1, int y1, A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR couleur)
 \item 
 void \mbox{\hyperlink{_menu_8h_acd000926567bb3bc4a86905aa64a5599}{charger\+Choix\+Menu}} (\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}} \&choix)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Fonction de chargement des fichiers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Fonctions qui permettent de creer le menu et structure des choix. 
+
+\begin{DoxyDate}{Date}
+21 avril 2019 
+\end{DoxyDate}
 
 
 \subsection{Macro Definition Documentation}
@@ -46,12 +59,32 @@ void \mbox{\hyperlink{_menu_8h_acd000926567bb3bc4a86905aa64a5599}{charger\+Choix
 \subsubsection{\texorpdfstring{chargerChoixMenu()}{chargerChoixMenu()}}
 {\footnotesize\ttfamily void charger\+Choix\+Menu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}} \&}]{choix }\end{DoxyParamCaption})}
 
+
+
+Fonction de chargement des fichiers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em menudonnees} & Structure de données des choix de l\textquotesingle{}utilisateur \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{_menu_8h_a3849c03ecfbb6894c9ba7592dbdabcd5}\label{_menu_8h_a3849c03ecfbb6894c9ba7592dbdabcd5}} 
 \index{Menu.h@{Menu.h}!leMenu@{leMenu}}
 \index{leMenu@{leMenu}!Menu.h@{Menu.h}}
 \subsubsection{\texorpdfstring{leMenu()}{leMenu()}}
 {\footnotesize\ttfamily void le\+Menu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}} \&}]{menudonnees,  }\item[{A\+L\+L\+E\+G\+R\+O\+\_\+\+D\+I\+S\+P\+L\+AY $\ast$}]{display }\end{DoxyParamCaption})}
 
+
+
+Fonction de creation du menu du programme. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em menudonnees} & Structure de données des choix de l\textquotesingle{}utilisateur \\
+\hline
+{\em display} & Ecran de l\textquotesingle{}utilisateur \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{_menu_8h_a0fcba7ec316504c915d24fef084e944f}\label{_menu_8h_a0fcba7ec316504c915d24fef084e944f}} 
 \index{Menu.h@{Menu.h}!vline@{vline}}
 \index{vline@{vline}!Menu.h@{Menu.h}}

@@ -1,17 +1,22 @@
-\hypertarget{_menu_8cpp}{}\section{Menu.\+cpp File Reference}
-\label{_menu_8cpp}\index{Menu.cpp@{Menu.cpp}}
+\hypertarget{_menu_8cpp}{}\section{Thaphe/\+Menu.cpp File Reference}
+\label{_menu_8cpp}\index{Thaphe/Menu.cpp@{Thaphe/Menu.cpp}}
+
+
+Fonctions qui permettent de creer le menu.  
+
+
 {\ttfamily \#include \char`\"{}Menu.\+h\char`\"{}}\newline
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{_menu_8cpp_a24803991e981036e3da963259413d417}{textbox}} (int coordinate\+\_\+x, int coordinate\+\_\+y, int number\+\_\+signs, int coordinate\+\_\+command\+\_\+prompt, int number\+\_\+text\+\_\+box)
-\item 
+\begin{DoxyCompactList}\small\item\em programme pour faire des texts boxes \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{_menu_8cpp_a3849c03ecfbb6894c9ba7592dbdabcd5}{le\+Menu}} (\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}} \&menudonnees, A\+L\+L\+E\+G\+R\+O\+\_\+\+D\+I\+S\+P\+L\+AY $\ast$display)
-\item 
-void \mbox{\hyperlink{_menu_8cpp_a0fcba7ec316504c915d24fef084e944f}{vline}} (int x1, int y1, A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR couleur)
+\begin{DoxyCompactList}\small\item\em Fonction de creation du menu du programme. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_menu_8cpp_a435a80c021304aef248e6ba4cde66679}{vline}} (int x, int y, A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR couleur)
 \item 
 void \mbox{\hyperlink{_menu_8cpp_acd000926567bb3bc4a86905aa64a5599}{charger\+Choix\+Menu}} (\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}} \&choix)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Fonction de chargement des fichiers. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -27,11 +32,19 @@ int $\ast$ \mbox{\hyperlink{_menu_8cpp_ac6389f7abd06df63fd7ab26504dc0d62}{comman
 \item 
 A\+L\+L\+E\+G\+R\+O\+\_\+\+K\+E\+Y\+B\+O\+A\+R\+D\+\_\+\+S\+T\+A\+TE \mbox{\hyperlink{_menu_8cpp_a110c7fe9d402978f38b401a65d20118f}{keyboard}}
 \item 
-A\+L\+L\+E\+G\+R\+O\+\_\+\+F\+O\+NT $\ast$ \mbox{\hyperlink{_menu_8cpp_ae7ae4ee09bc6e3b8241362806c4491be}{font8}}
-\item 
 A\+L\+L\+E\+G\+R\+O\+\_\+\+M\+O\+U\+S\+E\+\_\+\+S\+T\+A\+TE \mbox{\hyperlink{_menu_8cpp_a6d9faa2757d37a1b1e6261259725fcad}{mouse}}
+\item 
+A\+L\+L\+E\+G\+R\+O\+\_\+\+F\+O\+NT $\ast$ \mbox{\hyperlink{_menu_8cpp_ae7ae4ee09bc6e3b8241362806c4491be}{font8}}
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Fonctions qui permettent de creer le menu. 
+
+\begin{DoxyDate}{Date}
+21 avril 2019
+\end{DoxyDate}
+Ce programme utilise Allegro pour afficher un menu à l\textquotesingle{}écran de l\textquotesingle{}utilisateur Contient la fonction principal d\textquotesingle{}affichage du menu Contient la fonction pour créer les texts boxes Contient la fonction pour cocher des cases 
 
 \subsection{Function Documentation}
 \mbox{\Hypertarget{_menu_8cpp_acd000926567bb3bc4a86905aa64a5599}\label{_menu_8cpp_acd000926567bb3bc4a86905aa64a5599}} 
@@ -40,23 +53,60 @@ A\+L\+L\+E\+G\+R\+O\+\_\+\+M\+O\+U\+S\+E\+\_\+\+S\+T\+A\+TE \mbox{\hyperlink{_me
 \subsubsection{\texorpdfstring{chargerChoixMenu()}{chargerChoixMenu()}}
 {\footnotesize\ttfamily void charger\+Choix\+Menu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}} \&}]{choix }\end{DoxyParamCaption})}
 
+
+
+Fonction de chargement des fichiers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em menudonnees} & Structure de données des choix de l\textquotesingle{}utilisateur \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{_menu_8cpp_a3849c03ecfbb6894c9ba7592dbdabcd5}\label{_menu_8cpp_a3849c03ecfbb6894c9ba7592dbdabcd5}} 
 \index{Menu.cpp@{Menu.cpp}!leMenu@{leMenu}}
 \index{leMenu@{leMenu}!Menu.cpp@{Menu.cpp}}
 \subsubsection{\texorpdfstring{leMenu()}{leMenu()}}
 {\footnotesize\ttfamily void le\+Menu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_menu_donnees}{Menu\+Donnees}} \&}]{menudonnees,  }\item[{A\+L\+L\+E\+G\+R\+O\+\_\+\+D\+I\+S\+P\+L\+AY $\ast$}]{display }\end{DoxyParamCaption})}
 
+
+
+Fonction de creation du menu du programme. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em menudonnees} & Structure de données des choix de l\textquotesingle{}utilisateur \\
+\hline
+{\em display} & Ecran de l\textquotesingle{}utilisateur \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{_menu_8cpp_a24803991e981036e3da963259413d417}\label{_menu_8cpp_a24803991e981036e3da963259413d417}} 
 \index{Menu.cpp@{Menu.cpp}!textbox@{textbox}}
 \index{textbox@{textbox}!Menu.cpp@{Menu.cpp}}
 \subsubsection{\texorpdfstring{textbox()}{textbox()}}
 {\footnotesize\ttfamily void textbox (\begin{DoxyParamCaption}\item[{int}]{coordinate\+\_\+x,  }\item[{int}]{coordinate\+\_\+y,  }\item[{int}]{number\+\_\+signs,  }\item[{int}]{coordinate\+\_\+command\+\_\+prompt,  }\item[{int}]{number\+\_\+text\+\_\+box }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{_menu_8cpp_a0fcba7ec316504c915d24fef084e944f}\label{_menu_8cpp_a0fcba7ec316504c915d24fef084e944f}} 
+
+
+programme pour faire des texts boxes 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coordinate\+\_\+x} & \+: Abcisse de la text box \\
+\hline
+{\em coordinate\+\_\+y} & \+: ordonnée de la text box \\
+\hline
+{\em number\+\_\+signs} & \+: Nombre de caractère possible \\
+\hline
+{\em coordinate\+\_\+command\+\_\+prompt} & \+: Coordonnée à mettre à 25 \\
+\hline
+{\em number\+\_\+text\+\_\+box} & \+: id de la text box Sert à créer des V pour cocher une case aux coordonnées envoyées en paramètres \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_menu_8cpp_a435a80c021304aef248e6ba4cde66679}\label{_menu_8cpp_a435a80c021304aef248e6ba4cde66679}} 
 \index{Menu.cpp@{Menu.cpp}!vline@{vline}}
 \index{vline@{vline}!Menu.cpp@{Menu.cpp}}
 \subsubsection{\texorpdfstring{vline()}{vline()}}
-{\footnotesize\ttfamily void vline (\begin{DoxyParamCaption}\item[{int}]{x1,  }\item[{int}]{y1,  }\item[{A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR}]{couleur }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void vline (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{A\+L\+L\+E\+G\+R\+O\+\_\+\+C\+O\+L\+OR}]{couleur }\end{DoxyParamCaption})}
 
 
 

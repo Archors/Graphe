@@ -8,19 +8,19 @@
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_arete_acb697d66a4eebd7c471d5280889faf3b}{Arete}} (int id, \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$s1, \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$s2, std\+::vector$<$ float $>$ poids, bool oriente)
-\item 
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \mbox{\hyperlink{class_arete}{Arete}}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_arete_af933957080e789335218ee0e5da5eed4}{Dessiner}} (A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$)
-\item 
+\begin{DoxyCompactList}\small\item\em Dessine l\textquotesingle{}arête sur une Bitmap. \end{DoxyCompactList}\item 
 std\+::pair$<$ \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$, \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$ $>$ \mbox{\hyperlink{class_arete_a92f3e0d045e6ec12c620944934bf9eab}{get\+Sommets}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Getter de \mbox{\hyperlink{class_sommet}{Sommet}}. \end{DoxyCompactList}\item 
 const float \mbox{\hyperlink{class_arete_a65ff1c3e69bae8336f85c4fc1c468f9b}{get\+Poids}} (int indice) const
-\item 
+\begin{DoxyCompactList}\small\item\em Getter de Poids. \end{DoxyCompactList}\item 
 const int \mbox{\hyperlink{class_arete_a78c1e560a06e83ee7eb1adfb690e63b2}{get\+Nombre\+Poids}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Getter du nombre de Poids. \end{DoxyCompactList}\item 
 const int \mbox{\hyperlink{class_arete_aeda0a1c10d9a9a52196e3c641f363646}{get\+Id}} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Getter de l\textquotesingle{}id de l\textquotesingle{}arête \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_arete_a3abde319ff71a269b69e93f365262205}{$\sim$\+Arete}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Fonction de destruction d\textquotesingle{}une arête \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Constructor \& Destructor Documentation}
@@ -30,11 +30,32 @@ const int \mbox{\hyperlink{class_arete_aeda0a1c10d9a9a52196e3c641f363646}{get\+I
 \subsubsection{\texorpdfstring{Arete()}{Arete()}}
 {\footnotesize\ttfamily Arete\+::\+Arete (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{\mbox{\hyperlink{class_sommet}{Sommet}} $\ast$}]{s1,  }\item[{\mbox{\hyperlink{class_sommet}{Sommet}} $\ast$}]{s2,  }\item[{std\+::vector$<$ float $>$}]{poids,  }\item[{bool}]{oriente }\end{DoxyParamCaption})}
 
+
+
+Constructeur de la classe \mbox{\hyperlink{class_arete}{Arete}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \+: numéro d\textquotesingle{}identification de l\textquotesingle{}arête \\
+\hline
+{\em s1} & \+: Premier sommet de l\textquotesingle{}arête \\
+\hline
+{\em s2} & \+: Second sommet de l\textquotesingle{}arête \\
+\hline
+{\em poids} & \+: Differents poids de l\textquotesingle{}arête \\
+\hline
+{\em oriente} & \+: Si l\textquotesingle{}arête est orienté ou pas \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{class_arete_a3abde319ff71a269b69e93f365262205}\label{class_arete_a3abde319ff71a269b69e93f365262205}} 
 \index{Arete@{Arete}!````~Arete@{$\sim$Arete}}
 \index{````~Arete@{$\sim$Arete}!Arete@{Arete}}
 \subsubsection{\texorpdfstring{$\sim$Arete()}{~Arete()}}
 {\footnotesize\ttfamily Arete\+::$\sim$\+Arete (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fonction de destruction d\textquotesingle{}une arête 
 
 
 
@@ -45,24 +66,59 @@ const int \mbox{\hyperlink{class_arete_aeda0a1c10d9a9a52196e3c641f363646}{get\+I
 \subsubsection{\texorpdfstring{Dessiner()}{Dessiner()}}
 {\footnotesize\ttfamily void Arete\+::\+Dessiner (\begin{DoxyParamCaption}\item[{A\+L\+L\+E\+G\+R\+O\+\_\+\+B\+I\+T\+M\+AP $\ast$}]{bmp }\end{DoxyParamCaption})}
 
+
+
+Dessine l\textquotesingle{}arête sur une Bitmap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bmp} & \+: Bitmap sur laquelle l\textquotesingle{}arête va être dessiné \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{class_arete_aeda0a1c10d9a9a52196e3c641f363646}\label{class_arete_aeda0a1c10d9a9a52196e3c641f363646}} 
 \index{Arete@{Arete}!getId@{getId}}
 \index{getId@{getId}!Arete@{Arete}}
 \subsubsection{\texorpdfstring{getId()}{getId()}}
 {\footnotesize\ttfamily const int Arete\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Getter de l\textquotesingle{}id de l\textquotesingle{}arête 
+
+\begin{DoxyReturn}{Returns}
+\+: Renvoi l\textquotesingle{}id de l\textquotesingle{}arête 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_arete_a78c1e560a06e83ee7eb1adfb690e63b2}\label{class_arete_a78c1e560a06e83ee7eb1adfb690e63b2}} 
 \index{Arete@{Arete}!getNombrePoids@{getNombrePoids}}
 \index{getNombrePoids@{getNombrePoids}!Arete@{Arete}}
 \subsubsection{\texorpdfstring{getNombrePoids()}{getNombrePoids()}}
 {\footnotesize\ttfamily const int Arete\+::get\+Nombre\+Poids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Getter du nombre de Poids. 
+
+\begin{DoxyReturn}{Returns}
+\+: Renvoi le nombre de poids 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_arete_a65ff1c3e69bae8336f85c4fc1c468f9b}\label{class_arete_a65ff1c3e69bae8336f85c4fc1c468f9b}} 
 \index{Arete@{Arete}!getPoids@{getPoids}}
 \index{getPoids@{getPoids}!Arete@{Arete}}
 \subsubsection{\texorpdfstring{getPoids()}{getPoids()}}
 {\footnotesize\ttfamily const float Arete\+::get\+Poids (\begin{DoxyParamCaption}\item[{int}]{indice }\end{DoxyParamCaption}) const}
 
+
+
+Getter de Poids. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em indice} & \+: Indice du poids à récupérer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\+: Renvoi une paire de sommet 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_arete_a92f3e0d045e6ec12c620944934bf9eab}\label{class_arete_a92f3e0d045e6ec12c620944934bf9eab}} 
 \index{Arete@{Arete}!getSommets@{getSommets}}
 \index{getSommets@{getSommets}!Arete@{Arete}}
@@ -71,7 +127,14 @@ const int \mbox{\hyperlink{class_arete_aeda0a1c10d9a9a52196e3c641f363646}{get\+I
 
 
 
+Getter de \mbox{\hyperlink{class_sommet}{Sommet}}. 
+
+\begin{DoxyReturn}{Returns}
+\+: Renvoi une paire de sommet 
+\end{DoxyReturn}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{_arete_8h}{Arete.\+h}}\item 
-\mbox{\hyperlink{_arete_8cpp}{Arete.\+cpp}}\end{DoxyCompactItemize}
+Thaphe/\mbox{\hyperlink{_arete_8h}{Arete.\+h}}\item 
+Thaphe/\mbox{\hyperlink{_arete_8cpp}{Arete.\+cpp}}\end{DoxyCompactItemize}

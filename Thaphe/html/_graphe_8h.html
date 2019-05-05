@@ -5,10 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Projet Piscine 2019: Graphe.h File Reference</title>
+<title>Projet Piscine 2019: Thaphe/Graphe.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,6 +28,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="drwoning pup.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet Piscine 2019
    </div>
@@ -45,6 +54,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_graphe_8h.html','');});
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,7 +85,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
@@ -68,6 +93,9 @@ $(function() {
 <div class="title">Graphe.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Declaration de la classe graphe.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="libraries_8h_source.html">libraries.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_sommet_8h_source.html">Sommet.h</a>&quot;</code><br />
 </div>
@@ -76,20 +104,29 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgraphe_pareto.html">graphePareto</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait correspondre un optimum de pareto et la somme inidividuel de ses poids.  <a href="structgraphe_pareto.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graphe.html">Graphe</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contient tous les sommets et aretes charges depuis un fichier.  <a href="class_graphe.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsom_ordre.html">somOrdre</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait correspondre un sommet et son ordre (son degre)  <a href="structsom_ordre.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a5bb2f6d446aa3af3373fbca5b102b00b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphe_8h.html#a5bb2f6d446aa3af3373fbca5b102b00b">compGraphesPareto</a> (<a class="el" href="structgraphe_pareto.html">graphePareto</a>, <a class="el" href="structgraphe_pareto.html">graphePareto</a>)</td></tr>
+<tr class="memdesc:a5bb2f6d446aa3af3373fbca5b102b00b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare les premiers poids de 2 graphes pour le tri de pareto.  <a href="#a5bb2f6d446aa3af3373fbca5b102b00b">More...</a><br /></td></tr>
 <tr class="separator:a5bb2f6d446aa3af3373fbca5b102b00b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a944916db50d11231f400b791af49b9d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_graphe_8h.html#a944916db50d11231f400b791af49b9d8">compSomOrdre</a> (<a class="el" href="structsom_ordre.html">somOrdre</a>, <a class="el" href="structsom_ordre.html">somOrdre</a>)</td></tr>
+<tr class="memdesc:a944916db50d11231f400b791af49b9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare l'ordre de 2 sommets.  <a href="#a944916db50d11231f400b791af49b9d8">More...</a><br /></td></tr>
 <tr class="separator:a944916db50d11231f400b791af49b9d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Declaration de la classe graphe. </p>
+<dl class="section date"><dt>Date</dt><dd>21 avril 2019</dd></dl>
+<p>Contient aussi les structures <a class="el" href="structgraphe_pareto.html" title="Fait correspondre un optimum de pareto et la somme inidividuel de ses poids.">graphePareto</a> et <a class="el" href="structsom_ordre.html" title="Fait correspondre un sommet et son ordre (son degre)">somOrdre</a> </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a5bb2f6d446aa3af3373fbca5b102b00b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5bb2f6d446aa3af3373fbca5b102b00b">&#9670;&nbsp;</a></span>compGraphesPareto()</h2>
 
@@ -100,13 +137,13 @@ Functions</h2></td></tr>
           <td class="memname">bool compGraphesPareto </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structgraphe_pareto.html">graphePareto</a>&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>g1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structgraphe_pareto.html">graphePareto</a>&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>g2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -115,6 +152,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Compare les premiers poids de 2 graphes pour le tri de pareto. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">g1,g2</td><td>Les 2 graphes a compares </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true si le premeir est plus petit que le 2eme, false sinon </dd></dl>
 
 </div>
 </div>
@@ -128,13 +174,13 @@ Functions</h2></td></tr>
           <td class="memname">bool compSomOrdre </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structsom_ordre.html">somOrdre</a>&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>s1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structsom_ordre.html">somOrdre</a>&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>s2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -144,14 +190,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Compare l'ordre de 2 sommets. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Les</td><td>2 sommets a compares </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true si l'orde du premier est plus grand que le 2eme, false sinon </dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.15
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_f5ea2acb5aac677e84c44076727edf45.html">Thaphe</a></li><li class="navelem"><a class="el" href="_graphe_8h.html">Graphe.h</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.15 </li>
+  </ul>
+</div>
 </body>
 </html>

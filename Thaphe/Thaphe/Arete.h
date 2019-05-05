@@ -1,3 +1,8 @@
+/**
+ * \file Arete.h
+ * \brief Declaration de la classe Arete
+ * \date 21 avril 2019
+ */
 #ifndef ARETE_H_INCLUDED	
 #define ARETE_H_INCLUDED
 
@@ -5,7 +10,11 @@
 #include "Sommet.h"
 
 class Sommet;
-
+/**
+ * \class Arete
+ * \brief Classe d'une arête contenu dans un graphe
+ *Permet avec la classe Sommet de créer un graphe
+ */
 class Arete
 {
 private:

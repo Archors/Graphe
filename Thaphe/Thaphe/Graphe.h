@@ -1,3 +1,12 @@
+
+///
+///\file Graphe.h
+///
+///\brief Declaration de la classe graphe
+///\date 21 avril 2019
+///
+///Contient aussi les structures graphePareto et somOrdre
+
 #ifndef GRAPHE_H_INCLUDED	
 #define GRAPHE_H_INCLUDED
 
@@ -6,12 +15,23 @@
 
 struct MenuDonnees;
 
+/**
+ * \struct graphePareto
+ * \brief Fait correspondre un optimum de pareto et la somme inidividuel de ses poids
+ *
+ */
 struct graphePareto
 {
 	std::vector<float> sommePoids;
 	std::bitset<nombreMaxAretes> aretes;
 };
 
+/**
+ * \class Graphe
+ * \brief Contient tous les sommets et aretes charges depuis un fichier
+ *
+ *Toutes les operations effectues sur des graphes et sous graphe se lancent depuis cette classe pour avoir acces aux sommets et aretes
+ */
 class Graphe
 {
 	private:
@@ -54,6 +74,11 @@ class Graphe
 		~Graphe();
 };
 
+/**
+ * \struct somOrdre
+ * \brief Fait correspondre un sommet et son ordre (son degre)
+ *
+ */
 struct somOrdre
 {
 	int ordre;

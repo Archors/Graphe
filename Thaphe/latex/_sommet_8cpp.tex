@@ -1,13 +1,29 @@
-\hypertarget{_sommet_8cpp}{}\section{Sommet.\+cpp File Reference}
-\label{_sommet_8cpp}\index{Sommet.cpp@{Sommet.cpp}}
+\hypertarget{_sommet_8cpp}{}\section{Thaphe/\+Sommet.cpp File Reference}
+\label{_sommet_8cpp}\index{Thaphe/Sommet.cpp@{Thaphe/Sommet.cpp}}
+
+
+Appels principaux des fonctions effectuant des actions sur un sommet.  
+
+
 {\ttfamily \#include \char`\"{}Sommet.\+h\char`\"{}}\newline
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 std\+::string \mbox{\hyperlink{_sommet_8cpp_a7b29f67e9f58f27fafd7c777107e7c9f}{inttostring}} (int a)
-\item 
+\begin{DoxyCompactList}\small\item\em Fonction permettant de transformer un entier en chaîne de caractères. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{_sommet_8cpp_a5827a7cef1f19aebac3e5f57161c0869}{comp\+Dist\+Dij}} (std\+::pair$<$ const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$, float $>$ s1, std\+::pair$<$ const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$, float $>$ s2)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Fonction utilisée dans Dijtances pour trier un conteneur. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Appels principaux des fonctions effectuant des actions sur un sommet. 
+
+\begin{DoxyDate}{Date}
+21 avril 2019 \begin{DoxyVerb}    Contient le code de construction d'un sommet
+    Contient l'appel des algorithmes qui se lancent depuis un Sommet tels que Prim ou Dijkstra
+    Contient les fonctions permettant l'affichage d'un sommet sur une bitmap \end{DoxyVerb}
+ 
+\end{DoxyDate}
 
 
 \subsection{Function Documentation}
@@ -17,9 +33,35 @@ bool \mbox{\hyperlink{_sommet_8cpp_a5827a7cef1f19aebac3e5f57161c0869}{comp\+Dist
 \subsubsection{\texorpdfstring{compDistDij()}{compDistDij()}}
 {\footnotesize\ttfamily bool comp\+Dist\+Dij (\begin{DoxyParamCaption}\item[{std\+::pair$<$ const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$, float $>$}]{s1,  }\item[{std\+::pair$<$ const \mbox{\hyperlink{class_sommet}{Sommet}} $\ast$, float $>$}]{s2 }\end{DoxyParamCaption})}
 
+
+
+Fonction utilisée dans Dijtances pour trier un conteneur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & Premier élément à comparer, paire constituée d\textquotesingle{}un pointeur sur sommet et d\textquotesingle{}un float \\
+\hline
+{\em s2} & Deuxième élément à comparer, paire constituée d\textquotesingle{}un pointeur sur sommet et d\textquotesingle{}un float \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Rend un booléen selon quel float est plus grand que l\textquotesingle{}autre 
+\end{DoxyReturn}
 \mbox{\Hypertarget{_sommet_8cpp_a7b29f67e9f58f27fafd7c777107e7c9f}\label{_sommet_8cpp_a7b29f67e9f58f27fafd7c777107e7c9f}} 
 \index{Sommet.cpp@{Sommet.cpp}!inttostring@{inttostring}}
 \index{inttostring@{inttostring}!Sommet.cpp@{Sommet.cpp}}
 \subsubsection{\texorpdfstring{inttostring()}{inttostring()}}
 {\footnotesize\ttfamily std\+::string inttostring (\begin{DoxyParamCaption}\item[{int}]{a }\end{DoxyParamCaption})}
 
+
+
+Fonction permettant de transformer un entier en chaîne de caractères. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Entier que l\textquotesingle{}on veut transformer en chaîne de caractères \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ss Chaîne de caractères crée à partir de l\textquotesingle{}entier a 
+\end{DoxyReturn}
