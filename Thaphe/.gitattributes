@@ -52,6 +52,6 @@
 #*.filters   merge=binary
 #*.vcxitems  merge=binary
 
-html/*
-files/*
-latex/*
+html/* linguist-vendored
+files/* linguist-vendored
+latex/* linguist-vendored
